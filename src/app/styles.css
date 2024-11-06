@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon-home {
+    background: url('https://hoaphatthietbi.com/wp-content/uploads/2021/01/icon-home1.png') no-repeat left center;
+    width: 40px !important;
+    height: 33px !important;
+    line-height: 33px;
+    display: inline-block;
+}
+
+.icon-mail {
+    background: url('https://hoaphatthietbi.com/wp-content/uploads/2021/01/icon-mail1.png') no-repeat left center;
+    width: 40px !important;
+    height: 33px !important;
+    line-height: 33px;
+    display: inline-block;
+}
+
+
