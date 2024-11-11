@@ -69,11 +69,9 @@ const MenuHome = (props: Props) => {
     };
 
     return (
-        <div className='grid grid-cols-[300px_minmax(900px,_1fr)] gap-[6px]' >
-            <div>
-                <div>Danh mục sản phẩm</div>
-                <Menu onClick={onClick} mode="vertical" items={items} />
-            </div>
+        <div>
+            <div>Danh mục sản phẩm</div>
+            <Menu onClick={onClick} mode="vertical" items={items} />
         </div>
 
 

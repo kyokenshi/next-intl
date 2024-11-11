@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 
-export const StyledCarouselMenu = styled.div`
+export const StyledCarouselItem = styled.div`
     position: relative;
 
     .btn-prev, .btn-next {
@@ -16,7 +16,7 @@ export const StyledCarouselMenu = styled.div`
     }
 
     .btn-prev {
-        left: 20px;
+        left: -20px;
         width: 40px;
         height: 40px;
         line-height: 40px;
@@ -27,7 +27,7 @@ export const StyledCarouselMenu = styled.div`
     }
 
     .btn-next {
-        right: 20px;
+        right: -20px;
         width: 40px;
         height: 40px;
         line-height: 40px;

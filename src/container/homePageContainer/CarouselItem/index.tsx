@@ -2,7 +2,7 @@
 "use client"
 import { Button, Carousel } from 'antd'
 import React, { useRef } from 'react'
-import { StyledCarouselMenu } from './styles';
+import { StyledCarouselItem } from './styles';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 
@@ -21,15 +21,15 @@ const contentStyle: React.CSSProperties = {
 };
 
 
-const CarouselMenu = (props: ICarouselMenu) => {
+const CarouselItem = (props: ICarouselMenu) => {
     const { children, } = props;
 
 
     const carouselRef = useRef<any>();
 
     return (
-        <StyledCarouselMenu>
-            <Carousel arrows={false} dots={false} ref={carouselRef} >
+        <StyledCarouselItem>
+            <Carousel slidesToShow={4} arrows={false} dots={false} slidesToScroll={1} infinite ref={carouselRef} centerPadding='20px'>
                 {children}
             </Carousel>
             <div style={{ marginTop: 16, textAlign: 'center' }}>
@@ -40,9 +40,9 @@ const CarouselMenu = (props: ICarouselMenu) => {
                     <RightOutlined style={{ fontSize: 20 }} />
                 </div>
             </div>
-        </StyledCarouselMenu>
+        </StyledCarouselItem>
 
     )
 }
 
-export default CarouselMenu
+export default CarouselItem

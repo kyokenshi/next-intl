@@ -1,14 +1,44 @@
+'use client'
 import React from 'react'
+import { StyledHotDeal, StyledHotDealTitle } from './styles'
+import CardProduct from '@/components/CardProduct'
+import { Carousel } from 'antd'
+import CarouselItem from '../CarouselItem'
 
 type Props = {}
 
 const HotDeal = (props: Props) => {
     return (
-        <div className='border-radius-[3px] border-t-[3px]'>
-            <div className='hot-deal-title'>
-                <h2>Hot Deal</h2>
-            </div>
-        </div>
+        <StyledHotDeal>
+            <StyledHotDealTitle>
+                <div className='hot-deal-title'>
+                    <div>â</div>
+                    <h3>Hot Deal</h3>
+                </div>
+            </StyledHotDealTitle>
+
+            <CarouselItem>
+                <div >
+                    <CardProduct />
+                </div>
+                <div >
+                    <CardProduct />
+                </div>
+                <div     >
+                    <CardProduct />
+                </div>
+                <div     >
+                    <CardProduct />
+                </div>
+                <div     >
+                    <CardProduct />
+                </div>
+                <div     >
+                    <CardProduct />
+                </div>
+            </CarouselItem>
+
+        </StyledHotDeal>
     )
 }
 
