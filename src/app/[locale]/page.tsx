@@ -1,12 +1,12 @@
-import {useTranslations} from 'next-intl';
-import {setRequestLocale} from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
 
 type Props = {
-  params: {locale: string};
+  params: { locale: string };
 };
 
-export default function IndexPage({params: {locale}}: Props) {
+export default function IndexPage({ params: { locale } }: Props) {
   // Enable static rendering
   setRequestLocale(locale);
 
