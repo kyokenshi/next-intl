@@ -25,7 +25,13 @@ module.exports = {
       18: '18px',
       20: '20px'
     },
-
+    backgroundColor: {
+      'blue-1000': '#2865c2',
+      'blue-1000-hover': '#00a0e9'
+    },
+    maxWidth: {
+      1200: '1200px'
+    },
     backgroundImage: {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       'gradient-conic':

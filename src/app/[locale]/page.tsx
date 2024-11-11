@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
+import HomePageContainer from '@/container/homePageContainer';
 
 type Props = {
   params: { locale: string };
@@ -13,14 +14,16 @@ export default function IndexPage({ params: { locale } }: Props) {
   const t = useTranslations('IndexPage');
 
   return (
-    <PageLayout title={t('title')}>
-      <p className="max-w-[590px]">
+    <PageLayout>
+      {/* <p className="">
         {t.rich('description', {
           code: (chunks) => (
             <code className="font-mono text-white">{chunks}</code>
           )
         })}
-      </p>
+      </p> */}
+      <HomePageContainer />
+
     </PageLayout>
   );
 }
