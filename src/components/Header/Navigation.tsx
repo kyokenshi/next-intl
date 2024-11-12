@@ -1,13 +1,14 @@
 import { useTranslations } from 'next-intl';
 import LocaleSwitcher from '../LocaleSwitcher';
 import MenuHeader from './MenuHeader';
+import { Affix } from 'antd';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
 
   return (
     <>
-      <header className='w-1200 max-w-1200  mr-auto ml-auto flex justify-between py-[5px] items-center'>
+      <header className='max-w-1200  mr-auto ml-auto flex justify-between py-[5px] items-center'>
         <nav className=''>
           <LocaleSwitcher />
         </nav>
@@ -28,7 +29,9 @@ export default function Navigation() {
           <div className="text"><p className='text-16 font-semibold'> Giỏ hàng</p><p className='text-14'>10 sản phẩm - 10vnd</p></div>
         </div>
       </header>
-      <MenuHeader />
+      <Affix>
+        <MenuHeader />
+      </Affix>
     </>
   );
 }

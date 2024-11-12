@@ -1,14 +1,17 @@
 
 import MenuHeader from '@/components/Header/MenuHeader';
-import { Menu, MenuProps } from 'antd'
+import { GetProps, Input, Menu, MenuProps } from 'antd'
 import React from 'react'
 import MenuHome from './MenuHome';
-import CarouselMenu from './CarouselMenu';
+import CarouselMenu from '../components/CarouselMenu';
 import HotDeal from './HotDeal';
+import News from './News';
+import SupportInformation from './SupportInformation';
+import RegisterInfomation from './RegisterInfomation';
 
 type Props = {}
 
-type MenuItem = Required<MenuProps>['items'][number];
+
 
 
 const HomePageContainer = (props: Props) => {
@@ -27,13 +30,30 @@ const HomePageContainer = (props: Props) => {
 
     return (
         <div >
-            <div className='grid grid-cols-[300px_minmax(900px,_1fr)] gap-[6px]'>
+            <div className='grid grid-cols-[300px_1fr] gap-[6px] h-[350px] md:h-[500px]'>
                 <MenuHome />
-                <CarouselMenu>
-                    {data.map((el) => <div style={{ height: 500 }}><img src={el.image} alt={el.name} /></div>)}
-                </CarouselMenu>
+                <div className="relative w-full h-full overflow-hidden">
+                    <CarouselMenu>
+                        {data.map((el) => (
+                            <div key={el.id} className="relative h-[350px] md:h-[500px]">
+                                <img
+                                    src={el.image}
+                                    alt={el.name}
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
+                        ))}
+                    </CarouselMenu>
+                </div>
             </div>
             <HotDeal />
+            <HotDeal />
+            <HotDeal />
+            <News />
+            <SupportInformation />
+            <RegisterInfomation />
+
+
         </div>
     )
 }

@@ -2,47 +2,42 @@
 "use client"
 import { Button, Carousel } from 'antd'
 import React, { useRef } from 'react'
-import { StyledCarouselItem } from './styles';
+import { StyledCarouselMenu } from './styles';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
+import { CarouselProps } from 'antd/es/carousel';
 
-interface ICarouselMenu {
+interface ICarouselMenu extends CarouselProps {
     children: React.ReactNode,
     customArrows?: any
+    isShowArrows?: boolean
 }
 
-const contentStyle: React.CSSProperties = {
-    margin: 0,
-    height: '500px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-};
 
 
-const CarouselItem = (props: ICarouselMenu) => {
-    const { children, } = props;
+const CarouselMenu = (props: ICarouselMenu) => {
+    const { children, slidesToShow = 1, dots = false, isShowArrows = true } = props;
 
 
     const carouselRef = useRef<any>();
 
     return (
-        <StyledCarouselItem>
-            <Carousel slidesToShow={4} arrows={false} dots={false} slidesToScroll={1} infinite ref={carouselRef} centerPadding='20px'>
+        <StyledCarouselMenu>
+            <Carousel arrows={false} slidesToShow={slidesToShow} dots={dots} ref={carouselRef} >
                 {children}
             </Carousel>
-            <div style={{ marginTop: 16, textAlign: 'center' }}>
+            {isShowArrows && <div style={{ marginTop: 16, textAlign: 'center' }}>
                 <div onClick={() => carouselRef.current.prev()} className='btn-prev' style={{ marginRight: 8 }}>
                     <LeftOutlined style={{ fontSize: 20 }} />
                 </div>
                 <div onClick={() => carouselRef.current.next()} className='btn-next'>
                     <RightOutlined style={{ fontSize: 20 }} />
                 </div>
-            </div>
-        </StyledCarouselItem>
+            </div>}
+
+        </StyledCarouselMenu>
 
     )
 }
 
-export default CarouselItem
+export default CarouselMenu

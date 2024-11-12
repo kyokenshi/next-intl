@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
 import Navigation from './Header/Navigation';
+import Footer from './Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default async function BaseLayout({ children, locale }: Props) {
         <NextIntlClientProvider messages={messages}>
           <Navigation />
           {children}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

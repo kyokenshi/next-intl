@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 
 
-export const StyledCarouselItem = styled.div`
+export const StyledCarouselMenu = styled.div`
     position: relative;
-
+    width: 100%;
     .btn-prev, .btn-next {
         position: absolute;
         top: 50%;   
@@ -16,7 +16,7 @@ export const StyledCarouselItem = styled.div`
     }
 
     .btn-prev {
-        left: -20px;
+        left: 20px;
         width: 40px;
         height: 40px;
         line-height: 40px;
@@ -27,7 +27,7 @@ export const StyledCarouselItem = styled.div`
     }
 
     .btn-next {
-        right: -20px;
+        right: 20px;
         width: 40px;
         height: 40px;
         line-height: 40px;
@@ -36,4 +36,23 @@ export const StyledCarouselItem = styled.div`
         border-radius: 5px;
         color: #fff;
     }
+
+    /* slick */
+    .ant-carousel {
+    height: 100%;
+ 
+  }
+
+  .slick-slider,
+  .slick-list,
+  .slick-track {
+    height: 100%;
+  }
+
+
+  .slick-slide {
+    > div {
+      height: 100%;
+    }
+  }
 `

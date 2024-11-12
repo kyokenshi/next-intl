@@ -27,7 +27,8 @@ module.exports = {
     },
     backgroundColor: {
       'blue-1000': '#2865c2',
-      'blue-1000-hover': '#00a0e9'
+      'blue-1000-hover': '#00a0e9',
+      'bg-white': '#fff'
     },
     maxWidth: {
       1200: '1200px'

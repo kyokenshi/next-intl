@@ -2,34 +2,27 @@
 "use client"
 import { Button, Carousel } from 'antd'
 import React, { useRef } from 'react'
-import { StyledCarouselMenu } from './styles';
+import { StyledCarouselItem } from './styles';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-
-
-interface ICarouselMenu {
+import { CarouselProps } from 'antd/es/carousel';
+interface ICarouselMenu extends CarouselProps {
     children: React.ReactNode,
     customArrows?: any
 }
 
-const contentStyle: React.CSSProperties = {
-    margin: 0,
-    height: '500px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-};
 
 
-const CarouselMenu = (props: ICarouselMenu) => {
-    const { children, } = props;
+
+const CarouselItem = (props: ICarouselMenu) => {
+    const { children, arrows = false, dots = false, slidesToScroll = 1, centerPadding = '0px', slidesToShow = 4 } = props;
 
 
     const carouselRef = useRef<any>();
 
     return (
-        <StyledCarouselMenu>
-            <Carousel arrows={false} dots={false} ref={carouselRef} >
+        <StyledCarouselItem>
+            <Carousel slidesToShow={slidesToShow} arrows={arrows} dots={dots} slidesToScroll={slidesToScroll} infinite ref={carouselRef}
+                centerPadding={centerPadding}>
                 {children}
             </Carousel>
             <div style={{ marginTop: 16, textAlign: 'center' }}>
@@ -40,9 +33,9 @@ const CarouselMenu = (props: ICarouselMenu) => {
                     <RightOutlined style={{ fontSize: 20 }} />
                 </div>
             </div>
-        </StyledCarouselMenu>
+        </StyledCarouselItem>
 
     )
 }
 
-export default CarouselMenu
+export default CarouselItem

@@ -9,7 +9,7 @@ export const StyledHotDeal = styled.div`
 export const StyledHotDealTitle = styled.div`
   border-radius: 3px;
     border-top: 2px solid #2865c2;
-    background: #fff;
+    background: #F4F4F4;
     border-radius: 3px;
     display: inline-block;
     width: 100%;
