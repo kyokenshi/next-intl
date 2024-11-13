@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyledNews } from './styles'
-import CardNew from '@/components/CardNew'
+import CardNewHome from '@/components/CardNewHome'
 
 type Props = {}
 
@@ -24,7 +24,7 @@ const News = (props: Props) => {
         <StyledNews>
             <h3 className='text-[20px] font-bold text-[#2764c2] text-center mb-[16px]' >TIN TỨC</h3>
             <div className='grid grid-cols-3 gap-[16px]'>
-                {data.map((el) => <CardNew key={el.id} {...el} />)}
+                {data.map((el) => <CardNewHome key={el.id} {...el} />)}
             </div>
         </StyledNews>
     )

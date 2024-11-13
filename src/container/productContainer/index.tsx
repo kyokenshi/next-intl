@@ -1,6 +1,8 @@
 'use client';
 import CardProduct from '@/components/CardProduct';
-import { Pagination, Select } from 'antd';
+import CardProductHorizontal from '@/components/CardProductHorizontal';
+import MenuList from '@/components/MenuList';
+import { Pagination, Select, Space } from 'antd';
 import React from 'react';
 
 type Props = {};
@@ -63,14 +65,13 @@ const ProductContainer = (props: Props) => {
         }
     ];
     return (
-        <div className="w-[1200px] mx-auto">
+        <div className="max-w-[1200px] mx-auto">
             <div className="grid grid-cols-[300px_1fr] gap-[24px] mt-[40px]">
                 <div>
                     <div className="mb-[32px]">
-                        <div className="text-center border-b text-ellipsis text-[16px] font-bold bg-blue-1000 text-white px-[14px] py-[10px]">
-                            Danh mục sản phẩm
-                        </div>
-                        <div className="px-[12px] py-[6px] border border-t-0 border-[#2865C2] mt-[-1px]">
+
+
+                        <MenuList title='Danh mục sản phẩm'>
                             {listMenuProduct.map((el) => {
                                 return (
                                     <div
@@ -81,24 +82,16 @@ const ProductContainer = (props: Props) => {
                                     </div>
                                 );
                             })}
-                        </div>
+                        </MenuList>
                     </div>
                     <div>
-                        <div className="text-center border-b text-ellipsis text-[16px] font-bold bg-blue-1000 text-white px-[14px] py-[10px]">
-                            Mới nhất
-                        </div>
-                        <div className="px-[12px] py-[6px] border border-t-0 border-[#2865C2] mt-[-1px]">
-                            {listMenuProduct.map((el) => {
-                                return (
-                                    <div
-                                        className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
-                                        key={el.id}
-                                    >
-                                        {el.name}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <MenuList title='Mới nhất'>
+                            <Space direction='vertical' size={12}>
+                                {listMenuProduct.map((el) => {
+                                    return <CardProductHorizontal key={el.id} />;
+                                })}
+                            </Space>
+                        </MenuList>
                     </div>
                 </div>
                 <div>

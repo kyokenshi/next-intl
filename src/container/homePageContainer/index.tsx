@@ -52,8 +52,6 @@ const HomePageContainer = (props: Props) => {
             <News />
             <SupportInformation />
             <RegisterInfomation />
-
-
         </div>
     )
 }

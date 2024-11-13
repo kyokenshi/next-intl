@@ -9,8 +9,18 @@ export const routing = defineRouting({
     '/': '/',
     '/product': {
       en: '/product',
-      de: '/san-pham',
-      vi: '/test'
+      de: '/product-de',
+      vi: '/san-pham'
+    },
+    '/news': {
+      en: '/news',
+      de: '/news-de',
+      vi: '/tin-tuc'
+    },
+    '/payment-instruction': {
+      en: '/payment-instruction',
+      de: '/payment-instruction-de',
+      vi: '/huong-dan-thanh-toan-qua-ngan-luong'
     }
 
   }

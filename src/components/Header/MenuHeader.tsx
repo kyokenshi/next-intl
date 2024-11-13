@@ -89,8 +89,9 @@ const MenuHeader = (props: Props) => {
   };
   return (
     <div className=' bg-blue-1000 '>
-      <StyledMenu className='max-w-1200 mr-auto ml-auto flex justify-between items-center'>  <Menu onClick={onClick} mode='horizontal' className='menu-header' items={items} />
-        <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} style={{ width: 200 }} /></StyledMenu>
+      <StyledMenu className='max-w-1200 mr-auto ml-auto flex justify-between items-center'>
+        <Menu onClick={onClick} mode='horizontal' className='menu-header' items={items} />
+        <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} style={{ width: 300 }} /></StyledMenu>
     </div>
   )
 }

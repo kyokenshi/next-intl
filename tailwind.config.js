@@ -38,6 +38,10 @@ module.exports = {
       'gradient-conic':
         'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
     },
+    boxShadow: {
+      custom: '1px 1px 5px 0 rgb(0 0 0 / 10%)',
+      custom2: '0px 0px 10px 0px rgba(0, 0, 0, 0.10)'
+    },
     container: {
       center: true,
       screens: {
