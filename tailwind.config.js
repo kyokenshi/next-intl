@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{tsx,css}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      sans: ['Inter', 'sans-serif'],
+      // sans: ['Inter', 'sans-serif'],
       mono: [
         'Monaco',
         'ui-monospace',
@@ -30,6 +30,7 @@ module.exports = {
       'blue-1000-hover': '#00a0e9',
       'bg-white': '#fff'
     },
+
     maxWidth: {
       1200: '1200px'
     },
@@ -42,13 +43,22 @@ module.exports = {
       custom: '1px 1px 5px 0 rgb(0 0 0 / 10%)',
       custom2: '0px 0px 10px 0px rgba(0, 0, 0, 0.10)'
     },
+
     container: {
       center: true,
       screens: {
         sm: '50rem'
       }
     },
+
     extend: {
+      screens: {
+        sm: '640px', // @media (min-width: 640px)
+        md: '768px', // @media (min-width: 768px)
+        lg: '1024px', // @media (min-width: 1024px)
+        xl: '1200px', // @media (min-width: 1200px)
+        '2xl': '1536px' // @media (min-width: 1536px)
+      },
       colors: {
         slate: {
           850: 'hsl(222deg 47% 16%)'

@@ -34,7 +34,7 @@ const NewsContainer = (props: Props) => {
     return (
         <div className='mb-[40px]'>
             <SectionTitle title='Tin tức' description='Tin tức' />
-            <div className="max-w-[1200px] mx-auto">
+            <div className="max-w-[1200px] px-4 xl:px-[0px] mx-auto">
                 <div className="grid grid-cols-[300px_1fr] gap-[24px] mt-[40px]">
                     <div>
                         <MenuList title='Mới nhất'>

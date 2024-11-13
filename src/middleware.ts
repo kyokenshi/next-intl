@@ -3,8 +3,13 @@ import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Lấy locale từ URL path
   const pathname = request.nextUrl.pathname;
+
+  // Cho phép truy cập trực tiếp vào "/"
+  if (pathname === '/') {
+    return NextResponse.next();
+  }
+
   const currentLocale = routing.locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
@@ -14,19 +19,26 @@ export function middleware(request: NextRequest) {
 
   // Nếu URL có locale
   if (currentLocale) {
-    // Nếu cookie khác với locale trong URL, cập nhật cookie
+    // Nếu là locale mặc định (en) và đang ở trang chủ, redirect về "/"
+    // if (currentLocale === 'en' && (pathname === '/en' || pathname === '/en/')) {
+    //   return NextResponse.redirect(new URL('/', request.url));
+    // }
+
+    // Xử lý các trường hợp khác như bình thường
     if (cookieLocale !== currentLocale) {
       const response = createMiddleware(routing)(request);
       response.cookies.set('NEXT_LOCALE', currentLocale);
       return response;
     }
   } else {
-    // Nếu URL không có locale, redirect với locale từ cookie hoặc mặc định
-    const locale = cookieLocale || 'en';
-    const newUrl = new URL(`/${locale}${pathname}`, request.url);
-    const response = NextResponse.redirect(newUrl);
-    response.cookies.set('NEXT_LOCALE', locale);
-    return response;
+    // Nếu URL không có locale và không phải root path
+    if (pathname !== '/') {
+      const locale = cookieLocale || 'en';
+      const newUrl = new URL(`/${locale}${pathname}`, request.url);
+      const response = NextResponse.redirect(newUrl);
+      response.cookies.set('NEXT_LOCALE', locale);
+      return response;
+    }
   }
 
   return createMiddleware(routing)(request);
@@ -34,15 +46,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Enable a redirect to a matching locale at the root
     '/',
-
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
     '/(de|en|vi)/:path*',
-
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`)
     '/((?!_next|_vercel|.*\\..*).*)'
   ]
 };

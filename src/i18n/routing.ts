@@ -17,12 +17,21 @@ export const routing = defineRouting({
       de: '/news-de',
       vi: '/tin-tuc'
     },
+    '/payment-for-instruction': {
+      en: '/payment-for-instruction',
+      de: '/payment-for-instruction-de',
+      vi: '/huong-dan-thanh-toan-qua-ngan-luong'
+    },
     '/payment-instruction': {
       en: '/payment-instruction',
       de: '/payment-instruction-de',
-      vi: '/huong-dan-thanh-toan-qua-ngan-luong'
+      vi: '/huong-dan-thanh-toan'
+    },
+    '/bank-transfer': {
+      en: '/bank-transfer',
+      de: '/bank-transfer-de',
+      vi: '/chuyen-khoan-ngan-hang'
     }
-
   }
 });
 
