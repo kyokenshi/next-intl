@@ -31,6 +31,16 @@ export const routing = defineRouting({
       en: '/bank-transfer',
       de: '/bank-transfer-de',
       vi: '/chuyen-khoan-ngan-hang'
+    },
+    '/contact': {
+      en: '/contact',
+      de: '/contact-de',
+      vi: '/lien-he'
+    },
+    '/product-catalog': {
+      en: '/product-catalog',
+      de: '/product-catalog-de',
+      vi: '/danh-muc-san-pham'
     }
   }
 });

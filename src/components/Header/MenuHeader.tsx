@@ -99,7 +99,12 @@ const MenuHeader = (props: Props) => {
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log(e);
-
+    if (e.key === '1') { // Trang chủ
+      router.push('/');
+    }
+    if (e.key === '16') { // Liên hệ
+      router.push('/contact');
+    }
     if (e.key === 'sub1') { // Sản phẩm
       router.push('/products');
     }
@@ -123,7 +128,7 @@ const MenuHeader = (props: Props) => {
 
   return (
     <div className=' bg-blue-1000 '>
-      <StyledMenu className='max-w-1200 mr-auto ml-auto flex justify-between items-center'>
+      <StyledMenu className='max-w-1200 px-[16px] xl:px-[0] mr-auto ml-auto flex justify-between items-center'>
         <Menu
           onClick={onClick}
           mode='horizontal'

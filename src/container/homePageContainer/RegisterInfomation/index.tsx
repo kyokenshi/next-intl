@@ -15,12 +15,12 @@ const RegisterInfomation = (props: Props) => {
 
     return (
         <div style={{
-            right: 0,
-            left: 0,
-            width: '99.4vw',
-            margin: '0px calc(50% - 50vw)',
-            background: '#F3F3F3',
-            marginTop: 24
+            // right: 0,
+            // left: 0,
+            // width: '99.4vw',
+            // margin: '0px calc(50% - 50vw)',
+            // background: '#F3F3F3',
+            // marginTop: 24
         }}>
             <div className='flex items-center max-w-[1200px] mx-auto gap-[40px] p-[24px]'>
                 <div>

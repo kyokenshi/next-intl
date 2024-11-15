@@ -1,6 +1,7 @@
 'use client'
 import { Menu, MenuProps } from 'antd'
 import React from 'react'
+import { StyledMenuHome } from './styles';
 
 type Props = {}
 type MenuItem = Required<MenuProps>['items'][number];
@@ -69,10 +70,10 @@ const MenuHome = (props: Props) => {
     };
 
     return (
-        <div>
-            <div>Danh mục sản phẩm</div>
-            <Menu onClick={onClick} mode="vertical" items={items} />
-        </div>
+        <StyledMenuHome className='bg-[#F0F0F0] '>
+            <div className='p-[20px] bg-blue-1000 text-ellipsis  text-white text-16px '>Danh mục sản phẩm</div>
+            <Menu onClick={onClick} mode="vertical" items={items} rootClassName='menu-home-custom' />
+        </StyledMenuHome>
 
 
     )

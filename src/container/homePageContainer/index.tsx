@@ -29,13 +29,13 @@ const HomePageContainer = (props: Props) => {
 
 
     return (
-        <div >
-            <div className='grid grid-cols-[300px_1fr] gap-[6px] h-[350px] md:h-[500px]'>
+        <div>
+            <div className='grid grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] gap-[16px] h-[250px] md:h-[350px] lg:h-[500px] mt-[20px] mb-[32px]'>
                 <MenuHome />
                 <div className="relative w-full h-full overflow-hidden">
                     <CarouselMenu>
                         {data.map((el) => (
-                            <div key={el.id} className="relative h-[350px] md:h-[500px]">
+                            <div key={el.id} className="relative h-[250px] md:h-[350px] lg:h-[500px]">
                                 <img
                                     src={el.image}
                                     alt={el.name}

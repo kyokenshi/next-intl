@@ -53,15 +53,16 @@ const SupportInformation = (props: Props) => {
         <div className="">
             <div className="bg-blue-1000  text-white grid grid-cols-4">
                 {supportInformation.map((el, index) => (
-                    <div className="flex items-center gap-[8px] p-[30px]" key={index}>
-                        <div className="flex-none">a</div>
-                        <div>
+                    <div className="flex items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[30px]" key={index}>
+                        {/* <div className="flex-none">a</div> */}
+                        <div >
                             <div className="text-[12px] font-semibold">{el.title}</div>
                             <div className="text-[12px]">{el.description}</div>
                         </div>
                     </div>
-                ))}
-            </div>
+                ))
+                }
+            </div >
             <div className='p-[24px] mt-[24px] bg-[#F3F3F3]'>
                 <CarouselMenu slidesToShow={5} isShowArrows={false} autoplay responsive={[
                     {
@@ -83,7 +84,7 @@ const SupportInformation = (props: Props) => {
                     {supportImg.map((el, index) => <div key={index}><img src={el.img} alt={el.description} /></div>)}
                 </CarouselMenu>
             </div>
-        </div>
+        </div >
     );
 };
 

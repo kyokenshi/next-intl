@@ -13,4 +13,13 @@ export const GlobalStyles = createGlobalStyle`
     font-family: "Roboto", sans-serif;
     color: #333;
   }
+
+  /* .menu-home-custom {
+    .ant-menu-item-selected {
+      .ant-menu-title-content {
+        color: #333333 !important; 
+      }
+    } 
+  } */
+  
 `;

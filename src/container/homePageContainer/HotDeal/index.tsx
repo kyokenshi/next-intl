@@ -11,7 +11,7 @@ const HotDeal = (props: Props) => {
         <StyledHotDeal>
             <StyledHotDealTitle className='mb-[16px]'>
                 <div className='hot-deal-title'>
-                    <div>â</div>
+                    <div><img src='http://www.seidai88.com/skins/default/Img/Index/key_l1.jpg' alt='hotdeal' /></div>
                     <h3>Hot Deal</h3>
                 </div>
             </StyledHotDealTitle>

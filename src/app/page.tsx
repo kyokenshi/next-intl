@@ -3,6 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import BaseLayout from '@/components/BaseLayout';
 import HomePageContainer from '@/container/homePageContainer';
 import PageLayout from '@/components/PageLayout';
+import { cookies } from 'next/headers';
 
 type Props = {
   params: { locale: string };
@@ -10,12 +11,16 @@ type Props = {
 
 export default function PaymentInstructionPage({ params: { locale } }: Props) {
   // Enable static rendering
-  setRequestLocale(locale);
+  const cookieStore = cookies();
+  const localeCookie = cookieStore.get('NEXT_LOCALE');
+  setRequestLocale(localeCookie?.value ?? 'en');
 
   const t = useTranslations('PathnamesPage');
 
+
+
   return (
-    <BaseLayout locale={locale}>
+    <BaseLayout locale={localeCookie?.value ?? "en"}>
       <PageLayout>
         <HomePageContainer />
       </PageLayout>
