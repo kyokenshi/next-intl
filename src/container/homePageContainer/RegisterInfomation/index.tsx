@@ -22,7 +22,7 @@ const RegisterInfomation = (props: Props) => {
             // background: '#F3F3F3',
             // marginTop: 24
         }}>
-            <div className='flex items-center max-w-[1200px] mx-auto gap-[40px] p-[24px]'>
+            <div className='flex items-center max-w-[1200px] mx-auto gap-[24px] md:gap-[40px] p-[24px] flex-wrap'>
                 <div>
                     <strong> ĐĂNG KÝ NHẬN TIN</strong> VÀ NHẬN KHUYẾN MÃI TỪ CHÚNG TÔI
                 </div>

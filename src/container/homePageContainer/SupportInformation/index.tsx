@@ -51,9 +51,9 @@ const SupportInformation = (props: Props) => {
 
     return (
         <div className="">
-            <div className="bg-blue-1000  text-white grid grid-cols-4">
+            <div className="bg-blue-1000  text-white grid grid-cols-2 md:grid-cols-4">
                 {supportInformation.map((el, index) => (
-                    <div className="flex items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[30px]" key={index}>
+                    <div className="flex items-start md:items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[16px] md:p-[30px]" key={index}>
                         {/* <div className="flex-none">a</div> */}
                         <div >
                             <div className="text-[12px] font-semibold">{el.title}</div>

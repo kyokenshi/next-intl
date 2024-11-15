@@ -8,6 +8,7 @@ import HotDeal from './HotDeal';
 import News from './News';
 import SupportInformation from './SupportInformation';
 import RegisterInfomation from './RegisterInfomation';
+import Image from 'next/image';
 
 type Props = {}
 
@@ -30,15 +31,18 @@ const HomePageContainer = (props: Props) => {
 
     return (
         <div>
-            <div className='grid grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] gap-[16px] h-[250px] md:h-[350px] lg:h-[500px] mt-[20px] mb-[32px]'>
-                <MenuHome />
-                <div className="relative w-full h-full overflow-hidden">
+            <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[400px] lg:h-[540px] mt-[0px] sm:mt-[20px] mb-[32px]'>
+                <div className='hidden sm:block'>
+                    <MenuHome />
+                </div>
+                <div className="relative w-full h-full overflow-hidden ">
                     <CarouselMenu>
                         {data.map((el) => (
-                            <div key={el.id} className="relative h-[250px] md:h-[350px] lg:h-[500px]">
-                                <img
+                            <div key={el.id} className="relative h-[300px] md:h-[400px] lg:h-[540px]">
+                                <Image
                                     src={el.image}
                                     alt={el.name}
+                                    fill
                                     className="absolute inset-0 w-full h-full object-cover"
                                 />
                             </div>

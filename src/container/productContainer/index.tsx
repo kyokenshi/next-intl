@@ -69,8 +69,6 @@ const ProductContainer = (props: Props) => {
             <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                 <div>
                     <div className="mb-[32px] hidden sm:block">
-
-
                         <MenuList title='Danh mục sản phẩm'>
                             {listMenuProduct.map((el) => {
                                 return (
@@ -84,7 +82,7 @@ const ProductContainer = (props: Props) => {
                             })}
                         </MenuList>
                     </div>
-                    <div>
+                    <div className='hidden sm:block'>
                         <MenuList title='Mới nhất'>
                             <Space direction='vertical' size={12}>
                                 {listMenuProduct.map((el) => {

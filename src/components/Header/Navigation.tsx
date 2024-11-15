@@ -9,11 +9,11 @@ export default function Navigation() {
 
   return (
     <>
-      <header className='max-w-1200 w-[100%]  mr-auto ml-auto flex justify-between py-[5px] items-center'>
+      <header className='max-w-1200 w-[100%]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
         <div className='flex items-center gap-[10px]'>
           <Image
-            src="/assets/images/logo.jpg"
-            alt="Logo test"
+            src="/assets/images/logo.png"
+            alt="Logo_Home"
             width={90}
             height={60}
           />

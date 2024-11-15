@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const StyledPageLayout = styled.div`
     max-width: 1200px;
     padding: 0 16px;
+    width: 100%;
     @media (min-width: 1201px) {
         margin: 0 auto;
         padding: 0;

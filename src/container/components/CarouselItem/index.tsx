@@ -14,7 +14,7 @@ interface ICarouselMenu extends CarouselProps {
 
 
 const CarouselItem = (props: ICarouselMenu) => {
-    const { children, arrows = false, dots = false, slidesToScroll = 1, centerPadding = '0px', slidesToShow = 4 } = props;
+    const { children, arrows = false, dots = false, slidesToScroll = 1, centerPadding = '0px', slidesToShow = 4, ...other } = props;
 
 
     const carouselRef = useRef<any>();
@@ -22,7 +22,7 @@ const CarouselItem = (props: ICarouselMenu) => {
     return (
         <StyledCarouselItem>
             <Carousel slidesToShow={slidesToShow} arrows={arrows} dots={dots} slidesToScroll={slidesToScroll} infinite ref={carouselRef}
-                centerPadding={centerPadding}>
+                centerPadding={centerPadding} {...other}>
                 {children}
             </Carousel>
             <div style={{ marginTop: 16, textAlign: 'center' }}>

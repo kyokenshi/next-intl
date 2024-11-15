@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { StyledCardProduct } from './styles';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 type Props = {};
 
@@ -22,13 +23,18 @@ const CardProduct = (props: Props) => {
                                 console.log('vào2');
                             }}
                         >
-                            a
+                            <ShoppingCartOutlined />
                         </div>
                     </div>
-                    <img
-                        src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/image11-300x300.jpg"
-                        alt="product"
-                    />
+                    <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
+                        <Image
+                            className="object-cover" // Thêm object-cover
+                            src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/image11-300x300.jpg"
+                            alt="product"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                    </div>
                 </div>
                 <div style={{ background: '#F4F4F4' }}>
                     <div className="p-[15px] text-[16px] font-bold ">

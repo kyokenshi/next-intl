@@ -16,14 +16,14 @@ interface ICarouselMenu extends CarouselProps {
 
 
 const CarouselMenu = (props: ICarouselMenu) => {
-    const { children, slidesToShow = 1, dots = false, isShowArrows = true } = props;
+    const { children, slidesToShow = 1, dots = false, isShowArrows = true, ...other } = props;
 
 
     const carouselRef = useRef<any>();
 
     return (
         <StyledCarouselMenu>
-            <Carousel arrows={false} slidesToShow={slidesToShow} dots={dots} ref={carouselRef} >
+            <Carousel arrows={false} slidesToShow={slidesToShow} dots={dots} ref={carouselRef} {...other}>
                 {children}
             </Carousel>
             {isShowArrows && <div style={{ marginTop: 16, textAlign: 'center' }}>

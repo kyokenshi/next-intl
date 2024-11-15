@@ -40,7 +40,6 @@ export const StyledCarouselMenu = styled.div`
     /* slick */
     .ant-carousel {
     height: 100%;
- 
   }
 
   .slick-slider,

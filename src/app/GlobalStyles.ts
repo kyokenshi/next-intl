@@ -12,6 +12,7 @@ export const GlobalStyles = createGlobalStyle`
    /* background-color: #f5f5f5; */
     font-family: "Roboto", sans-serif;
     color: #333;
+    overflow-x: hidden;
   }
 
   /* .menu-home-custom {

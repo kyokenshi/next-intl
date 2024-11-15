@@ -7,8 +7,22 @@ export const StyledMenu = styled.div`
   .ant-menu-root {
     width: 100%;
   }
-  .ant-menu {
-    background: #2865c2 !important;
+  .anticon-ellipsis {
+    svg {
+      path {
+        fill: #fff;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .ant-menu-root {
+    width: 80%;
+  }
+  }
+
+
+    .ant-menu {
+      background: #2865c2 !important;
   }
   .menu-header {
     .ant-menu-item {

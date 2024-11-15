@@ -12,10 +12,20 @@ export const routing = defineRouting({
       de: '/product-de',
       vi: '/san-pham'
     },
+    '/product/[id]': {
+      en: '/product/[id]',
+      de: '/product-de/[id]',
+      vi: '/san-pham/[id]'
+    },
     '/news': {
       en: '/news',
       de: '/news-de',
       vi: '/tin-tuc'
+    },
+    '/news/[id]': {
+      en: '/news/[id]',
+      de: '/news-de/[id]',
+      vi: '/tin-tuc/[id]'
     },
     '/payment-for-instruction': {
       en: '/payment-for-instruction',
@@ -41,6 +51,11 @@ export const routing = defineRouting({
       en: '/product-catalog',
       de: '/product-catalog-de',
       vi: '/danh-muc-san-pham'
+    },
+    '/product-catalog/[...id]': {  // Catch-all route
+      en: '/product-catalog/[...id]',
+      de: '/product-catalog-de/[...id]',
+      vi: '/danh-muc-san-pham/[...id]'
     }
   }
 });

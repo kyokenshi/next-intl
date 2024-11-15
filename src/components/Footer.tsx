@@ -1,16 +1,21 @@
 import React from 'react'
 import { StyledFooter } from './styles'
+import Image from 'next/image'
 
 type Props = {}
 
 const Footer = (props: Props) => {
     return (
         <StyledFooter >
-            <div className='max-w-1200 mx-auto'>
+            <div className='max-w-1200 mx-auto mt-[32px]'>
                 <div className='text-center'>
                     <div className='flex justify-center mb-[16px]'>
-                        <img src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/logo1.png" alt="logo" />
-
+                        <Image
+                            src="/assets/images/logo.png"
+                            alt="Logo_Home"
+                            width={90}
+                            height={60}
+                        />
                     </div>
                     <div >
                         <div className='text-[14px] mb-[4px]'><strong>Kho hàng</strong>: Km1, đường phan trọng tuệ, Thanh Trì, Hà Nội</div>

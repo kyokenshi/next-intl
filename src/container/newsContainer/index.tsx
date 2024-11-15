@@ -16,7 +16,7 @@ const NewsContainer = (props: Props) => {
         },
         {
             id: 2,
-            name: 'Thiết Bị Khai Thác mỏ'
+            name: 'Thiết Bị Khai Thác mỏ abcd sâs âsâs âs'
         },
         {
             id: 3,
@@ -37,13 +37,27 @@ const NewsContainer = (props: Props) => {
             <div className="max-w-[1200px] px-4 xl:px-[0px] mx-auto">
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                     <div className='hidden sm:block'>
-                        <MenuList title='Mới nhất'>
-                            <Space direction='vertical' size={12}>
-                                {listMenuProduct.map((el) => {
-                                    return <CardNewHorizontal key={el.id} />;
-                                })}
-                            </Space>
-                        </MenuList>
+                        <Space direction='vertical' size={32}>
+                            <MenuList title='Mới nhất'>
+                                <Space direction='vertical' size={4}>
+                                    {listMenuProduct.map((el) => {
+                                        return <div
+                                            className="px-[12px] leading-[27px] line-clamp-1 py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
+                                            key={el.id}
+                                        >
+                                            {el.name}
+                                        </div>;
+                                    })}
+                                </Space>
+                            </MenuList>
+                            <MenuList title='Mới nhất'>
+                                <Space direction='vertical' size={12}>
+                                    {listMenuProduct.map((el) => {
+                                        return <CardNewHorizontal key={el.id} />;
+                                    })}
+                                </Space>
+                            </MenuList>
+                        </Space>
                     </div>
                     <div className='grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]'>
                         <div><CardNew /></div>

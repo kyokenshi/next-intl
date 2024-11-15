@@ -6,7 +6,7 @@ type Props = {}
 const CardNew = (props: Props) => {
     return (
         <div className='shadow-custom2'>
-            <img src='https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg' alt='new' />
+            <img src='https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg' className='w-[100%]' alt='new' />
             <div className='p-[12px]'>
                 <Space size={6} direction='vertical'>
                     <div className='text-[18px] text-[#333333] hover:text-[#2865c2] cursor-pointer font-semibold line-clamp-2'>
