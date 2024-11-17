@@ -22,5 +22,15 @@ export const GlobalStyles = createGlobalStyle`
       }
     } 
   } */
+    .menu-header {
+     
+      .ant-menu-submenu-selected {
+        background: #00a0e9 !important;
+          .ant-menu-submenu-title {
+              color: #333333 !important; 
+          }
+      
+      }  
+    }
   
 `;

@@ -48,4 +48,8 @@ export const StyledMenu = styled.div`
       font-weight: 700;
     }
   }
+
+  .ant-menu-item-selected {
+    background: #00a0e9 !important;
+  }
 `;

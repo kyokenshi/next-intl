@@ -4,7 +4,7 @@ import React from 'react'
 import { StyledMenu } from './styles';
 import { Input, Space } from 'antd';
 import type { GetProps } from 'antd';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 type Props = {}
 
 type SearchProps = GetProps<typeof Input.Search>;
@@ -20,6 +20,10 @@ const { SubMenu } = Menu;
 const MenuHeader = (props: Props) => {
 
   const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname, "pathname");
+  console.log(router, "router");
+
 
 
   const { Search } = Input;
@@ -124,6 +128,9 @@ const MenuHeader = (props: Props) => {
   };
 
 
+  const activeKey = pathname.split('/')[1];
+  console.log(activeKey);
+
 
 
   return (
@@ -132,7 +139,7 @@ const MenuHeader = (props: Props) => {
         <Menu
           onClick={onClick}
           mode='horizontal'
-          className='menu-header'
+          rootClassName='menu-header'
           items={items}
         />
         <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} style={{ width: 300 }} /></StyledMenu>
