@@ -23,7 +23,7 @@ const fadeIn = keyframes`
 
 export const StyledCardProduct = styled.div`
   cursor: pointer;
-  .mark {
+  /* .mark {
     position: absolute;
     top: 1px;
     left: 1px;
@@ -33,9 +33,9 @@ export const StyledCardProduct = styled.div`
     background: rgba(34, 34, 34, 0.6);
     display: none;
     opacity: 0;
-  }
+  } */
 
-  .cart-wrapper {
+  /* .cart-wrapper {
     position: absolute;
     top: 15%;
     right: 15%;
@@ -53,9 +53,9 @@ export const StyledCardProduct = styled.div`
       border-radius: 50%;
       background: #fff;
     }
-  }
+  } */
 
-  &:hover {
+  /* &:hover {
     .mark {
       display: block;
       animation: ${fadeIn} 0.2s ease-in-out forwards;
@@ -71,5 +71,5 @@ export const StyledCardProduct = styled.div`
         justify-content: center;
       }
     }
-  }
+  } */
 `;

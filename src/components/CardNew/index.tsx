@@ -1,4 +1,5 @@
 import { Button, Space } from 'antd'
+import Image from 'next/image'
 import React from 'react'
 
 type Props = {}
@@ -6,7 +7,16 @@ type Props = {}
 const CardNew = (props: Props) => {
     return (
         <div className='shadow-custom2'>
-            <img src='https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg' className='w-[100%]' alt='new' />
+
+            <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
+                <Image
+                    className="object-cover" // Thêm object-cover
+                    src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg"
+                    alt="product"
+                    fill
+                // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+            </div>
             <div className='p-[12px]'>
                 <Space size={6} direction='vertical'>
                     <div className='text-[18px] text-[#333333] hover:text-[#2865c2] cursor-pointer font-semibold line-clamp-2'>

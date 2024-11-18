@@ -97,21 +97,29 @@ const ProductDetailContainer = (props: Props) => {
                                     <Divider />
                                 </div>
                                 <div>Danh mục:<span>Cấp độ rung</span>, <span>Thiết bị khai thác mỏ</span></div>
-                                <Space size={12} >
+                                {/* <Space size={12} >
                                     <InputNumber min={1} />
                                     <div>
                                         <Button type='primary'>Mua hàng</Button>
                                     </div>
-                                </Space>
+                                </Space> */}
                             </Space>
                         </div>
                         <div>
                             <div className='text-[#fff] bg-[#2865c2] px-[30px] py-[5px] text-[14px] font-semibold w-[fit-content]'>Mô tả</div>
                             <div className='border-[1px] border-[#dcdcdc] pt-[24px] pb-[16px] '>
-                                <img
+                                {/* <img
                                     src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/image21.jpg"
                                     alt="Description"
-                                />
+                                /> */}
+                                <div className="relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
+                                    <Image
+                                        className="object-cover" // Thêm object-cover
+                                        src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/image21.jpg"
+                                        alt="Description"
+                                        fill
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div className='mt-[24px]'>

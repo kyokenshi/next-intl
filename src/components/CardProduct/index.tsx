@@ -14,7 +14,7 @@ const CardProduct = (props: Props) => {
         <StyledCardProduct onClick={onClick}>
             <div className="card-product bg-[#F4F4F4] ">
                 <div className="p-[6px] relative">
-                    <div className="mark"></div>
+                    {/* <div className="mark"></div>
                     <div className="cart-wrapper">
                         <div
                             className="cart"
@@ -25,7 +25,7 @@ const CardProduct = (props: Props) => {
                         >
                             <ShoppingCartOutlined />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                         <Image
                             className="object-cover" // Thêm object-cover
