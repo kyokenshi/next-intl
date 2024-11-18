@@ -7,7 +7,7 @@ const PaymentInstructionsContainer = (props: Props) => {
     return (
         <div className='mb-[40px]'>
             <SectionTitle title='Hướng dẫn thanh toán qua Ngân Lượng' description='Hướng dẫn thanh toán qua Ngân Lượng' />
-            <div className="max-w-[1200px] px-4 xl:px-[0px] mx-auto">
+            <div className="max-w-[1200px] px-[0px] mx-auto">
                 <div className='mt-[40px]'>
                     <div className='text-[24px] font-semibold mb-[32px]'>
                         Hướng dẫn thanh toán qua Ngân Lượng

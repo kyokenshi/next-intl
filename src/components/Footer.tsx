@@ -7,7 +7,7 @@ type Props = {}
 const Footer = (props: Props) => {
     return (
         <StyledFooter >
-            <div className='max-w-1200 mx-auto mt-[32px]'>
+            <div className='max-w-1200 mx-auto mt-[32px] mb-[40px]'>
                 <div className='text-center'>
                     <div className='flex justify-center mb-[16px]'>
                         <Image

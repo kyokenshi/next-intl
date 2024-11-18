@@ -33,4 +33,8 @@ export const GlobalStyles = createGlobalStyle`
       }  
     }
   
+
+  .slick-slider {
+    overflow-x: hidden;
+  }
 `;
