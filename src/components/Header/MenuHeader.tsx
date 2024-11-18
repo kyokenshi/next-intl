@@ -40,11 +40,10 @@ const MenuHeader = (props: Props) => {
       key: '1',
       label: 'Trang chủ',
     },
-    {
-      key: '2',
-      label: 'Giới thiệu',
-    },
-
+    // {
+    //   key: '2',
+    //   label: 'Giới thiệu',
+    // },
     {
       key: 'sub1',
       label: 'Sản phẩm',
@@ -106,6 +105,9 @@ const MenuHeader = (props: Props) => {
     if (e.key === '1') { // Trang chủ
       router.push('/');
     }
+    if (e.key === '2') { // Giới thiệu
+      router.push('/introduce');
+    }
     if (e.key === '16') { // Liên hệ
       router.push('/contact');
     }
@@ -128,8 +130,7 @@ const MenuHeader = (props: Props) => {
   };
 
 
-  const activeKey = pathname.split('/')[1];
-  console.log(activeKey);
+
 
 
 
