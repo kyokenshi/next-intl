@@ -80,18 +80,16 @@ interface Product {
 }
 
 interface Props {
-    params: { id: string };
+    params: { id?: string };
 }
 
 const ProductContainer = (props: Props) => {
 
     const { id } = props.params;
 
-    const [productLista, setProductList] = useState<Product[]>([]);
+    const [productList, setProductList] = useState<Product[]>([]);
     const [categoryProduct, setCategoryProduct] = useState<ProductCategory[]>([]);
     const [categoryProductNew, setCategoryProductNew] = useState<ProductCategory[]>([]);
-
-
 
 
     useEffect(() => {
@@ -133,24 +131,7 @@ const ProductContainer = (props: Props) => {
         }
     ];
 
-    const productList = [
-        {
-            id: 1,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 2,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 3,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 4,
-            name: 'Máy nghiền cát'
-        }
-    ];
+
 
     const option = [
         {
@@ -172,7 +153,7 @@ const ProductContainer = (props: Props) => {
                 <div>
                     <div className="mb-[32px] hidden sm:block">
                         <MenuList title='Danh mục sản phẩm'>
-                            {categoryProduct.map((el) => {
+                            {categoryProduct?.map((el) => {
                                 return (
                                     <div
                                         className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
@@ -189,7 +170,7 @@ const ProductContainer = (props: Props) => {
                     <div className='hidden sm:block'>
                         <MenuList title='Mới nhất'>
                             <Space direction='vertical' size={12}>
-                                {categoryProductNew.map((el) => {
+                                {categoryProductNew?.map((el) => {
                                     return <CardProductHorizontal key={el.id} {...el} />
                                 })}
                             </Space>
@@ -204,8 +185,8 @@ const ProductContainer = (props: Props) => {
                         <Select className="w-[200px]" options={option} />
                     </div>
                     <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
-                        {productLista.map((el) => {
-                            return <CardProduct key={el.id} />;
+                        {productList?.map((el) => {
+                            return <CardProduct key={el.id} {...el} />;
                         })}
                     </div>
                     <div className="flex justify-center mt-[24px]">

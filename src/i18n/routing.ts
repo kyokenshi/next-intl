@@ -47,11 +47,6 @@ export const routing = defineRouting({
       zh: '/contact-zh',
       vi: '/lien-he'
     },
-    '/about-us': {
-      en: '/about-us',
-      zh: '/about-us-zh',
-      vi: '/gioi-thieu'
-    },
     '/product-catalog': {
       en: '/product-catalog',
       zh: '/product-catalog-zh',

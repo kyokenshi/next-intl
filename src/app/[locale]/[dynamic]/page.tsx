@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
-import BankTransferContainer from '@/container/bankTransferContainer';
+import DynamicContainer from '@/container/dynamicContainer';
 
 type Props = {
     params: { locale: string };
@@ -10,12 +10,11 @@ type Props = {
 export default function IntroducePage({ params: { locale } }: Props) {
     // Enable static rendering
     setRequestLocale(locale);
-
     const t = useTranslations('PathnamesPage');
 
     return (
-        <PageLayout title={t('title')}>
-            <BankTransferContainer />
+        <PageLayout>
+            <DynamicContainer />
         </PageLayout>
     );
 }

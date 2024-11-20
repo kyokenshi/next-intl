@@ -1,5 +1,6 @@
 import { API_URL } from "@/utils/axios/constants";
 import { getLanguageFromCookie } from "../commom";
+import { StrapiQuery } from "../strapi-query";
 
 
 export const getCategoryProduct = async (
@@ -14,17 +15,21 @@ export const getCategoryProduct = async (
 
 
 export const getCategoryProductID = async (
-  filmId?: string,
+  categoryId?: string,
 ): Promise<any> => {
   const language = getLanguageFromCookie();
 
-  const baseUrl = `${API_URL}/api/productions?locale=${language}&pagination[pageSize]=1000&pagination[withCount]=false&sort=createdAt:desc`;
+  const query = new StrapiQuery('productions')
+    .setLocale(language)
+    .setPagination(1000, false)
+    .setSort('createdAt', 'desc');
 
-  const url = filmId
-    ? `${baseUrl}&filters[product_category][id][$eq]=${filmId}`
-    : baseUrl;
+  if (categoryId) {
+    query.setFilter('product_category[id]', '$eq', categoryId);
+  }
 
-  const res = await fetch(`${url}`);
+
+  const res = await fetch(`${query}`);
   const data = await res.json();
   return data;
 };

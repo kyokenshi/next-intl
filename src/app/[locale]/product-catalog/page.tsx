@@ -15,7 +15,7 @@ export default function ProductCatalogPage({ params: { locale } }: Props) {
 
   return (
     <PageLayout title={t('title')}>
-      <ProductContainer />
+      <ProductContainer params={{}} />
     </PageLayout>
   );
 }
