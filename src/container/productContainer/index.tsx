@@ -4,7 +4,7 @@ import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
 import { getApiProduct } from '@/utils/axios/product';
 import { getCategoryProduct, getCategoryProductID } from '@/utils/axios/productCategory';
-import { Pagination, Select, Space } from 'antd';
+import { Pagination, Select, Skeleton, Space } from 'antd';
 import Link from 'antd/es/typography/Link';
 import React, { useEffect, useState } from 'react';
 
@@ -62,7 +62,7 @@ interface ProductCategory {
     locale: string;
 }
 
-interface Product {
+export interface Product {
     id: number;
     documentId: string;
     title: string;
@@ -74,7 +74,7 @@ interface Product {
     updatedAt: string;
     publishedAt: string;
     locale: string;
-    images: Image[];
+    images: any;
     product_category: ProductCategory;
     localizations: any[];
 }
@@ -91,18 +91,39 @@ const ProductContainer = (props: Props) => {
     const [categoryProduct, setCategoryProduct] = useState<ProductCategory[]>([]);
     const [categoryProductNew, setCategoryProductNew] = useState<ProductCategory[]>([]);
 
+    const [loading, setLoading] = useState(true);
+    const [loadingCategory, setLoadingCategory] = useState(true);
+
+
+
+    const onGetListProduct = async () => {
+        try {
+            const resp = await getCategoryProductID();
+            console.log(resp, "resp");
+
+            setProductList(resp.data);
+        } finally {
+            setLoadingCategory(false);
+        }
+    }
+
 
     useEffect(() => {
         Promise.all([
-            getApiProduct(),
             getCategoryProduct(),
             getCategoryProductID(id)
-        ]).then(([productList, categoryProduct, categoryProductID]) => {
-            setProductList(productList.data);
+        ]).then(([categoryProduct, categoryProductID]) => {
             setCategoryProduct(categoryProduct.data);
             setCategoryProductNew(categoryProductID.data);
+        }).finally(() => {
+            setLoading(false);
         });
     }, []);
+
+
+    useEffect(() => {
+        onGetListProduct();
+    }, [])
 
     console.log(categoryProduct, "categoryProduct");
 
@@ -130,6 +151,8 @@ const ProductContainer = (props: Props) => {
             name: 'Sản phầm khuyến mãi'
         }
     ];
+    console.log(productList, "productList");
+
 
 
 
@@ -147,52 +170,68 @@ const ProductContainer = (props: Props) => {
             value: 3
         }
     ];
+
     return (
         <div className="max-w-[1200px] px-[0px] mx-auto">
             <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                 <div>
                     <div className="mb-[32px] hidden sm:block">
+
                         <MenuList title='Danh mục sản phẩm'>
-                            {categoryProduct?.map((el) => {
-                                return (
-                                    <div
-                                        className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
-                                        key={el.id}
-                                    >
-                                        <Link href={`/danh-muc-san-pham/${el.url}`}>
-                                            {el.title}
-                                        </Link>
-                                    </div>
-                                );
-                            })}
+                            {loadingCategory ? <Skeleton active /> :
+                                categoryProduct?.map((el) => {
+                                    return (
+                                        <div
+                                            className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
+                                            key={el.id}
+                                        >
+                                            <Link href={`/danh-muc-san-pham/${el.url}`}>
+                                                {el.title}
+                                            </Link>
+                                        </div>
+                                    );
+                                })}
                         </MenuList>
+
                     </div>
                     <div className='hidden sm:block'>
                         <MenuList title='Mới nhất'>
-                            <Space direction='vertical' size={12}>
-                                {categoryProductNew?.map((el) => {
-                                    return <CardProductHorizontal key={el.id} {...el} />
-                                })}
-                            </Space>
+                            {loadingCategory ? <Skeleton active /> :
+                                <Space direction='vertical' size={12}>
+                                    {categoryProductNew?.map((el) => {
+                                        return <CardProductHorizontal key={el.id} {...el} />
+                                    })}
+                                </Space>
+                            }
                         </MenuList>
                     </div>
                 </div>
-                <div>
-                    <div className="flex justify-between mb-[16px]">
-                        <div>
-                            {/* Showing 1–9 of 13 results */}
+
+                {loading ? <Skeleton active style={{
+                    lineHeight: '3em', // Điều chỉnh khoảng cách giữa các dòng
+                }}
+                    paragraph={{
+                        rows: 10,
+                        // Số lượng dòng
+                        width: ['80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%',], // Độ rộng từng dòng
+                    }} /> :
+                    <div>
+                        <div className="flex justify-between mb-[16px]">
+                            <div>
+                                {/* Showing 1–9 of 13 results */}
+                            </div>
+                            <Select className="w-[200px]" options={option} />
                         </div>
-                        <Select className="w-[200px]" options={option} />
+                        <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
+                            {productList.map((el) => {
+                                return <CardProduct key={el.id}  {...el} />;
+                            })}
+                        </div>
+                        <div className="flex justify-center mt-[24px]">
+                            <Pagination />
+                        </div>
                     </div>
-                    <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
-                        {productList?.map((el) => {
-                            return <CardProduct key={el.id} {...el} />;
-                        })}
-                    </div>
-                    <div className="flex justify-center mt-[24px]">
-                        <Pagination />
-                    </div>
-                </div>
+                }
             </div>
         </div>
     );

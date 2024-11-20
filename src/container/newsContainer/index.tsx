@@ -19,6 +19,9 @@ const NewsContainer = (props: Props) => {
         })();
     }, []);
 
+    console.log(listNews, "listNews");
+
+
     const listMenuProduct = [
         {
             id: 1,
@@ -60,7 +63,7 @@ const NewsContainer = (props: Props) => {
                                     })}
                                 </Space>
                             </MenuList>
-                            <MenuList title='Mới nhất'>
+                            <MenuList title='Liên quan'>
                                 <Space direction='vertical' size={12}>
                                     {listMenuProduct.map((el) => {
                                         return <CardNewHorizontal key={el.id} />;

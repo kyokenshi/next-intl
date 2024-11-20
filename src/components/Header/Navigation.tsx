@@ -33,7 +33,7 @@ export default function Navigation() {
         </div>
 
         <div className='hidden sm:flex align-middle'>
-          <div className="text"><p className='text-16 font-semibold'> Giỏ hàng</p><p className='text-14'>10 sản phẩm - 10vnd</p></div>
+          {/* <div className="text"><p className='text-16 font-semibold'> Giỏ hàng</p><p className='text-14'>10 sản phẩm - 10vnd</p></div> */}
         </div>
         <nav className=''>
           <LocaleSwitcher />

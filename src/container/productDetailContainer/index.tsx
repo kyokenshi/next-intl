@@ -127,10 +127,9 @@ const ProductDetailContainer = (props: Props) => {
                                 Sản phẩm tương tự
                             </div>
                             <div>
-
                                 <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px] mt-[32px]">
                                     {productList.map((el) => {
-                                        return <CardProduct key={el.id} />;
+                                        return <CardProduct {...el} key={el.id} />;
                                     })}
                                 </div>
 

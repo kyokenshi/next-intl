@@ -29,6 +29,12 @@ export const getServerLanguage = async () => {
     }
 };
 
-export const getImageUrl = (url: any) => {
+export const getImageUrl = (images: any): string => {
+    if (!images) return '/assets/images/image_not_available.png'
+    let url = typeof images === 'string' ? images : images?.[0]?.url
     return `${process.env.NEXT_PUBLIC_IMAGE_URL}${url}`;
+};
+
+export const formatPrice = (price: number) => {
+    return !price ? "Contact us" : price + " $"
 };

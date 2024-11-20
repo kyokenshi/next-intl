@@ -40,6 +40,14 @@ const MenuHeader = (props: Props) => {
           __component: item.__component
         };
       }
+      if (item.__component === 'menu.page') {
+        return {
+          key: item.id.toString(),
+          label: item.title,
+          url: item?.article?.slug,
+          __component: item.__component
+        };
+      }
 
       if (item.__component === 'menu.dropdown') {
         return {
@@ -116,17 +124,21 @@ const MenuHeader = (props: Props) => {
     const clickedItem = findDeepItem(keyPath, masterData);
 
     if (clickedItem) {
-      if (clickedItem.__component === 'menu.nolink') {
-        if (clickedItem.url === "trang-chu") {
-          return router.push(`/`);
-        }
-        return router.push(`/${clickedItem.url}`);
-      }
-      if (clickedItem.__component === 'menu.dropdown') {
-        return router.push(`/${clickedItem.url}`);
-      }
-    }
+      const { __component, url } = clickedItem;
 
+      const routes: any = {
+        'menu.page': () => router.push(`/${url}`),
+        'menu.nolink': () => {
+          if (url === "trang-chu" || url === "home") {
+            return router.push(`/`);
+          }
+          return router.push(`/${url}`);
+        },
+        'menu.dropdown': () => router.push(`/${url}`)
+      };
+      // Gọi hàm tương ứng với __component
+      routes[__component]?.();
+    }
   };
 
 
@@ -136,7 +148,7 @@ const MenuHeader = (props: Props) => {
 
   return (
     <Affix>
-      <div className=' bg-blue-1000 '>
+      <div className='min-h-[46px] bg-blue-1000 '>
         <StyledMenu className='max-w-1200 px-[16px] xl:px-[0] mr-auto ml-auto flex justify-between items-center'>
           <Menu
             onClick={onClick}
@@ -144,7 +156,10 @@ const MenuHeader = (props: Props) => {
             rootClassName='menu-header'
             items={masterData}
           />
-          <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} style={{ width: 300 }} /></StyledMenu>
+          <div className='min-h-[46px] flex items-center min-w-[auto] md:min-w-[300px]'>
+            <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} />
+          </div>
+        </StyledMenu>
       </div>
     </Affix>
   )

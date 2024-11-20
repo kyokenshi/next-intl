@@ -1,9 +1,11 @@
+import { API_URL } from "./axios/constants";
+
 export class StrapiQuery {
     private baseUrl: string;
     private params: string[];
 
     constructor(endpoint: string) {
-        this.baseUrl = `http://159.89.205.46:1337/api/${endpoint}`;
+        this.baseUrl = `${API_URL}/api/${endpoint}`;
         this.params = [];
     }
 

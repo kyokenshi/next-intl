@@ -1,5 +1,6 @@
-import { getImageUrl } from '@/utils/commom';
+import { formatPrice, getImageUrl } from '@/utils/commom';
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 
 type Props = {
@@ -7,24 +8,29 @@ type Props = {
     title?: string;
     images?: any[] | string;
     price?: any;
+    url?: string
 }
 
 const CardProductHorizontal = (props: Props) => {
-    const { size = 82, title, images, price } = props
+    const { size = 82, title, images, price, url = "" } = props
     console.log(images);
 
     return (
         <div className='grid grid-cols-[82px_1fr] gap-[12px]'>
             <Image
-                src={typeof images === 'string' ? images : images?.[0]?.url ? getImageUrl(images[0].url) : ""}
+                src={getImageUrl(images)}
                 alt='product'
                 width={size}
                 height={size}
                 className='cursor-pointer'
             />
             <div>
-                <div className='text-[14px] capitalize font-semibold hover:text-[#2865C2] mb-[4px] cursor-pointer'>{title}</div>
-                <div className='text-[14px] '>{!price ? "Contact us" : price + " $"}</div>
+                <div className='text-[14px] capitalize font-semibold hover:text-[#2865C2] mb-[4px] cursor-pointer'>
+                    <Link href={`/product/${url}`}>
+                        {title}
+                    </Link>
+                </div>
+                <div className='text-[14px] '>{formatPrice(price)}</div>
             </div>
         </div>
     )

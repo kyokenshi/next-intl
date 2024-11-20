@@ -31,7 +31,7 @@ const CardNew = (props: Props) => {
                     </div>
                 </Space>
                 <div className='w-full flex justify-end '>
-                    <Button type='primary' className='mt-[12px]'>Liên hệ</Button>
+                    <Button type='primary' className='mt-[12px]'>See more</Button>
                 </div>
             </div>
         </div>

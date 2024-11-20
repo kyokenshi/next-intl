@@ -33,11 +33,11 @@ export const GlobalStyles = createGlobalStyle`
       }  
     }
 
-  a{
-    font-size: 16px !important;
-    color: #333333 !important;
+  a {
+    font-size: unset !important;
+    color: unset !important;
     &:hover{
-      color: #2865C2 !important;
+      color: unset !important;
     
     }
   }
