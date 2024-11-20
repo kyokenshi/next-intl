@@ -2,12 +2,114 @@
 import CardProduct from '@/components/CardProduct';
 import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
+import { getApiProduct } from '@/utils/axios/product';
+import { getCategoryProduct, getCategoryProductID } from '@/utils/axios/productCategory';
 import { Pagination, Select, Space } from 'antd';
-import React from 'react';
+import Link from 'antd/es/typography/Link';
+import React, { useEffect, useState } from 'react';
 
-type Props = {};
+
+interface ImageFormats {
+    large?: ImageDetails;
+    small?: ImageDetails;
+    medium?: ImageDetails;
+    thumbnail?: ImageDetails;
+}
+
+interface ImageDetails {
+    ext: string;
+    url: string;
+    hash: string;
+    mime: string;
+    name: string;
+    path?: string | null;
+    size: number;
+    width: number;
+    height: number;
+    sizeInBytes: number;
+}
+
+interface Image {
+    id: number;
+    documentId: string;
+    name: string;
+    alternativeText?: string | null;
+    caption?: string | null;
+    width: number;
+    height: number;
+    formats: ImageFormats;
+    hash: string;
+    ext: string;
+    mime: string;
+    size: number;
+    url: string;
+    previewUrl?: string | null;
+    provider: string;
+    provider_metadata?: any | null;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+}
+
+interface ProductCategory {
+    id: number;
+    documentId: string;
+    title: string;
+    url: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string;
+}
+
+interface Product {
+    id: number;
+    documentId: string;
+    title: string;
+    url: string;
+    description: string;
+    content: string;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string;
+    images: Image[];
+    product_category: ProductCategory;
+    localizations: any[];
+}
+
+interface Props {
+    params: { id: string };
+}
 
 const ProductContainer = (props: Props) => {
+
+    const { id } = props.params;
+
+    const [productLista, setProductList] = useState<Product[]>([]);
+    const [categoryProduct, setCategoryProduct] = useState<ProductCategory[]>([]);
+    const [categoryProductNew, setCategoryProductNew] = useState<ProductCategory[]>([]);
+
+
+
+
+    useEffect(() => {
+        Promise.all([
+            getApiProduct(),
+            getCategoryProduct(),
+            getCategoryProductID(id)
+        ]).then(([productList, categoryProduct, categoryProductID]) => {
+            setProductList(productList.data);
+            setCategoryProduct(categoryProduct.data);
+            setCategoryProductNew(categoryProductID.data);
+        });
+    }, []);
+
+    console.log(categoryProduct, "categoryProduct");
+
+
+
     const listMenuProduct = [
         {
             id: 1,
@@ -70,13 +172,15 @@ const ProductContainer = (props: Props) => {
                 <div>
                     <div className="mb-[32px] hidden sm:block">
                         <MenuList title='Danh mục sản phẩm'>
-                            {listMenuProduct.map((el) => {
+                            {categoryProduct.map((el) => {
                                 return (
                                     <div
                                         className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
                                         key={el.id}
                                     >
-                                        {el.name}
+                                        <Link href={`/danh-muc-san-pham/${el.url}`}>
+                                            {el.title}
+                                        </Link>
                                     </div>
                                 );
                             })}
@@ -85,8 +189,8 @@ const ProductContainer = (props: Props) => {
                     <div className='hidden sm:block'>
                         <MenuList title='Mới nhất'>
                             <Space direction='vertical' size={12}>
-                                {listMenuProduct.map((el) => {
-                                    return <CardProductHorizontal key={el.id} />;
+                                {categoryProductNew.map((el) => {
+                                    return <CardProductHorizontal key={el.id} {...el} />
                                 })}
                             </Space>
                         </MenuList>
@@ -94,11 +198,13 @@ const ProductContainer = (props: Props) => {
                 </div>
                 <div>
                     <div className="flex justify-between mb-[16px]">
-                        <div> Showing 1–9 of 13 results</div>
+                        <div>
+                            {/* Showing 1–9 of 13 results */}
+                        </div>
                         <Select className="w-[200px]" options={option} />
                     </div>
                     <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
-                        {productList.map((el) => {
+                        {productLista.map((el) => {
                             return <CardProduct key={el.id} />;
                         })}
                     </div>

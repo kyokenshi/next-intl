@@ -2,59 +2,64 @@ import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 
 export const routing = defineRouting({
-  locales: ['en', 'de', 'vi'],
+  locales: ['en', 'zh', 'vi'],
   defaultLocale: 'en',
   localeDetection: false,
   pathnames: {
     '/': '/',
     '/product': {
       en: '/product',
-      de: '/product-de',
+      zh: '/product-zh',
       vi: '/san-pham'
     },
     '/product/[id]': {
       en: '/product/[id]',
-      de: '/product-de/[id]',
+      zh: '/product-zh/[id]',
       vi: '/san-pham/[id]'
     },
     '/news': {
       en: '/news',
-      de: '/news-de',
+      zh: '/news-zh',
       vi: '/tin-tuc'
     },
     '/news/[id]': {
       en: '/news/[id]',
-      de: '/news-de/[id]',
+      zh: '/news-zh/[id]',
       vi: '/tin-tuc/[id]'
     },
     '/payment-for-instruction': {
       en: '/payment-for-instruction',
-      de: '/payment-for-instruction-de',
+      zh: '/payment-for-instruction-zh',
       vi: '/huong-dan-thanh-toan-qua-ngan-luong'
     },
     '/payment-instruction': {
       en: '/payment-instruction',
-      de: '/payment-instruction-de',
+      zh: '/payment-instruction-zh',
       vi: '/huong-dan-thanh-toan'
     },
     '/bank-transfer': {
       en: '/bank-transfer',
-      de: '/bank-transfer-de',
+      zh: '/bank-transfer-zh',
       vi: '/chuyen-khoan-ngan-hang'
     },
     '/contact': {
       en: '/contact',
-      de: '/contact-de',
+      zh: '/contact-zh',
       vi: '/lien-he'
+    },
+    '/about-us': {
+      en: '/about-us',
+      zh: '/about-us-zh',
+      vi: '/gioi-thieu'
     },
     '/product-catalog': {
       en: '/product-catalog',
-      de: '/product-catalog-de',
+      zh: '/product-catalog-zh',
       vi: '/danh-muc-san-pham'
     },
     '/product-catalog/[...id]': {  // Catch-all route
       en: '/product-catalog/[...id]',
-      de: '/product-catalog-de/[...id]',
+      zh: '/product-catalog-zh/[...id]',
       vi: '/danh-muc-san-pham/[...id]'
     }
   }

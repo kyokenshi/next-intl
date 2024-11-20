@@ -5,9 +5,13 @@ import React from 'react'
 import MenuList from '@/components/MenuList'
 import CardNew from '@/components/CardNew'
 import SectionTitle from '@/components/SectionTitle'
-type Props = {}
+type Props = {
+    params: { id: string };
+}
 
 const NewsDetailContainer = (props: Props) => {
+
+    const { id } = props.params;
 
     const listMenuProduct = [
         {

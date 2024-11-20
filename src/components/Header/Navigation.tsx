@@ -39,9 +39,9 @@ export default function Navigation() {
           <LocaleSwitcher />
         </nav>
       </header>
-      <Affix>
-        <MenuHeader />
-      </Affix>
+      {/* <Affix> */}
+      <MenuHeader />
+      {/* </Affix> */}
     </>
   );
 }

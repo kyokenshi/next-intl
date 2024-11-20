@@ -1,10 +1,11 @@
 "use client"
-import { Menu, MenuProps } from 'antd';
-import React from 'react'
+import { Affix, Menu, MenuProps } from 'antd';
+import React, { useEffect, useState } from 'react'
 import { StyledMenu } from './styles';
 import { Input, Space } from 'antd';
 import type { GetProps } from 'antd';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { getHeaderData } from '@/utils/axios/header';
 type Props = {}
 
 type SearchProps = GetProps<typeof Input.Search>;
@@ -20,113 +21,112 @@ const { SubMenu } = Menu;
 const MenuHeader = (props: Props) => {
 
   const router = useRouter();
-  const pathname = usePathname();
-  console.log(pathname, "pathname");
-  console.log(router, "router");
 
 
-
-  const { Search } = Input;
+  const [masterData, setMasterData] = useState<any>();
 
   const onTitleClick = (info: any) => {
-    if (info.key === 'sub1') { // Sản phẩm
-      router.push('/product');
-    }
+    router.push(`/${info.url}`);
+  }
+
+  const transformMenuData = (data: any[]) => {
+
+    return data.map(item => {
+      if (item.__component === 'menu.nolink') {
+        return {
+          key: item.id.toString(),
+          label: item.title,
+          url: item.url,
+          __component: item.__component
+        };
+      }
+
+      if (item.__component === 'menu.dropdown') {
+        return {
+          key: `${item.id}`,
+          label: item.title,
+          url: item.url,
+          onTitleClick: () => onTitleClick(item),
+          __component: item.__component,
+          children: item.product_category ? [
+            {
+              key: item.product_category.id.toString(),
+              label: item.product_category.title,
+              url: item.product_category.url,
+            }
+          ] : undefined
+        };
+      }
+
+      return null;
+    }).filter(Boolean);
   };
 
 
-  const items: MenuItem[] = [
-    {
-      key: '1',
-      label: 'Trang chủ',
-    },
-    // {
-    //   key: '2',
-    //   label: 'Giới thiệu',
-    // },
-    {
-      key: 'sub1',
-      label: 'Sản phẩm',
-      onTitleClick: (info) => onTitleClick(info),
-      children: [
-        {
-          key: '3',
-          label: 'Sản phẩm khuyến mãi',
-        },
-        {
-          key: 'sub4',
-          label: 'Thiết bị khai thác mỏ',
-          children: [
-            { key: '4', label: 'Cấp liệu rung' },
-            { key: '5', label: 'Máy nghiền cát' },
-            { key: '6', label: 'Máy nghiền đá' },
-            { key: '7', label: 'Máy rửa cát' },
-            { key: '8', label: 'Sàn phân loại' },
-            { key: '9', label: 'Trạm nghiền' },
-          ],
-        },
-        {
-          key: 'sub5',
-          label: 'Thiết bị xây dựng',
-          children: [
-            { key: '10', label: 'Cầu tháp' },
-            { key: '11', label: 'Máy đầm đất' },
-          ],
-        },
-      ],
-    },
 
-    {
-      key: 'sub2',
-      label: 'Hướng dẫn',
-      children: [
-        { key: '12', label: <span>Hướng dẫn thanh toán qua ngân lượng</span> },
-        { key: '13', label: 'Hướng dẫn thanh toán' },
-        { key: '14', label: 'Chuyển khoản ngân hàng' },
-      ],
-    },
-    {
-      key: '15',
-      label: 'Tin tức',
-    },
-    {
-      key: '16',
-      label: 'Liên hệ',
-    },
-  ];
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getHeaderData();
+        if (data?.MainMenuItems?.length > 0) {
+          const transformedItems = transformMenuData(data.MainMenuItems);
+          setMasterData(transformedItems);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  const { Search } = Input;
+
+
 
   const onSearch: any = (value: string) => {
     console.log(value);
   }
 
+  const findDeepItem = (keyPath: string[], items: any[]): any => {
+    const [childKey, parentKey] = keyPath;
+
+    // Nếu có parentKey, tìm parent trước
+    if (parentKey) {
+      const parent = items.find(item => item.key === parentKey);
+      if (parent?.children) {
+        const child = parent.children.find((child: any) => child.key === childKey);
+        if (child) {
+          // Trả về child với URL được combine từ parent
+          return {
+            ...child,
+            url: `danh-muc-san-pham/${child.url}`,
+            parentKey: parent.key,
+            __component: parent.__component
+          };
+        }
+      }
+    }
+
+    // Nếu không có parentKey hoặc không tìm thấy child
+    return items.find(item => item.key === childKey);
+  };
 
   const onClick: MenuProps['onClick'] = (e) => {
-    console.log(e);
-    if (e.key === '1') { // Trang chủ
-      router.push('/');
-    }
-    if (e.key === '2') { // Giới thiệu
-      router.push('/introduce');
-    }
-    if (e.key === '16') { // Liên hệ
-      router.push('/contact');
-    }
-    if (e.key === 'sub1') { // Sản phẩm
-      router.push('/products');
+    const { keyPath } = e;
+    const clickedItem = findDeepItem(keyPath, masterData);
+
+    if (clickedItem) {
+      if (clickedItem.__component === 'menu.nolink') {
+        if (clickedItem.url === "trang-chu") {
+          return router.push(`/`);
+        }
+        return router.push(`/${clickedItem.url}`);
+      }
+      if (clickedItem.__component === 'menu.dropdown') {
+        return router.push(`/${clickedItem.url}`);
+      }
     }
 
-    if (e.key === '14') { // Chuyển khoản ngân hàng
-      router.push('/bank-transfer');
-    }
-    if (e.key === '13') { // Hướng dẫn thanh toán
-      router.push('/payment-instruction');
-    }
-    if (e.key === '12') { // Hướng dẫn thanh toán qua ngân lượng
-      router.push('/payment-for-instruction');
-    }
-    if (e.key === '15') { // Tin tức
-      router.push('/news');
-    }
   };
 
 
@@ -135,16 +135,18 @@ const MenuHeader = (props: Props) => {
 
 
   return (
-    <div className=' bg-blue-1000 '>
-      <StyledMenu className='max-w-1200 px-[16px] xl:px-[0] mr-auto ml-auto flex justify-between items-center'>
-        <Menu
-          onClick={onClick}
-          mode='horizontal'
-          rootClassName='menu-header'
-          items={items}
-        />
-        <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} style={{ width: 300 }} /></StyledMenu>
-    </div>
+    <Affix>
+      <div className=' bg-blue-1000 '>
+        <StyledMenu className='max-w-1200 px-[16px] xl:px-[0] mr-auto ml-auto flex justify-between items-center'>
+          <Menu
+            onClick={onClick}
+            mode='horizontal'
+            rootClassName='menu-header'
+            items={masterData}
+          />
+          <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} style={{ width: 300 }} /></StyledMenu>
+      </div>
+    </Affix>
   )
 }
 

@@ -4,10 +4,10 @@ import PageLayout from '@/components/PageLayout';
 import ProductContainer from '@/container/productContainer';
 
 type Props = {
-  params: { locale: string };
+  params: { locale: string, id: string };
 };
 
-export default function PathnamesPage({ params: { locale } }: Props) {
+export default function PathnamesPage({ params: { locale, id } }: Props) {
   // Enable static rendering
   setRequestLocale(locale);
 
@@ -15,8 +15,7 @@ export default function PathnamesPage({ params: { locale } }: Props) {
 
   return (
     <PageLayout title={t('title')}>
-      <ProductContainer />
-
+      <ProductContainer params={{ id }} />
     </PageLayout>
   );
 }

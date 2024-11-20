@@ -1,13 +1,23 @@
+"use client"
 import CardNewHorizontal from '@/components/CardNewHorizontal'
 import { HomeOutlined } from '@ant-design/icons'
 import { Space } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuList from '@/components/MenuList'
 import CardNew from '@/components/CardNew'
 import SectionTitle from '@/components/SectionTitle'
+import { getApiListNews } from '@/utils/axios/news'
 type Props = {}
 
 const NewsContainer = (props: Props) => {
+
+    const [listNews, setListNews] = useState<any[]>([]);
+    useEffect(() => {
+        (async () => {
+            const data = await getApiListNews();
+            setListNews(data.data);
+        })();
+    }, []);
 
     const listMenuProduct = [
         {
@@ -60,9 +70,9 @@ const NewsContainer = (props: Props) => {
                         </Space>
                     </div>
                     <div className='grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]'>
-                        <div><CardNew /></div>
-                        <div><CardNew /></div>
-                        <div><CardNew /></div>
+                        {listNews.map((el) => {
+                            return <div key={el.id}><CardNew title={el.title} description={el.description} /></div>;
+                        })}
                     </div>
                 </div>
             </div>

@@ -5,12 +5,14 @@ import ProductContainer from '@/container/productContainer';
 import ProductDetailContainer from '@/container/productDetailContainer';
 
 type Props = {
-  params: { locale: string };
+  params: { locale: string, id: string };
 };
 
-export default function PathnamesPage({ params: { locale } }: Props) {
+export default function PathnamesPage({ params: { locale, id } }: Props) {
   // Enable static rendering
   setRequestLocale(locale);
+
+
 
   const t = useTranslations('PathnamesPage');
 

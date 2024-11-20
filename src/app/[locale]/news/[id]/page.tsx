@@ -4,10 +4,10 @@ import PageLayout from '@/components/PageLayout';
 import NewsDetailContainer from '@/container/newsDetailContainer';
 
 type Props = {
-    params: { locale: string };
+    params: { locale: string, id: string };
 };
 
-export default function NewsDetail({ params: { locale } }: Props) {
+export default function NewsDetail({ params: { locale, id } }: Props) {
     // Enable static rendering
     setRequestLocale(locale);
 
@@ -23,7 +23,7 @@ export default function NewsDetail({ params: { locale } }: Props) {
                     )
                 })}
             </div> */}
-            <NewsDetailContainer />
+            <NewsDetailContainer params={{ id }} />
         </PageLayout>
     );
 }

@@ -12,7 +12,7 @@
   },
   "LocaleSwitcher": {
     "label": "Sprache ändern",
-    "locale": "{locale, select, de {Deutsch} en {English} vi {Tiếng việt} other {Unbekannt}}"
+    "locale": "{locale, select, zh {Deutsch} en {English} vi {Tiếng việt} other {Unbekannt}}"
   },
   "Manifest": {
     "description": "",
