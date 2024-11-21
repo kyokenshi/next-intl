@@ -13,7 +13,6 @@ type Props = {
 
 const CardProductHorizontal = (props: Props) => {
     const { size = 82, title, images, price, url = "" } = props
-    console.log(images);
 
     return (
         <div className='grid grid-cols-[82px_1fr] gap-[12px]'>

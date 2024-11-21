@@ -10,8 +10,7 @@ type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
 
 const RegisterInfomation = (props: Props) => {
-    const onSearch: SearchProps['onSearch'] = (value, _e, info) =>
-        console.log(info?.source, value);
+    const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
 
     return (
         <div style={{

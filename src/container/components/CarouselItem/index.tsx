@@ -21,7 +21,6 @@ const CarouselItem = (props: ICarouselMenu) => {
     const carouselRef = useRef<any>();
 
     const handlePrev = debounce(() => {
-        console.log("vào khồn ");
 
         if (!isAnimating) {
             setIsAnimating(true);
@@ -33,7 +32,6 @@ const CarouselItem = (props: ICarouselMenu) => {
 
 
     const handleNext = debounce(() => {
-        console.log("vào khồn ");
 
         if (!isAnimating) {
             setIsAnimating(true);

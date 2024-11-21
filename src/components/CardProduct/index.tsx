@@ -31,7 +31,8 @@ const CardProduct = (props: Props) => {
                     </div> */}
                         <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                             <Image
-                                className="object-cover" // Thêm object-cover
+
+                                objectFit={images ? 'cover' : "contain"}
                                 src={getImageUrl(images)}
                                 alt="product"
                                 fill

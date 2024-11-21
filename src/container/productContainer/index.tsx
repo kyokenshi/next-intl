@@ -81,77 +81,39 @@ export interface Product {
 
 interface Props {
     params: { id?: string };
+    dataCategoryProduct: any
+    dataProductNew: any
 }
 
 const ProductContainer = (props: Props) => {
 
     const { id } = props.params;
+    const { dataCategoryProduct, dataProductNew } = props
+
 
     const [productList, setProductList] = useState<Product[]>([]);
-    const [categoryProduct, setCategoryProduct] = useState<ProductCategory[]>([]);
-    const [categoryProductNew, setCategoryProductNew] = useState<ProductCategory[]>([]);
+    // const [categoryProduct, setCategoryProduct] = useState<ProductCategory[]>([]);
 
     const [loading, setLoading] = useState(true);
-    const [loadingCategory, setLoadingCategory] = useState(true);
-
 
 
     const onGetListProduct = async () => {
         try {
-            const resp = await getCategoryProductID();
-            console.log(resp, "resp");
-
+            const resp = await getApiProduct();
             setProductList(resp.data);
         } finally {
-            setLoadingCategory(false);
+            setLoading(false);
         }
     }
 
 
-    useEffect(() => {
-        Promise.all([
-            getCategoryProduct(),
-            getCategoryProductID(id)
-        ]).then(([categoryProduct, categoryProductID]) => {
-            setCategoryProduct(categoryProduct.data);
-            setCategoryProductNew(categoryProductID.data);
-        }).finally(() => {
-            setLoading(false);
-        });
-    }, []);
 
 
     useEffect(() => {
         onGetListProduct();
     }, [])
 
-    console.log(categoryProduct, "categoryProduct");
 
-
-
-    const listMenuProduct = [
-        {
-            id: 1,
-            name: 'Chưa phân loại'
-        },
-        {
-            id: 2,
-            name: 'Thiết Bị Khai Thác mỏ'
-        },
-        {
-            id: 3,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 4,
-            name: 'Cấp liệu rung'
-        },
-        {
-            id: 5,
-            name: 'Sản phầm khuyến mãi'
-        }
-    ];
-    console.log(productList, "productList");
 
 
 
@@ -178,8 +140,8 @@ const ProductContainer = (props: Props) => {
                     <div className="mb-[32px] hidden sm:block">
 
                         <MenuList title='Danh mục sản phẩm'>
-                            {loadingCategory ? <Skeleton active /> :
-                                categoryProduct?.map((el) => {
+                            {
+                                dataCategoryProduct?.map((el: any) => {
                                     return (
                                         <div
                                             className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
@@ -196,13 +158,12 @@ const ProductContainer = (props: Props) => {
                     </div>
                     <div className='hidden sm:block'>
                         <MenuList title='Mới nhất'>
-                            {loadingCategory ? <Skeleton active /> :
-                                <Space direction='vertical' size={12}>
-                                    {categoryProductNew?.map((el) => {
-                                        return <CardProductHorizontal key={el.id} {...el} />
-                                    })}
-                                </Space>
-                            }
+                            <Space direction='vertical' size={12}>
+                                {dataProductNew?.map((el: any) => {
+                                    return <CardProductHorizontal key={el.id} {...el} />
+                                })}
+                            </Space>
+
                         </MenuList>
                     </div>
                 </div>

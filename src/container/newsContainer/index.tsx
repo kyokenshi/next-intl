@@ -19,7 +19,6 @@ const NewsContainer = (props: Props) => {
         })();
     }, []);
 
-    console.log(listNews, "listNews");
 
 
     const listMenuProduct = [

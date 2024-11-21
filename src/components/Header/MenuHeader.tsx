@@ -25,9 +25,9 @@ const MenuHeader = (props: Props) => {
 
   const [masterData, setMasterData] = useState<any>();
 
-  const onTitleClick = (info: any) => {
-    router.push(`/${info.url}`);
-  }
+  // const onTitleClick = (info: any) => {
+  //   router.push(`/${info.url}`);
+  // }
 
   const transformMenuData = (data: any[]) => {
 
@@ -54,7 +54,7 @@ const MenuHeader = (props: Props) => {
           key: `${item.id}`,
           label: item.title,
           url: item.url,
-          onTitleClick: () => onTitleClick(item),
+          // onTitleClick: () => onTitleClick(item),
           __component: item.__component,
           children: item.product_category ? [
             {

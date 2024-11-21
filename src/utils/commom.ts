@@ -1,4 +1,6 @@
-import { getLocale } from "next-intl/server";
+
+import { NextRequest } from 'next/server';
+
 
 export const getLanguageFromCookie = () => {
     try {
@@ -20,14 +22,17 @@ export const getLanguageFromCookie = () => {
 };
 
 // Server-side version
-export const getServerLanguage = async () => {
+export const getServerLanguage = (req: NextRequest) => {
     try {
-        const locale = await getLocale();
+        // Lấy locale từ headers
+        const locale = req.headers.get('NEXT_LOCALE')?.split(',')[0] || 'en'; // fallback
         return locale;
     } catch (error) {
+        console.error('Error getting server language:', error); // Ghi log lỗi
         return 'en'; // fallback
     }
 };
+
 
 export const getImageUrl = (images: any): string => {
     if (!images) return '/assets/images/image_not_available.png'
