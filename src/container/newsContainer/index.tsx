@@ -7,9 +7,14 @@ import MenuList from '@/components/MenuList'
 import CardNew from '@/components/CardNew'
 import SectionTitle from '@/components/SectionTitle'
 import { getApiListNews } from '@/utils/axios/news'
-type Props = {}
+import Link from 'next/link'
 
-const NewsContainer = (props: Props) => {
+interface INewsProps {
+    dataListArtical: any
+}
+
+const NewsContainer = (props: INewsProps) => {
+    const { dataListArtical } = props;
 
     const [listNews, setListNews] = useState<any[]>([]);
     useEffect(() => {
@@ -18,7 +23,6 @@ const NewsContainer = (props: Props) => {
             setListNews(data.data);
         })();
     }, []);
-
 
 
     const listMenuProduct = [
@@ -51,14 +55,19 @@ const NewsContainer = (props: Props) => {
                     <div className='hidden sm:block'>
                         <Space direction='vertical' size={32}>
                             <MenuList title='Mới nhất'>
-                                <Space direction='vertical' size={4}>
-                                    {listMenuProduct.map((el) => {
-                                        return <div
-                                            className="px-[12px] leading-[27px] line-clamp-1 py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
-                                            key={el.id}
-                                        >
-                                            {el.name}
-                                        </div>;
+                                <Space direction='vertical' size={4} style={{ width: "100%" }}>
+                                    {dataListArtical?.map((el: any) => {
+                                        return (
+                                            <Link href={`${"news"}/${el.slug}`}>
+                                                <div
+                                                    className="px-[12px] leading-[27px] line-clamp-1 py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
+                                                    key={el.id}
+                                                >
+                                                    {el.name}
+                                                </div>
+                                            </Link>
+                                        )
+
                                     })}
                                 </Space>
                             </MenuList>

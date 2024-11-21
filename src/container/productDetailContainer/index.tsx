@@ -1,84 +1,37 @@
-import CardProductHorizontal from '@/components/CardNewHorizontal'
 import CardProduct from '@/components/CardProduct'
+import CardProductHorizontal from '@/components/CardProductHorizontal'
 import MenuList from '@/components/MenuList'
 import SectionTitle from '@/components/SectionTitle'
-import { Button, Divider, InputNumber, Space } from 'antd'
+import { formatPrice, getImageUrl } from '@/utils/commom'
+import { Divider, Space } from 'antd'
 import Image from 'next/image'
 import React from 'react'
 
-type Props = {}
+type Props = {
+    data: any;
+    dataProductNew: any
+}
 
 const ProductDetailContainer = (props: Props) => {
 
-    const listMenuProduct = [
-        {
-            id: 1,
-            name: 'Chưa phân loại'
-        },
-        {
-            id: 2,
-            name: 'Thiết Bị Khai Thác mỏ'
-        },
-        {
-            id: 3,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 4,
-            name: 'Cấp liệu rung'
-        },
-        {
-            id: 5,
-            name: 'Sản phầm khuyến mãi'
-        }
-    ];
+    const { data, dataProductNew } = props;
 
-    const productList = [
-        {
-            id: 1,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 2,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 3,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 4,
-            name: 'Máy nghiền cát'
-        }
-    ];
+    const elment = data[0];
 
-    const option = [
-        {
-            label: 'Máy nghiền cát',
-            value: 1
-        },
-        {
-            label: 'Máy nghiền cát',
-            value: 2
-        },
-        {
-            label: 'Máy nghiền cát',
-            value: 3
-        }
-    ];
+
 
 
     return (
         <div className='mb-[40px]'>
-            <SectionTitle title='Cấp liệu rung' description='Cấp liệu rung' />
+            <SectionTitle title={elment?.title} description={elment?.title} />
             <div className="max-w-[1200px] px-[0px] mx-auto">
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                     <div>
                         <div className='hidden sm:block'>
                             <MenuList title='Mới nhất'>
                                 <Space direction='vertical' size={12}>
-                                    {listMenuProduct.map((el) => {
-                                        return <CardProductHorizontal key={el.id} />;
+                                    {dataProductNew.map((el: any) => {
+                                        return <CardProductHorizontal key={el.id} {...el} />;
                                     })}
                                 </Space>
                             </MenuList>
@@ -87,16 +40,16 @@ const ProductDetailContainer = (props: Props) => {
                     <div className='w-[100%] flex flex-col'>
                         <div className='flex gap-[35px]'>
                             <div>
-                                <img src='https://hoaphatthietbi.com/wp-content/uploads/2023/01/image9.jpg' alt='product-detail' />
+                                <Image width={380} height={380} objectFit='cover' src={getImageUrl(elment.images[0]?.formats?.thumbnail?.url)} alt='product-detail' />
                             </div>
                             <Space direction='vertical' size={12}>
-                                <div className='capitalize text-[22px] font-semibold'>Cấp độ rung</div>
+                                <div className='capitalize text-[22px] font-semibold'>{elment?.title}</div>
                                 <div>
                                     <Divider />
-                                    1VNĐ
+                                    {formatPrice(elment.price)}
                                     <Divider />
                                 </div>
-                                <div>Danh mục:<span>Cấp độ rung</span>, <span>Thiết bị khai thác mỏ</span></div>
+                                <div>Danh mục : <span>{elment?.product_category?.title}</span></div>
                                 {/* <Space size={12} >
                                     <InputNumber min={1} />
                                     <div>
@@ -107,22 +60,13 @@ const ProductDetailContainer = (props: Props) => {
                         </div>
                         <div>
                             <div className='text-[#fff] bg-[#2865c2] px-[30px] py-[5px] text-[14px] font-semibold w-[fit-content]'>Mô tả</div>
-                            <div className='border-[1px] border-[#dcdcdc] pt-[24px] pb-[16px] '>
-                                {/* <img
-                                    src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/image21.jpg"
-                                    alt="Description"
-                                /> */}
-                                <div className="relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
-                                    <Image
-                                        className="object-cover" // Thêm object-cover
-                                        src="https://hoaphatthietbi.com/wp-content/uploads/2023/01/image21.jpg"
-                                        alt="Description"
-                                        fill
-                                    />
-                                </div>
+                            <div className='border-[1px] border-[#dcdcdc] p-[16px] '>
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: elment.content }}
+                                ></div>
                             </div>
                         </div>
-                        <div className='mt-[24px]'>
+                        {/* <div className='mt-[24px]'>
                             <div className='text-[24px] font-semibold uppercase border-b-[1px] border-[ #c2c6c6] pb-[16px]'>
                                 Sản phẩm tương tự
                             </div>
@@ -134,7 +78,7 @@ const ProductDetailContainer = (props: Props) => {
                                 </div>
 
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

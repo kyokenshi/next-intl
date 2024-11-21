@@ -7,6 +7,7 @@ interface ProductDataResquest {
   locale?: string;
   categoryId?: string;
 }
+// Client
 
 export const getApiProduct = async (props: ProductDataResquest): Promise<any> => {
   const { categoryId } = props
@@ -26,4 +27,36 @@ export const getApiProduct = async (props: ProductDataResquest): Promise<any> =>
   const res = await fetch(`${query}` + `&populate=images`);
   const data = await res.json();
   return data;
+};
+
+
+
+interface ProductDataDetailResquest {
+  locale?: string;
+  slug?: string;
+}
+// SSR
+export const getApiProductDetail = async (props: ProductDataDetailResquest): Promise<any> => {
+  const { locale, slug } = props
+
+  const res = await fetch(`${API_URL}/api/productions?locale=${locale}&filters[slug]=${slug}&populate=*`);
+  const data = await res.json();
+  return data;
+};
+
+
+
+interface FilmDataResquest {
+  locale: string
+}
+// SSR
+export const getProductNew = async (props: FilmDataResquest) => {
+  const { locale } = props
+  const res = await fetch(`${API_URL}/api/productions?locale=${locale}&pagination[page]=1&pagination[pageSize]=4&sort=createdAt:desc&populate=*`, {
+    next: { revalidate: 300 },
+  });
+
+  const data = await res.json();
+
+  return { data: data };
 };

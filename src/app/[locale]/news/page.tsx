@@ -2,19 +2,21 @@ import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
 import NewsContainer from '@/container/newsContainer';
+import { getApiListCategoryArticle } from '@/utils/axios/news';
 
 type Props = {
     params: { locale: string };
 };
 
-export default function NewsPage({ params: { locale } }: Props) {
+export default async function NewsPage({ params: { locale } }: Props) {
     // Enable static rendering
     setRequestLocale(locale);
 
-    const t = useTranslations('PathnamesPage');
+    const { data } = await getApiListCategoryArticle({ locale })
+
 
     return (
-        <PageLayout title={t('title')}>
+        <PageLayout>
             {/* <div className="max-w-[490px]">
                 {t.rich('description', {
                     p: (chunks) => <p className="mt-4">{chunks}</p>,
@@ -23,7 +25,7 @@ export default function NewsPage({ params: { locale } }: Props) {
                     )
                 })}
             </div> */}
-            <NewsContainer />
+            <NewsContainer dataListArtical={data} />
         </PageLayout>
     );
 }

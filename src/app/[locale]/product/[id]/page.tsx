@@ -3,22 +3,23 @@ import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
 import ProductContainer from '@/container/productContainer';
 import ProductDetailContainer from '@/container/productDetailContainer';
+import { getApiProductDetail, getProductNew } from '@/utils/axios/product';
 
 type Props = {
   params: { locale: string, id: string };
 };
 
-export default function PathnamesPage({ params: { locale, id } }: Props) {
+export default async function ProductDetailPage({ params: { locale, id } }: Props) {
   // Enable static rendering
   setRequestLocale(locale);
 
+  const { data } = await getApiProductDetail({ locale, slug: id });
 
-
-  const t = useTranslations('PathnamesPage');
+  const { data: dataProductNew } = await getProductNew({ locale });
 
   return (
-    <PageLayout title={t('title')}>
-      <ProductDetailContainer />
+    <PageLayout >
+      <ProductDetailContainer data={data} dataProductNew={dataProductNew.data} />
     </PageLayout>
   );
 }

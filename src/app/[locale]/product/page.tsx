@@ -1,9 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
 import ProductContainer from '@/container/productContainer';
-import { getApiProduct } from '@/utils/axios/product';
+import { getApiProduct, getProductNew } from '@/utils/axios/product';
 import { getCategoryProduct } from '@/utils/axios/productCategory';
-import { getProductNew } from '@/utils/axios/productNew';
 
 type Props = {
   params: { locale: string, id: string };
