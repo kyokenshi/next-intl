@@ -3,7 +3,6 @@ import CardProduct from '@/components/CardProduct';
 import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
 import { getApiProduct } from '@/utils/axios/product';
-import { getCategoryProduct, getCategoryProductID } from '@/utils/axios/productCategory';
 import { Pagination, Select, Skeleton, Space } from 'antd';
 import Link from 'antd/es/typography/Link';
 import React, { useEffect, useState } from 'react';
@@ -66,7 +65,7 @@ export interface Product {
     id: number;
     documentId: string;
     title: string;
-    url: string;
+    slug: string;
     description: string;
     content: string;
     price: number;
@@ -80,7 +79,7 @@ export interface Product {
 }
 
 interface Props {
-    params: { id?: string };
+    params: { id?: any };
     dataCategoryProduct: any
     dataProductNew: any
 }
@@ -89,33 +88,23 @@ const ProductContainer = (props: Props) => {
 
     const { id } = props.params;
     const { dataCategoryProduct, dataProductNew } = props
-
-
     const [productList, setProductList] = useState<Product[]>([]);
-    // const [categoryProduct, setCategoryProduct] = useState<ProductCategory[]>([]);
-
     const [loading, setLoading] = useState(true);
 
 
     const onGetListProduct = async () => {
         try {
-            const resp = await getApiProduct();
+
+            const resp = await getApiProduct({ categoryId: id?.[0] });
             setProductList(resp.data);
         } finally {
             setLoading(false);
         }
     }
 
-
-
-
     useEffect(() => {
         onGetListProduct();
     }, [])
-
-
-
-
 
 
     const option = [

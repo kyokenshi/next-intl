@@ -10,10 +10,10 @@ import Link from 'antd/es/typography/Link';
 type Props = Product;
 
 const CardProduct = (props: Props) => {
-    const { id, title, price, images = "", url } = props;
+    const { id, title, price, images = "", slug } = props;
 
     return (
-        <Link href={`/product/${url}`}>
+        <Link href={`/product/${slug}`}>
             <StyledCardProduct>
                 <div className="card-product bg-[#F4F4F4] ">
                     <div className="p-[6px] relative">

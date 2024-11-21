@@ -25,6 +25,7 @@ export class StrapiQuery {
         return this;
     }
 
+
     setFilter(field: string, operator: string, value: string): this {
         this.params.push(`filters[${field}][${operator}]=${value}`);
         return this;
