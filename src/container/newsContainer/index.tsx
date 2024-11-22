@@ -82,7 +82,7 @@ const NewsContainer = (props: INewsProps) => {
                     </div>
                     <div className='grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]'>
                         {listNews.map((el) => {
-                            return <div key={el.id}><CardNew title={el.title} description={el.description} /></div>;
+                            return <div key={el.id}><CardNew title={el.title} description={el.description} {...el} /></div>;
                         })}
                     </div>
                 </div>

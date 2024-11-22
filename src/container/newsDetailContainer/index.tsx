@@ -5,11 +5,17 @@ import React from 'react'
 import MenuList from '@/components/MenuList'
 import CardNew from '@/components/CardNew'
 import SectionTitle from '@/components/SectionTitle'
+import { onFormatDate } from '@/utils/commom'
 type Props = {
     params: { id: string };
+    dataDetail: any
 }
 
 const NewsDetailContainer = (props: Props) => {
+
+    const { dataDetail } = props;
+
+    const elment = dataDetail[0]
 
     const { id } = props.params;
 
@@ -35,6 +41,8 @@ const NewsDetailContainer = (props: Props) => {
             name: 'Sản phầm khuyến mãi'
         }
     ];
+
+
     return (
         <div className='mb-[40px]'>
             <SectionTitle title='Máy nghiền cát và nhu cầu cát nhân tạo tại tỉnh Bình Thuận' description='Máy nghiền cát và nhu cầu cát nhân tạo tại tỉnh Bình Thuận' />
@@ -50,9 +58,11 @@ const NewsDetailContainer = (props: Props) => {
                         </MenuList>
                     </div>
                     <div className='w-full'>
-                        Máy nghiền cát và nhu cầu cát nhân tạo tại tỉnh Bình Thuận
-                        Bởi Chili System | 01/30/2023
-                        Tỉnh Bình Thuận thuộc vùng duyên hải nam trung bộ nằm cách thành phố Hồ Chí Minh hơn 200Km về phía đông là địa phương nổi tiếng với địa điểm du lịch Mũi Né và có nhiều khu công nghiệp khu chế xuất, những năm gần đây do nhu cầu phát triển du lịch tăng cao các công trình xây dựng khách sạn nhà nghỉ nhà hàng, khu nghỉ dưỡng mọc lên dẫn đến nhu cầu ngày càng nhiều về các loại vật liệu xây dựng trong đó cát xây dựng là tài nguyên ngày càng khan hiếm.
+                        <div className='text-[32px] mb-[16px]'>{elment.title}</div>
+                        <div className='mb-[16px]'>{onFormatDate(elment.createdAt)}</div>
+                        <div
+                            dangerouslySetInnerHTML={{ __html: elment.content }}>
+                        </div>
                     </div>
                 </div>
             </div>

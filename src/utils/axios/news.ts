@@ -1,12 +1,17 @@
 import { API_URL } from "@/utils/axios/constants";
 import { getLanguageFromCookie } from "../commom";
+import { StrapiQuery } from "../strapi-query";
 
 // Client
-export const getApiListNews = async (
-    filmId?: string,
-): Promise<any> => {
+export const getApiListNews = async (): Promise<any> => {
     const language = getLanguageFromCookie();
-    const res = await fetch(`http://159.89.205.46:1337/api/articles?locale=vi&pagination[page]=1&pagination[pageSize]=10&sort=createdAt:desc&populate=*`);
+
+    const query = new StrapiQuery('articles')
+        .setLocale(language)
+        .setPagination(9, false)
+        .setSort('createdAt', 'desc');
+
+    const res = await fetch(`${query + `&populate=*`}`);
     const data = await res.json();
     return data;
 };
@@ -26,4 +31,17 @@ export const getApiListCategoryArticle = async (props: ListCategoryArticle): Pro
 };
 
 
+
+
+interface ProductDataDetailResquest {
+    locale?: string;
+    slug?: string;
+}
+// SSR
+export const getApiNewsDetail = async (props: ProductDataDetailResquest): Promise<any> => {
+    const { locale, slug } = props
+    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&filters[slug]=${slug}`);
+    const data = await res.json();
+    return data;
+};
 

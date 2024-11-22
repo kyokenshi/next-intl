@@ -43,3 +43,16 @@ export const getImageUrl = (images: any): string => {
 export const formatPrice = (price: number) => {
     return !price ? "Contact us" : price + " $"
 };
+
+
+export const onFormatDate = (date: Date) => {
+
+    const newDate = new Date(date);
+
+    const day = String(newDate.getDate()).padStart(2, "0");
+    const month = String(newDate.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = newDate.getFullYear();
+
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+}
