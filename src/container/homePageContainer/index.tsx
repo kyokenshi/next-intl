@@ -21,10 +21,6 @@ const HomePageContainer = async (props: Props) => {
 
     const { data: dataPartner } = await getApiPartner()
 
-
-
-
-
     return (
         <div>
             <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[400px] lg:h-[540px] mt-[0px] sm:mt-[20px] mb-[32px]'>
@@ -49,7 +45,6 @@ const HomePageContainer = async (props: Props) => {
             {dataSection[0]?.product_list?.map((el: any) => {
                 return <HotDeal key={el.id} {...el} />
             })}
-
             <News />
             <SupportInformation dataPartner={dataPartner} />
             <RegisterInfomation />

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { API_URL } from "./constants";
 
 
@@ -43,3 +44,22 @@ export const getApiPartner = async (): Promise<any> => {
     const data = await res.json();
     return data;
 };
+
+
+interface ProductDataConfigResquest {
+    locale?: string;
+}
+
+const getApiConfig = async (props: ProductDataConfigResquest): Promise<any> => {
+    const { locale } = props
+    const res = await fetch(`${API_URL}/api/setting-website?locale=${locale}&populate=*`, {
+        next: { revalidate: 300 },
+    });
+    const data = await res.json();
+    return data;
+};
+
+export const getConfigData = cache(getApiConfig);
+
+
+

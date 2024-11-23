@@ -4,9 +4,13 @@ import MenuHeader from './MenuHeader';
 import { Affix } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getImageUrl } from '@/utils/commom';
 
-export default function Navigation() {
+export default function Navigation({ dataConfig }: any) {
   const t = useTranslations('Navigation');
+
+  console.log(dataConfig, "dataConfig");
+
 
 
   return (
@@ -15,7 +19,7 @@ export default function Navigation() {
         <div className='flex items-center gap-[10px]'>
           <Link href="/">
             <Image
-              src="/assets/images/logo.png"
+              src={getImageUrl(dataConfig?.logo?.url)}
               alt="Logo_Home"
               width={90}
               height={60}
@@ -23,13 +27,15 @@ export default function Navigation() {
           </Link>
           <div className='hidden sm:flex   align-middle'>
             <div className="icon-home"></div>
-            <div className="text"><p className='text-12'>Tòa nhà Hòa Phát</p><p className='text-12'>Hoàng Mai, Hà Nội</p></div>
+            <div className="text"><p className='text-12'>{dataConfig.office}</p>
+              {/* <p className='text-12'>Hoàng Mai, Hà Nội</p> */}
+            </div>
           </div>
         </div>
 
         <div className='hidden sm:flex align-middle'>
           <div className="icon-mail mr-1" ></div>
-          <div className="text"><p className='text-12'> Hoaphatthietbi.banhang@gmail.com</p><p className='text-12'> 0983.884.194</p></div>
+          <div className="text"><p className='text-12'>{dataConfig.email}</p><p className='text-12'>{dataConfig.phone}</p></div>
         </div>
 
         <div className='hidden sm:flex align-middle'>

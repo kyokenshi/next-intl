@@ -12,10 +12,8 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const MenuHome = (props: Props) => {
     const router = useRouter();
-
     const [listCategoryHome, setListCategoryHome] = useState<any[]>([])
     const [loading, setLoading] = useState(true);
-
     const onGetListMenu = async () => {
         try {
             setLoading(true)
@@ -32,10 +30,6 @@ const MenuHome = (props: Props) => {
             console.log(error);
         }
     }
-
-
-
-
     const transformMenuData = (data: any[]) => {
         return data.map(item => {
             return {
@@ -51,8 +45,6 @@ const MenuHome = (props: Props) => {
             }
         }).filter(Boolean);
     };
-
-
 
     // Hàm tìm phần tử theo key
     const findElementByKey = (key: number) => {

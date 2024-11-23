@@ -6,6 +6,7 @@ import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
 import Navigation from './Header/Navigation';
 import Footer from './Footer';
+import { getConfigData } from '@/utils/axios/home';
 
 // const inter = Inter({ subsets: ['latin'] });
 const roboto = Roboto({
@@ -39,11 +40,13 @@ export default async function BaseLayout({ children, locale }: Props) {
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  const { data: dataConfig } = await getConfigData({ locale })
+
   return (
     <html className="h-full" lang={locale}>
       <body className={clsx('flex h-full flex-col', roboto.className)}>
         <NextIntlClientProvider messages={messages}>
-          <Navigation />
+          <Navigation dataConfig={dataConfig} />
           {children}
           <Footer />
         </NextIntlClientProvider>
