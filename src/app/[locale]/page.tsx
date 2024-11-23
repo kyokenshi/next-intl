@@ -33,7 +33,7 @@ export default function IndexPage({ params: { locale } }: Props) {
           )
         })}
       </p> */}
-      <HomePageContainer />
+      <HomePageContainer params={{ locale }} />
 
     </PageLayout>
   );

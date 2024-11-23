@@ -19,7 +19,7 @@ const CardNew = (props: Props) => {
                 <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                     <Image
                         className="object-cover" // Thêm object-cover
-                        src={getImageUrl(cover?.formats?.thumbnail?.url)}
+                        src={getImageUrl(cover?.formats?.medium?.url)}
                         alt="product"
                         fill
                     // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

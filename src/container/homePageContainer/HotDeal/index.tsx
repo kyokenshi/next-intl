@@ -5,18 +5,25 @@ import CardProduct from '@/components/CardProduct'
 import CarouselItem from '../../components/CarouselItem'
 import { FireFilled } from '@ant-design/icons'
 
-type Props = {}
+type HotDealProps = {
+    title?: string
+    productions: any[]
+}
 
-const HotDeal = (props: Props) => {
+const HotDeal = (props: HotDealProps) => {
+    const { title, productions } = props;
+
+
     return (
         <StyledHotDeal>
             <StyledHotDealTitle className='mb-[16px]'>
                 <div className='hot-deal-title'>
                     <div><FireFilled /></div>
-                    <h3>Hot Deal</h3>
+                    <h3>{title}</h3>
                 </div>
             </StyledHotDealTitle>
             <CarouselItem
+                itemLength={productions.length}
                 responsive={[
                     {
                         breakpoint: 1024,
@@ -34,24 +41,7 @@ const HotDeal = (props: Props) => {
                         }
                     }
                 ]}>
-                <div>
-                    <CardProduct />
-                </div>
-                <div>
-                    <CardProduct />
-                </div>
-                <div>
-                    <CardProduct />
-                </div>
-                <div>
-                    <CardProduct />
-                </div>
-                <div>
-                    <CardProduct />
-                </div>
-                <div>
-                    <CardProduct />
-                </div>
+                {productions?.map((product) => (<div> <CardProduct {...product} /></div>))}
             </CarouselItem>
         </StyledHotDeal>
     )

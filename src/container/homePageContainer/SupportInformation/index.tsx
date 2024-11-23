@@ -1,11 +1,16 @@
 "use client"
 
 import CarouselMenu from '@/container/components/CarouselMenu';
+import { getImageUrl } from '@/utils/commom';
 import React from 'react';
 
-type Props = {};
+type Props = {
+    dataPartner: any
+};
 
 const SupportInformation = (props: Props) => {
+    const { dataPartner } = props
+
     const supportInformation = [
         {
             title: 'VẬN CHUYỂN VÀ LẮP ĐẶT',
@@ -81,7 +86,7 @@ const SupportInformation = (props: Props) => {
                         }
                     }
                 ]}>
-                    {supportImg.map((el, index) => <div key={index}><img src={el.img} alt={el.description} /></div>)}
+                    {dataPartner?.map((el: any) => <div key={el.id}><img src={getImageUrl(el?.image?.url)} alt={el.description} /></div>)}
                 </CarouselMenu>
             </div>
         </div >

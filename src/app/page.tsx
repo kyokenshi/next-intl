@@ -6,6 +6,7 @@ import PageLayout from '@/components/PageLayout';
 import { cookies } from 'next/headers';
 import { Viewport } from 'next';
 import { Metadata } from 'next';
+import { getApiCategoryHome } from '@/utils/axios/home';
 
 type Props = {
   params: { locale: string };
@@ -26,20 +27,17 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 
-export default function HomePage({ params: { locale } }: Props) {
+export default async function HomePage() {
   // Enable static rendering
   const cookieStore = cookies();
   const localeCookie = cookieStore.get('NEXT_LOCALE');
   setRequestLocale(localeCookie?.value ?? 'en');
 
-  const t = useTranslations('PathnamesPage');
-
-
 
   return (
     <BaseLayout locale={localeCookie?.value ?? "en"}>
       <PageLayout>
-        <HomePageContainer />
+        <HomePageContainer params={{ locale: localeCookie?.value ?? "en" }} />
       </PageLayout>
     </BaseLayout>
   );

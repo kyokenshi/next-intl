@@ -44,7 +44,7 @@ const MenuHeader = (props: Props) => {
         return {
           key: item.id.toString(),
           label: item.title,
-          url: item?.article?.slug,
+          url: "news",
           __component: item.__component
         };
       }
@@ -142,10 +142,6 @@ const MenuHeader = (props: Props) => {
   };
 
 
-
-
-
-
   return (
     <Affix>
       <div className='min-h-[46px] bg-blue-1000 '>
@@ -156,9 +152,9 @@ const MenuHeader = (props: Props) => {
             rootClassName='menu-header'
             items={masterData}
           />
-          <div className='min-h-[46px] flex items-center min-w-[auto] md:min-w-[300px]'>
+          {/* <div className='min-h-[46px] flex items-center min-w-[auto] md:min-w-[300px]'>
             <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} />
-          </div>
+          </div> */}
         </StyledMenu>
       </div>
     </Affix>
