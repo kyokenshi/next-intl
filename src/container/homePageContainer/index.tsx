@@ -7,7 +7,7 @@ import News from './News';
 import SupportInformation from './SupportInformation';
 import RegisterInfomation from './RegisterInfomation';
 import Image from 'next/image';
-import { getApiPartner, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
+import { getApiCategoryHome, getApiPartner, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
 
 type Props = {
@@ -20,6 +20,8 @@ const HomePageContainer = async (props: Props) => {
     const { data: dataSection } = await getApiSliderSection({ locale: params.locale })
 
     const { data: dataPartner } = await getApiPartner()
+
+
 
 
 

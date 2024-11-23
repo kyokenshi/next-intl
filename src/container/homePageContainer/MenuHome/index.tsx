@@ -1,78 +1,95 @@
 'use client'
-import { Menu, MenuProps } from 'antd'
-import React from 'react'
+import { Menu, MenuProps, Skeleton } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
 import { StyledMenuHome } from './styles';
+import { getApiCategoryHome } from '@/utils/axios/home';
+import { getImageUrl } from '@/utils/commom';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type Props = {}
 type MenuItem = Required<MenuProps>['items'][number];
 
 const MenuHome = (props: Props) => {
+    const router = useRouter();
 
-    const items: MenuItem[] = [
-        {
-            label: 'Navigation One',
-            key: 'mail',
-        },
-        {
-            key: 'sub1',
-            label: 'Navigation One',
-            children: [
-                {
-                    key: '1-1',
-                    label: 'Item 1',
-                    type: 'group',
-                    children: [
-                        { key: '1', label: 'Option 1' },
-                        { key: '2', label: 'Option 2' },
-                    ],
-                },
-                {
-                    key: '1-2',
-                    label: 'Item 2',
-                    type: 'group',
-                    children: [
-                        { key: '3', label: 'Option 3' },
-                        { key: '4', label: 'Option 4' },
-                    ],
-                },
-            ],
-        },
-        {
-            key: 'sub2',
-            label: 'Navigation Two',
-            children: [
-                { key: '5', label: 'Option 5' },
-                { key: '6', label: 'Option 6' },
-                {
-                    key: 'sub3',
-                    label: 'Submenu',
-                    children: [
-                        { key: '7', label: 'Option 7' },
-                        { key: '8', label: 'Option 8' },
-                    ],
-                },
-            ],
-        },
-        {
-            key: 'sub4',
-            label: 'Navigation Three',
-            children: [
-                { key: '9', label: 'Option 9' },
-                { key: '10', label: 'Option 10' },
-                { key: '11', label: 'Option 11' },
-                { key: '12', label: 'Option 12' },
-            ],
-        },
-    ];
+    const [listCategoryHome, setListCategoryHome] = useState<any[]>([])
+    const [loading, setLoading] = useState(true);
 
-    const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click', e);
+    const onGetListMenu = async () => {
+        try {
+            setLoading(true)
+            await getApiCategoryHome().then((resp) => {
+                if (resp.data.product_category.length > 0) {
+                    const newData = transformMenuData(resp.data.product_category)
+                    setListCategoryHome(newData);
+                }
+            }).finally(() => {
+                setLoading(false);
+
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+
+    const transformMenuData = (data: any[]) => {
+        return data.map(item => {
+            return {
+                key: item.id,
+                icon: <Image src={getImageUrl(item?.icon?.url)} width={24} height={24} alt={item?.icon?.name} />,
+                label: item.title,
+                onTitleClick: () => handleTitleClick(item),
+                children: item.product_categories?.map((el: any) => ({
+                    label: el.title,
+                    key: el.id,
+                    url: el.url
+                })),
+            }
+        }).filter(Boolean);
     };
+
+
+
+    // Hàm tìm phần tử theo key
+    const findElementByKey = (key: number) => {
+        if (listCategoryHome.length == 0) {
+            return
+        }
+
+        const newList = [...listCategoryHome];
+        for (const item of newList) {
+            if (item.key == key) return item;
+            const child = item.children?.find((child: any) => child.key == key);
+            if (child) return child
+        }
+        return null;
+    };
+
+
+    const handleTitleClick = (item: any) => {
+    }
+
+    const onClick: MenuProps['onClick'] = ({ key }) => {
+        const element = findElementByKey(Number(key));
+        router.push(`${element.url}`)
+    };
+
+
+
+    useEffect(() => {
+        onGetListMenu()
+    }, [])
+
 
     return (
         <StyledMenuHome className='bg-[#F0F0F0] '>
             <div className='p-[20px] bg-blue-1000 text-ellipsis  text-white text-16px '>Danh mục sản phẩm</div>
-            <Menu onClick={onClick} mode="vertical" items={items} rootClassName='menu-home-custom' />
+            {loading ? <Skeleton active /> : <Menu onClick={onClick} mode="vertical" items={listCategoryHome} rootClassName='menu-home-custom' />
+            }
         </StyledMenuHome>
 
 

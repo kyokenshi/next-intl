@@ -29,6 +29,7 @@ const MenuHeader = (props: Props) => {
   //   router.push(`/${info.url}`);
   // }
 
+
   const transformMenuData = (data: any[]) => {
 
     return data.map(item => {
@@ -86,8 +87,6 @@ const MenuHeader = (props: Props) => {
       }
     })();
   }, []);
-
-  const { Search } = Input;
 
 
 

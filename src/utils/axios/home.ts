@@ -6,8 +6,7 @@ interface ProductDataDetailResquest {
     slug?: string;
 }
 // SSR
-export const getApiCategoryHome = async (props: ProductDataDetailResquest): Promise<any> => {
-    const { locale, slug } = props
+export const getApiCategoryHome = async (): Promise<any> => {
     const res = await fetch(`${API_URL}/api/menu-home?locale=vi&populate[product_category][populate]=*`);
     const data = await res.json();
     return data;
@@ -16,9 +15,7 @@ export const getApiCategoryHome = async (props: ProductDataDetailResquest): Prom
 
 
 export const getApiSliderbanner = async (): Promise<any> => {
-    const res = await fetch(`${API_URL}/api/sliders?populate=*`, {
-        next: { revalidate: 300 },
-    });
+    const res = await fetch(`${API_URL}/api/sliders?populate=*`);
     const data = await res.json();
     return data;
 };
@@ -40,7 +37,7 @@ export const getApiSliderSection = async (props: ProductDataSliderSectionResques
 
 
 export const getApiPartner = async (): Promise<any> => {
-    const res = await fetch(`${API_URL}/api/clients?populate=*`, {
+    const res = await fetch(`${API_URL}/api/clients?populate=* `, {
         next: { revalidate: 300 },
     });
     const data = await res.json();
