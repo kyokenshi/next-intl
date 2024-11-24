@@ -39,7 +39,7 @@ export const getCategoryProductID = async (
 
   const query = new StrapiQuery('productions')
     .setLocale(language)
-    .setPagination(1000, false)
+    .setPagination(1000)
     .setSort('createdAt', 'desc');
 
   if (categoryId) {
