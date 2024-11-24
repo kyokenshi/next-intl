@@ -83,12 +83,13 @@ interface Props {
     params: { id?: any };
     dataCategoryProduct: any
     dataProductNew: any
+    dataConfig: any
 }
 
 const ProductContainer = (props: Props) => {
 
     const { id } = props.params;
-    const { dataCategoryProduct, dataProductNew } = props
+    const { dataCategoryProduct, dataProductNew, dataConfig } = props
     const [productList, setProductList] = useState<Product[]>([]);
     const [pagination, setPagination] = useState<any>({});
 
@@ -128,7 +129,7 @@ const ProductContainer = (props: Props) => {
                 <div>
                     <div className="mb-[32px] hidden sm:block">
 
-                        <MenuList title='Danh mục sản phẩm'>
+                        <MenuList title={dataConfig.name_category_home}>
                             {
                                 dataCategoryProduct?.map((el: any) => {
                                     return (
@@ -146,7 +147,7 @@ const ProductContainer = (props: Props) => {
 
                     </div>
                     <div className='hidden sm:block'>
-                        <MenuList title='Mới nhất'>
+                        <MenuList title={dataConfig.name_product_new}>
                             <Space direction='vertical' size={12}>
                                 {dataProductNew?.map((el: any) => {
                                     return <CardProductHorizontal key={el.id} {...el} />

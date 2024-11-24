@@ -7,7 +7,7 @@ import News from './News';
 import SupportInformation from './SupportInformation';
 import RegisterInfomation from './RegisterInfomation';
 import Image from 'next/image';
-import { getApiListCategoryArticleHome, getApiPartner, getApiService, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
+import { getApiListCategoryArticleHome, getApiPartner, getApiService, getApiSliderbanner, getApiSliderSection, getConfigData } from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
 import { getApiListCategoryArticle } from '@/utils/axios/news';
 
@@ -25,12 +25,13 @@ const HomePageContainer = async (props: Props) => {
     const { data: dataArticle } = await getApiListCategoryArticleHome({ locale: params.locale })
     const { data: dataService } = await getApiService({ locale: params.locale })
 
+    const { data: dataConfig } = await getConfigData({ locale: params.locale })
 
     return (
         <div>
             <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[330px] lg:h-[350px] mt-[0px] sm:mt-[20px] mb-[32px]'>
                 <div className='hidden sm:block'>
-                    <MenuHome locale={params.locale} />
+                    <MenuHome locale={params.locale} dataConfig={dataConfig} />
                 </div>
                 <div className="relative w-full h-full overflow-hidden ">
                     <CarouselMenu>
@@ -51,8 +52,8 @@ const HomePageContainer = async (props: Props) => {
                 return <HotDeal key={el.id} {...el} />
             })}
             <News dataArticle={dataArticle} />
-            <SupportInformation dataPartner={dataPartner} dataService={dataService} />
-            <RegisterInfomation />
+            <SupportInformation dataPartner={dataPartner} dataService={dataService} dataConfig={dataConfig} />
+            <RegisterInfomation dataConfig={dataConfig} />
         </div>
     )
 }

@@ -4,13 +4,18 @@ import { subscribeEmail } from '@/utils/axios/home';
 import { Form, GetProps, Input } from 'antd';
 import React from 'react';
 
-type Props = {};
+type Props = {
+    dataConfig?: any
+};
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
 const RegisterInfomation = (props: Props) => {
+
+    const { dataConfig } = props
+
 
     const [form] = Form.useForm();
 
@@ -31,7 +36,7 @@ const RegisterInfomation = (props: Props) => {
         }}>
             <div className='flex items-center max-w-[1200px] mx-auto gap-[24px] md:gap-x-[80px] p-[6px] md:p-[24px] flex-wrap'>
                 <div>
-                    <strong> ĐĂNG KÝ NHẬN TIN</strong> VÀ NHẬN KHUYẾN MÃI TỪ CHÚNG TÔI
+                    <strong> {dataConfig?.name_subscribe}</strong>
                 </div>
                 <Form name='email_form'
                     form={form}

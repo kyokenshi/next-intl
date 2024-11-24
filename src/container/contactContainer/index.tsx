@@ -38,7 +38,7 @@ const ContactContainer = (props: Props) => {
                     <div><strong>Phone</strong> : {dataConfig.phone}</div>
                     <div><strong>Email</strong> : {dataConfig.email}</div>
                 </div>
-                <div className='text-[24px] font-semibold text-center mt-[24px]'>Liên hệ với chúng tôi</div>
+                <div className='text-[24px] font-semibold text-center mt-[24px]'>{dataConfig.name_contact_us}</div>
                 <Form name="contact" form={form} onFinish={onFinish}>
                     <div className=' w-full flex flex-col gap-[6px]'>
                         <div>Họ tên</div>

@@ -8,6 +8,7 @@ import React from 'react';
 type Props = {
     dataPartner: any
     dataService: any
+    dataConfig: any
 };
 
 const SupportInformation = (props: Props) => {
