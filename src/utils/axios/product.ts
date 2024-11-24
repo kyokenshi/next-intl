@@ -16,7 +16,7 @@ export const getApiProduct = async (props: ProductDataResquest): Promise<any> =>
 
   const query = new StrapiQuery('productions')
     .setLocale(language)
-    .setPagination(1000, false)
+    .setPagination(9, false)
     .setSort('createdAt', 'desc');
 
 
@@ -60,3 +60,5 @@ export const getProductNew = async (props: FilmDataResquest) => {
 
   return { data: data };
 };
+
+

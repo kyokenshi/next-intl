@@ -9,7 +9,6 @@ import { getImageUrl } from '@/utils/commom';
 export default function Navigation({ dataConfig }: any) {
   const t = useTranslations('Navigation');
 
-  console.log(dataConfig, "dataConfig");
 
 
 

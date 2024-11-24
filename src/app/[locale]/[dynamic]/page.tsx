@@ -2,15 +2,14 @@ import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
 import DynamicContainer from '@/container/dynamicContainer';
-
+import { getHeaderDataSSR } from '@/utils/axios/header';
 type Props = {
-    params: { locale: string };
+    params: { locale: string, dynamic: string };
 };
 
-export default function IntroducePage({ params: { locale } }: Props) {
+export default async function DynamicPage({ params: { locale, dynamic } }: Props) {
     // Enable static rendering
     setRequestLocale(locale);
-    const t = useTranslations('PathnamesPage');
 
     return (
         <PageLayout>

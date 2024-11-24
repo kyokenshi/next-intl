@@ -53,7 +53,7 @@ const NewsContainer = (props: INewsProps) => {
             <div className="max-w-[1200px] px-[0px] mx-auto">
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                     <div className='hidden sm:block'>
-                        <Space direction='vertical' size={32}>
+                        <Space direction='vertical' size={32} className='min-w-full'>
                             <MenuList title='Mới nhất'>
                                 <Space direction='vertical' size={4} style={{ width: "100%" }}>
                                     {dataListArtical?.map((el: any) => {
@@ -71,13 +71,13 @@ const NewsContainer = (props: INewsProps) => {
                                     })}
                                 </Space>
                             </MenuList>
-                            <MenuList title='Liên quan'>
+                            {/* <MenuList title='Liên quan'>
                                 <Space direction='vertical' size={12}>
                                     {listMenuProduct.map((el) => {
                                         return <CardNewHorizontal key={el.id} />;
                                     })}
                                 </Space>
-                            </MenuList>
+                            </MenuList> */}
                         </Space>
                     </div>
                     <div className='grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]'>

@@ -2,8 +2,9 @@
 import CardProduct from '@/components/CardProduct';
 import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
+import Pagination from '@/components/Pagination';
 import { getApiProduct } from '@/utils/axios/product';
-import { Pagination, Select, Skeleton, Space } from 'antd';
+import { Select, Skeleton, Space } from 'antd';
 import Link from 'antd/es/typography/Link';
 import React, { useEffect, useState } from 'react';
 
@@ -94,7 +95,6 @@ const ProductContainer = (props: Props) => {
 
     const onGetListProduct = async () => {
         try {
-
             const resp = await getApiProduct({ categoryId: id?.[0] });
             setProductList(resp.data);
         } finally {
@@ -152,7 +152,6 @@ const ProductContainer = (props: Props) => {
                                     return <CardProductHorizontal key={el.id} {...el} />
                                 })}
                             </Space>
-
                         </MenuList>
                     </div>
                 </div>
@@ -166,12 +165,12 @@ const ProductContainer = (props: Props) => {
                         width: ['80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%',], // Độ rộng từng dòng
                     }} /> :
                     <div>
-                        <div className="flex justify-between mb-[16px]">
+                        {/* <div className="flex justify-between mb-[16px]">
                             <div>
-                                {/* Showing 1–9 of 13 results */}
+                                Showing 1–9 of 13 results
                             </div>
                             <Select className="w-[200px]" options={option} />
-                        </div>
+                        </div> */}
                         <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
                             {productList.map((el) => {
                                 return <CardProduct key={el.id}  {...el} />;

@@ -13,8 +13,17 @@ const fetchHeaderData = async (): Promise<any> => {
   const language = getLanguageFromCookie();
   const res = await fetch(`${API_URL}/api/main-menu?locale=${language}&populate[MainMenuItems][populate]=*`);
   const data = await res.json();
-
   return data.data;
 };
 
 export const getHeaderData = cache(fetchHeaderData);
+
+
+
+const fetchHeaderDataSSR = async (locale: any): Promise<any> => {
+  const res = await fetch(`${API_URL}/api/main-menu?locale=${locale}&populate[MainMenuItems][populate]=*`);
+  const data = await res.json();
+  return data.data;
+};
+
+export const getHeaderDataSSR = cache(fetchHeaderDataSSR);
