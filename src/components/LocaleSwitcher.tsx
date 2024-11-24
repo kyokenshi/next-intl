@@ -8,14 +8,13 @@ export default function LocaleSwitcher() {
 
   const locale = useLocale();
 
-
-
-
   const [data, setData] = useState([])
 
   const onGetAPI = async () => {
     const data = await getApiListLocel()
-    setData(data)
+    if (data) {
+      setData(data)
+    }
   }
 
   const onGetIcon = (code: string) => {
@@ -33,12 +32,13 @@ export default function LocaleSwitcher() {
 
 
   return (
-    <LocaleSwitcherSelect defaultValue={locale} label={""}>
+    data.length === 0 ? "" : <LocaleSwitcherSelect defaultValue={locale} label={""}>
       {data?.map((cur: any) => (
         <option key={cur} value={cur.code}>
-          {onGetIcon(cur.code)}  {cur.name}
+          {<span>{onGetIcon(cur.code)} {cur.name}</span>}
         </option>
       ))}
     </LocaleSwitcherSelect>
+
   );
 }

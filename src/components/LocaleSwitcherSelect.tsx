@@ -14,7 +14,8 @@ type Props = {
 export default function LocaleSwitcherSelect({
   children,
   defaultValue,
-  label
+  label,
+
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();

@@ -29,7 +29,7 @@ const CardProductHorizontal = (props: Props) => {
                         {title}
                     </Link>
                 </div>
-                <div className='text-[14px] '>{formatPrice(price)}</div>
+                <div className='text-[14px] font-semibold text-[#00a0ea]'>{formatPrice(price)}</div>
             </div>
         </div>
     )

@@ -31,7 +31,6 @@ const CardProduct = (props: Props) => {
                     </div> */}
                         <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                             <Image
-
                                 objectFit={images ? 'cover' : "contain"}
                                 src={getImageUrl(images)}
                                 alt="product"
@@ -45,8 +44,7 @@ const CardProduct = (props: Props) => {
                         <div className="p-[15px] text-[16px] font-bold ">
                             <div className="min-h-[40px]  line-clamp-2">{title}</div>
                         </div>
-                        <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t border-gray-200 pt-[15px]">
-
+                        <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold">
                             {formatPrice(price)}
                         </div>
                     </div>

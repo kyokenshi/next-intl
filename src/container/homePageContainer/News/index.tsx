@@ -12,19 +12,7 @@ const News = (props: Props) => {
     console.log(dataArticle);
 
 
-    const data = [{
-        id: 1,
-        image: 'https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg',
-        title: 'Máy nghiền cát nhân tạo tại tỉnh Quảng Ninh',
-    }, {
-        id: 2,
-        image: 'https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg',
-        title: 'Máy nghiền cát nhân tạo tại tỉnh Quảng Ninh',
-    }, {
-        id: 3,
-        image: 'https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt3.jpg',
-        title: 'Máy nghiền cát nhân tạo tại tỉnh Quảng Ninh',
-    }]
+
 
     return (
         <StyledNews>

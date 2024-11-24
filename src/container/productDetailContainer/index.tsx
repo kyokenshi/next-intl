@@ -46,8 +46,11 @@ const ProductDetailContainer = (props: Props) => {
                                 <div className='capitalize text-[22px] font-semibold'>{elment?.title}</div>
                                 <div>
                                     <Divider />
-                                    {formatPrice(elment.price)}
+                                    <span className='font-semibold text-[#00a0ea]'>
+                                        {formatPrice(elment.price)}
+                                    </span>
                                     <Divider />
+
                                 </div>
                                 <div>Danh mục : <span>{elment?.product_category?.title}</span></div>
                                 {/* <Space size={12} >

@@ -44,8 +44,16 @@ const CarouselItem = (props: ICarouselMenu) => {
 
     return (
         <StyledCarouselItem>
-            <Carousel slidesToShow={slidesToShow} arrows={arrows} dots={dots} slidesToScroll={slidesToScroll} infinite ref={carouselRef}
-                centerPadding={centerPadding} {...other}>
+            <Carousel
+                slidesToShow={slidesToShow}
+                arrows={arrows}
+                dots={dots}
+                slidesToScroll={slidesToScroll}
+                // infinite={itemLength < slidesToShow ? false : true}
+                ref={carouselRef}
+                centerPadding={centerPadding}
+                {...other}
+            >
                 {children}
             </Carousel>
             {!(itemLength < slidesToShow) && <div style={{ marginTop: 16, textAlign: 'center' }}>

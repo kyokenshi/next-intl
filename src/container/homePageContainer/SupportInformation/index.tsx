@@ -2,14 +2,16 @@
 
 import CarouselMenu from '@/container/components/CarouselMenu';
 import { getImageUrl } from '@/utils/commom';
+import Image from 'next/image';
 import React from 'react';
 
 type Props = {
     dataPartner: any
+    dataService: any
 };
 
 const SupportInformation = (props: Props) => {
-    const { dataPartner } = props
+    const { dataPartner, dataService } = props
 
     const supportInformation = [
         {
@@ -33,9 +35,9 @@ const SupportInformation = (props: Props) => {
     return (
         <div className="">
             <div className="bg-blue-1000  text-white grid grid-cols-2 md:grid-cols-4">
-                {supportInformation.map((el, index) => (
-                    <div className="flex items-start md:items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[16px] md:p-[30px]" key={index}>
-                        {/* <div className="flex-none">a</div> */}
+                {dataService?.services?.map((el: any, index: number) => (
+                    <div key={index} className="flex items-start md:items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[16px] md:p-[30px]">
+                        <div className="flex-none"><Image src={getImageUrl(el?.image?.url)} width={24} height={24} alt='icon' /></div>
                         <div >
                             <div className="text-[12px] font-semibold">{el.title}</div>
                             <div className="text-[12px]">{el.description}</div>

@@ -83,3 +83,42 @@ export const getApiListLocel = async (): Promise<any> => {
     const data = await res.json();
     return data;
 };
+
+
+interface ProductDataServiceResquest {
+    locale?: string;
+}
+export const getApiService = async (props: ProductDataServiceResquest): Promise<any> => {
+    const { locale } = props
+
+    const res = await fetch(`${API_URL}/api/service?locale=${locale}&populate[services][populate]=image`, {
+        next: { revalidate: 300 },
+    });
+    const data = await res.json();
+    return data;
+};
+
+
+// Forgot password
+export type SubscribeEmailRequest = {
+    email: string;
+};
+
+
+export const subscribeEmail = async (
+    request: SubscribeEmailRequest,
+): Promise<any> => {
+    const res = await fetch(`${API_URL}/api/subscribe-to-our-newsletters`, {
+        body: JSON.stringify({
+            data: {
+                email: request.email,
+            }
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+    });
+    const data = await res.json();
+    return data;
+};
