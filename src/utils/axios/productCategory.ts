@@ -43,7 +43,7 @@ export const getCategoryProductID = async (
     .setSort('createdAt', 'desc');
 
   if (categoryId) {
-    query.setFilter('product_category[id]', '$eq', categoryId);
+    query.setFilter('product_category[url]', '$eq', categoryId);
   }
 
 

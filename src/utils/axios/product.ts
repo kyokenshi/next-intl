@@ -24,7 +24,7 @@ export const getApiProduct = async (props: ProductDataResquest): Promise<any> =>
 
 
   if (categoryId) {
-    query.setFilter('product_category[id]', '$eq', categoryId);
+    query.setFilter('product_category[url]', '$eq', categoryId);
   }
 
   const res = await fetch(`${query}` + `&populate=images`);
