@@ -90,13 +90,28 @@ const ProductContainer = (props: Props) => {
     const { id } = props.params;
     const { dataCategoryProduct, dataProductNew } = props
     const [productList, setProductList] = useState<Product[]>([]);
+    const [pagination, setPagination] = useState<any>({});
+
     const [loading, setLoading] = useState(true);
+    const [params, setParams] = useState({
+        page: 1,
+    })
+
+    const onPageChange = (page: number) => {
+        setParams((preveState) => ({
+            ...preveState,
+            page: page,
+        }));
+    };
 
 
     const onGetListProduct = async () => {
         try {
-            const resp = await getApiProduct({ categoryId: id?.[0] });
+            const resp = await getApiProduct({ categoryId: id?.[0], params });
             setProductList(resp.data);
+            setPagination(resp.meta);
+
+
         } finally {
             setLoading(false);
         }
@@ -104,23 +119,8 @@ const ProductContainer = (props: Props) => {
 
     useEffect(() => {
         onGetListProduct();
-    }, [])
+    }, [params])
 
-
-    const option = [
-        {
-            label: 'Máy nghiền cát',
-            value: 1
-        },
-        {
-            label: 'Máy nghiền cát',
-            value: 2
-        },
-        {
-            label: 'Máy nghiền cát',
-            value: 3
-        }
-    ];
 
     return (
         <div className="max-w-[1200px] px-[0px] mx-auto">
@@ -177,7 +177,13 @@ const ProductContainer = (props: Props) => {
                             })}
                         </div>
                         <div className="flex justify-center mt-[24px]">
-                            <Pagination />
+                            <Pagination
+                                current={params.page}
+                                pageSize={pagination?.pageSize}
+                                total={Number(pagination?.total)}
+                                onChange={onPageChange}
+                            />
+
                         </div>
                     </div>
                 }

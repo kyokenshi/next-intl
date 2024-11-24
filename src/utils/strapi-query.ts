@@ -14,9 +14,11 @@ export class StrapiQuery {
         return this;
     }
 
-    setPagination(pageSize: number, withCount: boolean = true): this {
+    setPagination(pageSize: number, withCount: boolean = true, page: number): this {
         this.params.push(`pagination[pageSize]=${pageSize}`);
         this.params.push(`pagination[withCount]=${withCount}`);
+        this.params.push(`pagination[page]=${page}`);
+
         return this;
     }
 

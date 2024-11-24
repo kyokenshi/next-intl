@@ -6,17 +6,20 @@ import { StrapiQuery } from "../strapi-query";
 interface ProductDataResquest {
   locale?: string;
   categoryId?: string;
+  params: {
+    page: number;
+  }
 }
 // Client
 
 export const getApiProduct = async (props: ProductDataResquest): Promise<any> => {
-  const { categoryId } = props
+  const { categoryId, params } = props
 
   const language = getLanguageFromCookie();
 
   const query = new StrapiQuery('productions')
     .setLocale(language)
-    .setPagination(9, false)
+    .setPagination(9, true, params.page)
     .setSort('createdAt', 'desc');
 
 
