@@ -45,7 +45,7 @@ const MenuHeader = (props: Props) => {
         return {
           key: item.id.toString(),
           label: item.title,
-          url: item?.article?.slug,
+          url: item?.page?.slug,
           __component: item.__component
         };
       }

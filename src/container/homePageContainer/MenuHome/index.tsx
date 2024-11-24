@@ -43,7 +43,7 @@ const MenuHome = (props: Props) => {
                 children: item.product_categories?.map((el: any) => ({
                     label: el.title,
                     key: el.id,
-                    url: el.url
+                    url: `/danh-muc-san-pham/${el.url}`
                 })),
             }
         }).filter(Boolean);
