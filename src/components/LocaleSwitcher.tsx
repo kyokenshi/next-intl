@@ -75,7 +75,7 @@ export default function LocaleSwitcher() {
       optionRender={(option) => (
         <Space>
           <span role="img" aria-label={option.data.label}>
-            {option.data.emoji} {option.data.label}
+            <strong style={{ fontWeight: 'bold' }}>{option.data.emoji} {option.data.label}</strong>
           </span>
         </Space>
       )}
