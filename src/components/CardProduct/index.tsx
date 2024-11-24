@@ -29,7 +29,9 @@ const CardProduct = (props: Props) => {
                             <ShoppingCartOutlined />
                         </div>
                     </div> */}
-                        <div className="p-[6px] relative w-full aspect-square hover:scale-[104%]"> {/* Thêm aspect-square để tạo container vuông */}
+                        <div className="p-[6px] relative w-full aspect-square hover:scale-[104%]" style={{
+                            transition: "transform 0.3s ease"
+                        }}> {/* Thêm aspect-square để tạo container vuông */}
                             <Image
                                 objectFit={images ? 'cover' : "contain"}
                                 src={getImageUrl(images)}

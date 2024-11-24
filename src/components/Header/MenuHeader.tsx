@@ -42,10 +42,12 @@ const MenuHeader = (props: Props) => {
         };
       }
       if (item.__component === 'menu.page') {
+        console.log(item, "item");
+
         return {
           key: item.id.toString(),
           label: item.title,
-          url: "news",
+          url: item?.article?.slug,
           __component: item.__component
         };
       }

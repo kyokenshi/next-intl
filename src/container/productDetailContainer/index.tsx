@@ -61,7 +61,7 @@ const ProductDetailContainer = (props: Props) => {
                                 </Space> */}
                             </Space>
                         </div>
-                        <div>
+                        <div className='mt-[32px]'>
                             <div className='text-[#fff] bg-[#2865c2] px-[30px] py-[5px] text-[14px] font-semibold w-[fit-content]'>Mô tả</div>
                             <div className='border-[1px] border-[#dcdcdc] p-[16px] '>
                                 <div

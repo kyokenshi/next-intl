@@ -8,6 +8,7 @@ import CardNew from '@/components/CardNew'
 import SectionTitle from '@/components/SectionTitle'
 import { getApiListNews } from '@/utils/axios/news'
 import Link from 'next/link'
+import Pagination from '@/components/Pagination'
 
 interface INewsProps {
     dataListArtical: any
@@ -17,36 +18,29 @@ const NewsContainer = (props: INewsProps) => {
     const { dataListArtical } = props;
 
     const [listNews, setListNews] = useState<any[]>([]);
+    const [params, setParams] = useState({
+        page: 1,
+    })
+
+    const [pagination, setPagination] = useState<any>({});
+
+
+    const onPageChange = (page: number) => {
+        setParams((preveState) => ({
+            ...preveState,
+            page: page,
+        }));
+    };
+
     useEffect(() => {
         (async () => {
-            const data = await getApiListNews();
+            const data = await getApiListNews({ params });
             setListNews(data.data);
+            setPagination(data.meta);
         })();
-    }, []);
+    }, [params]);
 
 
-    const listMenuProduct = [
-        {
-            id: 1,
-            name: 'Chưa phân loại'
-        },
-        {
-            id: 2,
-            name: 'Thiết Bị Khai Thác mỏ abcd sâs âsâs âs'
-        },
-        {
-            id: 3,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 4,
-            name: 'Cấp liệu rung'
-        },
-        {
-            id: 5,
-            name: 'Sản phầm khuyến mãi'
-        }
-    ];
     return (
         <div className='mb-[40px]'>
             <SectionTitle title='Tin tức' description='Tin tức' />
@@ -84,6 +78,15 @@ const NewsContainer = (props: INewsProps) => {
                         {listNews.map((el) => {
                             return <div key={el.id}><CardNew title={el.title} description={el.description} {...el} /></div>;
                         })}
+                        <div className="flex justify-center mt-[24px]">
+                            <Pagination
+                                current={params.page}
+                                pageSize={pagination?.pageSize}
+                                total={Number(pagination?.total)}
+                                onChange={onPageChange}
+                            />
+
+                        </div>
                     </div>
                 </div>
             </div>

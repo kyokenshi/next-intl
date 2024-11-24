@@ -11,7 +11,7 @@ export default function Navigation({ dataConfig }: any) {
 
   return (
     <>
-      <header className='max-w-1200 w-[100%] px-[6px] xl:px-[0px]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
+      <header className='max-w-1200 w-[100%] px-[6px] xl:px-[0px] gap-y-[10px]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
         <div className='flex items-center gap-[10px]'>
           <Link href="/">
             <Image
@@ -34,9 +34,7 @@ export default function Navigation({ dataConfig }: any) {
           <div className="text"><p className='text-12'>{dataConfig.email}</p><p className='text-12'>{dataConfig.phone}</p></div>
         </div>
 
-        <div className='hidden sm:flex align-middle'>
-          {/* <div className="text"><p className='text-16 font-semibold'> Giỏ hàng</p><p className='text-14'>10 sản phẩm - 10vnd</p></div> */}
-        </div>
+
         <nav className=''>
           <LocaleSwitcher />
         </nav>

@@ -2,13 +2,22 @@ import { API_URL } from "@/utils/axios/constants";
 import { getLanguageFromCookie } from "../commom";
 import { StrapiQuery } from "../strapi-query";
 
+
+interface ArticlesDataResquest {
+    locale?: string;
+    params: {
+        page: number;
+    }
+}
 // Client
-export const getApiListNews = async (): Promise<any> => {
+export const getApiListNews = async (props: ArticlesDataResquest): Promise<any> => {
+    const { params } = props
+
     const language = getLanguageFromCookie();
 
     const query = new StrapiQuery('articles')
         .setLocale(language)
-        .setPagination(9, false)
+        .setPagination(9, false, params.page)
         .setSort('createdAt', 'desc');
 
     const res = await fetch(`${query + `&populate=*`}`);
