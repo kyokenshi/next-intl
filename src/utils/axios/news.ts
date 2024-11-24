@@ -17,7 +17,7 @@ export const getApiListNews = async (props: ArticlesDataResquest): Promise<any> 
 
     const query = new StrapiQuery('articles')
         .setLocale(language)
-        .setPagination(9, false, params.page)
+        .setPagination(9, params.page)
         .setSort('createdAt', 'desc');
 
     const res = await fetch(`${query + `&populate=*`}`);

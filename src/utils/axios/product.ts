@@ -19,7 +19,7 @@ export const getApiProduct = async (props: ProductDataResquest): Promise<any> =>
 
   const query = new StrapiQuery('productions')
     .setLocale(language)
-    .setPagination(9, true, params.page)
+    .setPagination(9, params.page)
     .setSort('createdAt', 'desc');
 
 
