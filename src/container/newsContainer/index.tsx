@@ -12,10 +12,11 @@ import Pagination from '@/components/Pagination'
 
 interface INewsProps {
     dataListArtical: any
+    dataConfig: any
 }
 
 const NewsContainer = (props: INewsProps) => {
-    const { dataListArtical } = props;
+    const { dataListArtical, dataConfig } = props;
 
     const [listNews, setListNews] = useState<any[]>([]);
     const [params, setParams] = useState({
@@ -48,7 +49,7 @@ const NewsContainer = (props: INewsProps) => {
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                     <div className='hidden sm:block'>
                         <Space direction='vertical' size={32} className='min-w-full'>
-                            <MenuList title='Mới nhất'>
+                            <MenuList title={dataConfig.name_product_new}>
                                 <Space direction='vertical' size={4} style={{ width: "100%" }}>
                                     {dataListArtical?.map((el: any) => {
                                         return (
