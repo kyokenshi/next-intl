@@ -9,10 +9,6 @@ type Props = {
 const News = (props: Props) => {
 
     const { dataArticle } = props
-    console.log(dataArticle);
-
-
-
 
     return (
         <StyledNews>

@@ -11,8 +11,6 @@ type Props = {
 
 const CardNewHome = (props: Props) => {
     const { cover, title, slug, ...other } = props
-    console.log({ ...other });
-
     return (
         <div>
             <Link href={`/${slug}`}>
