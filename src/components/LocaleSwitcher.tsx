@@ -65,7 +65,7 @@ export default function LocaleSwitcher() {
 
   return (
     <Select
-      open
+
       onChange={onSelectChange}
       options={data}
       disabled={isPending}
