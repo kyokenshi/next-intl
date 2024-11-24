@@ -17,7 +17,7 @@ export default async function DynamicPage({ params: { locale, dynamic } }: Props
 
     const { data } = await getApiCheckPage({ locale, slug: dynamic })
 
-    if (data.length === 0 || !data) {
+    if (data?.length === 0 || !data) {
         redirect('/');
     }
 
