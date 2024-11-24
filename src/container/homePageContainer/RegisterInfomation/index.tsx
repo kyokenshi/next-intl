@@ -29,7 +29,7 @@ const RegisterInfomation = (props: Props) => {
         <div style={{
 
         }}>
-            <div className='flex items-center max-w-[1200px] mx-auto gap-[24px] md:gap-[40px] p-[24px] flex-wrap'>
+            <div className='flex items-center max-w-[1200px] mx-auto gap-[24px] md:gap-x-[80px] p-[6px] md:p-[24px] flex-wrap'>
                 <div>
                     <strong> ĐĂNG KÝ NHẬN TIN</strong> VÀ NHẬN KHUYẾN MÃI TỪ CHÚNG TÔI
                 </div>
@@ -44,7 +44,6 @@ const RegisterInfomation = (props: Props) => {
                         <Input
                             className='input-register'
                             suffix="Đăng ký"
-                            style={{ maxWidth: 500 }}
                             size="large"
                         />
                     </Form.Item>

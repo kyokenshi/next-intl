@@ -48,9 +48,37 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .input-register {
+    padding: 0 !important;
     .ant-input-suffix {
+      margin: -1px;
       border-left:  1px solid #e5e7eb;
       padding-left: 6px;
+      padding: 0 10px;
+      background: #2865C2;
+      border-radius: 0 6px 6px 0;
+      color: white;
+    }
+    .ant-input-lg {
+      height: 40px;
     }
   }
+
+  #email_form {
+    width: 100%;
+  }
+  @media (min-width: 576px) and (max-width:1024px){
+      #email_form {
+      width: 320px;
+    }
+    }
+  @media (min-width: 1025px)  {
+      #email_form {
+      width: 450px;
+    }
+    }
+
+
+    .select-transaction {
+      width: 170px !important;
+    }
 `;

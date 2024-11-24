@@ -28,7 +28,7 @@ const HomePageContainer = async (props: Props) => {
 
     return (
         <div>
-            <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[400px] lg:h-[540px] mt-[0px] sm:mt-[20px] mb-[32px]'>
+            <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[330px] lg:h-[350px] mt-[0px] sm:mt-[20px] mb-[32px]'>
                 <div className='hidden sm:block'>
                     <MenuHome locale={params.locale} />
                 </div>

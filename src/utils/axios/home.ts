@@ -99,7 +99,6 @@ export const getApiService = async (props: ProductDataServiceResquest): Promise<
 };
 
 
-// Forgot password
 export type SubscribeEmailRequest = {
     email: string;
 };

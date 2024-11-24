@@ -82,7 +82,7 @@ const MenuHome = (props: Props) => {
 
     return (
         <StyledMenuHome className='bg-[#F0F0F0] '>
-            <div className='p-[20px] bg-blue-1000 text-ellipsis  text-white text-16px '>Danh mục sản phẩm</div>
+            <div className='px-[20px] py-[11px]  bg-blue-1000 text-ellipsis  text-white text-16px '>Danh mục sản phẩm</div>
             {loading ? <div className='p-[8px]'><Skeleton active /></div> : <Menu onClick={onClick} mode="vertical" items={listCategoryHome} rootClassName='menu-home-custom' />
             }
         </StyledMenuHome>
