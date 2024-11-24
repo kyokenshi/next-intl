@@ -38,7 +38,7 @@ const MenuHome = (props: Props) => {
         return data.map(item => {
             return {
                 key: item.id,
-                icon: <Image src={getImageUrl(item?.icon?.url)} width={24} height={24} alt={item?.icon?.name} />,
+                icon: <Image className='img-menu' src={getImageUrl(item?.icon?.url)} width={24} height={24} alt={item?.icon?.name} />,
                 label: item.title,
                 onTitleClick: () => handleTitleClick(item),
                 children: item.product_categories?.map((el: any) => ({
@@ -82,7 +82,7 @@ const MenuHome = (props: Props) => {
 
 
     return (
-        <StyledMenuHome className='bg-[#F0F0F0] '>
+        <StyledMenuHome className='bg-[#F0F0F0]' >
             <div className='px-[20px] py-[11px]  bg-blue-1000 text-ellipsis  text-white text-16px '>{dataConfig.name_category_home}</div>
             {loading ? <div className='p-[8px]'><Skeleton active /></div> : <Menu onClick={onClick} mode="vertical" items={listCategoryHome} rootClassName='menu-home-custom' />
             }

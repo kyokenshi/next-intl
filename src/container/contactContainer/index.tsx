@@ -23,7 +23,7 @@ const ContactContainer = (props: Props) => {
     const { dataConfig } = props
     return (
         <div className='mb-[40px]'>
-            <SectionTitle title='Liên hệ' description='Liên hệ' />
+            <SectionTitle title={dataConfig.name_contact_us_header} description={dataConfig.name_contact_us_header} />
             <div className="max-w-[1200px] px-4 xl:px-[0px]  mx-auto">
                 <div className='grid grid-cols-1 md:grid-cols-2 md:text-center lg:text-left lg:grid-cols-[auto_1fr_1fr_1fr] gap-[20px] p-[16px] border border-[rgba(221,221,221, 1)] mt-[24px]'>
                     <div className='flex justify-center items-center'>
@@ -41,12 +41,12 @@ const ContactContainer = (props: Props) => {
                 <div className='text-[24px] font-semibold text-center mt-[24px]'>{dataConfig.name_contact_us}</div>
                 <Form name="contact" form={form} onFinish={onFinish}>
                     <div className=' w-full flex flex-col gap-[6px]'>
-                        <div>Họ tên</div>
+                        <div>Full Name</div>
                         <Form.Item style={{ marginBottom: 8 }} name='fullname' rules={[{
                             required: true,
                             message: 'Please enter your full name',
                         }]}>
-                            <Input placeholder='Họ tên' />
+                            <Input placeholder='Full Name' />
                         </Form.Item>
                     </div>
                     <div className=' w-full flex flex-col gap-[6px]'>
@@ -65,17 +65,17 @@ const ContactContainer = (props: Props) => {
                         </Form.Item>
                     </div>
                     <div className=' w-full flex flex-col gap-[6px]'>
-                        <div>Số điện thoại</div>
+                        <div>Phone</div>
                         <Form.Item style={{ marginBottom: 8 }} name='phone'
                             rules={[{
                                 required: true,
                                 message: 'Please enter your phone',
                             }]}>
-                            <Input placeholder='Số điện thoại' />
+                            <Input placeholder='Phone' />
                         </Form.Item>
                     </div>
                     <div className=' w-full flex flex-col gap-[6px]'>
-                        <div>Nội dung</div>
+                        <div>Note</div>
                         <Form.Item style={{ marginBottom: 8 }} name='note'
                             rules={[{
                                 required: true,
@@ -86,7 +86,7 @@ const ContactContainer = (props: Props) => {
                         </Form.Item>
                     </div>
                     <div className='flex justify-end'>
-                        <Button type='primary' onClick={() => form.submit()}>Send</Button>
+                        <Button type='primary' style={{ background: '#2865C2' }} onClick={() => form.submit()}>Send</Button>
                     </div>
                 </Form>
             </div>
