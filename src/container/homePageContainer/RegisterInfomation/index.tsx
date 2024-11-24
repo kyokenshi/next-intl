@@ -37,12 +37,13 @@ const RegisterInfomation = (props: Props) => {
                     form={form}
                     onFinish={onFinish}>
                     <Form.Item
-
                         style={{ marginBottom: 0 }}
                         name="email"
                         rules={[{ type: 'email', message: 'Please enter a valid email!' }]}
                     >
-                        <Search
+                        <Input
+                            className='input-register'
+                            suffix="Đăng ký"
                             style={{ maxWidth: 500 }}
                             size="large"
                         />

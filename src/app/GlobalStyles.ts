@@ -46,4 +46,11 @@ export const GlobalStyles = createGlobalStyle`
   .slick-slider {
     overflow-x: hidden;
   }
+
+  .input-register {
+    .ant-input-suffix {
+      border-left:  1px solid #e5e7eb;
+      padding-left: 6px;
+    }
+  }
 `;
