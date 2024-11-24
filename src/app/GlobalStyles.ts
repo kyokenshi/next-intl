@@ -79,6 +79,25 @@ export const GlobalStyles = createGlobalStyle`
 
 
     .select-transaction {
-      width: 170px !important;
+      width: 180px !important;
+      .ant-select-item-option-content{
+        display: flex;
+        align-items: center;
+      }
+      .ant-space {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        span{
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+     
+      }
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
 `;
