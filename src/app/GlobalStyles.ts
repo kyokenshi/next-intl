@@ -88,7 +88,7 @@ export const GlobalStyles = createGlobalStyle`
         width: 100%;
         display: flex;
         align-items: center;
-        span{
+        strong{
           display: flex;
           align-items: center;
           gap: 4px;
