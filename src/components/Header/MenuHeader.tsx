@@ -29,13 +29,16 @@ const MenuHeader = (props: Props) => {
   //   router.push(`/${info.url}`);
   // }
 
+  console.log(masterData, "masterData");
+
+
 
   const transformMenuData = (data: any[]) => {
 
     return data.map(item => {
       if (item.__component === 'menu.nolink') {
         return {
-          key: item.id.toString(),
+          key: `${item.id.toString() + item.__component}`,
           label: item.title,
           url: item.url,
           __component: item.__component
@@ -43,7 +46,7 @@ const MenuHeader = (props: Props) => {
       }
       if (item.__component === 'menu.page') {
         return {
-          key: item.id.toString(),
+          key: `${item.id.toString() + item.__component}`,
           label: item.title,
           url: item?.page?.slug,
           __component: item.__component
@@ -51,19 +54,21 @@ const MenuHeader = (props: Props) => {
       }
 
       if (item.__component === 'menu.dropdown') {
+
         return {
-          key: `${item.id}`,
+          key: `${item.id + item.documentId}`,
           label: item.title,
           url: item.url,
           // onTitleClick: () => onTitleClick(item),
           __component: item.__component,
-          children: item.product_category ? [
-            {
-              key: item.product_category.id.toString(),
-              label: item.product_category.title,
-              url: item.product_category.url,
-            }
-          ] : undefined
+          children: item.product_categories
+            ? item.product_categories.map((el: any) => {
+              return {
+                key: el.id.toString(),
+                label: el.title,
+                url: el.url,
+              }
+            }) : undefined
         };
       }
 
@@ -74,12 +79,16 @@ const MenuHeader = (props: Props) => {
 
 
 
+
+
   useEffect(() => {
     (async () => {
       try {
         const data = await getHeaderData();
         if (data?.MainMenuItems?.length > 0) {
           const transformedItems = transformMenuData(data.MainMenuItems);
+          console.log(transformedItems, "transformedItems");
+
           setMasterData(transformedItems);
         }
       } catch (error) {
@@ -96,6 +105,7 @@ const MenuHeader = (props: Props) => {
 
   const findDeepItem = (keyPath: string[], items: any[]): any => {
     const [childKey, parentKey] = keyPath;
+
 
     // Nếu có parentKey, tìm parent trước
     if (parentKey) {
@@ -121,6 +131,9 @@ const MenuHeader = (props: Props) => {
   const onClick: MenuProps['onClick'] = (e) => {
     const { keyPath } = e;
     const clickedItem = findDeepItem(keyPath, masterData);
+
+    console.log(clickedItem, "clickedItem");
+
 
     if (clickedItem) {
       const { __component, url } = clickedItem;

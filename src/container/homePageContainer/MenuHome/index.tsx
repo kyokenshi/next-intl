@@ -67,6 +67,9 @@ const MenuHome = (props: Props) => {
 
 
     const handleTitleClick = (item: any) => {
+        if (item?.product_categories.length === 0) {
+            router.push(`/danh-muc-san-pham/${item.url}`)
+        }
     }
 
     const onClick: MenuProps['onClick'] = ({ key }) => {
