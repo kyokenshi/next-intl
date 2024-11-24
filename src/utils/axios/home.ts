@@ -7,8 +7,8 @@ interface ProductDataDetailResquest {
     slug?: string;
 }
 // SSR
-export const getApiCategoryHome = async (): Promise<any> => {
-    const res = await fetch(`${API_URL}/api/menu-home?locale=vi&populate[product_category][populate]=*`);
+export const getApiCategoryHome = async (locale: string): Promise<any> => {
+    const res = await fetch(`${API_URL}/api/menu-home?locale=${locale}&populate[product_category][populate]=*`);
     const data = await res.json();
     return data;
 };
@@ -72,6 +72,14 @@ interface ProductDataArticleResquest {
 export const getApiListCategoryArticleHome = async (props: ProductDataArticleResquest): Promise<any> => {
     const { locale } = props
     const res = await fetch(`${API_URL}/api/articles?locale=${locale}&pagination[page]=1&pagination[pageSize]=3&sort=createdAt:desc&populate=*`);
+    const data = await res.json();
+    return data;
+};
+
+export const getApiListLocel = async (): Promise<any> => {
+    const res = await fetch(`${API_URL}/api/i18n/locales`, {
+        next: { revalidate: 300 },
+    });
     const data = await res.json();
     return data;
 };

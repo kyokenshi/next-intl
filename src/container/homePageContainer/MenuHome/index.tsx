@@ -7,17 +7,20 @@ import { getImageUrl } from '@/utils/commom';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-type Props = {}
+type Props = {
+    locale: string
+}
 type MenuItem = Required<MenuProps>['items'][number];
 
 const MenuHome = (props: Props) => {
+    const { locale } = props
     const router = useRouter();
     const [listCategoryHome, setListCategoryHome] = useState<any[]>([])
     const [loading, setLoading] = useState(true);
     const onGetListMenu = async () => {
         try {
             setLoading(true)
-            await getApiCategoryHome().then((resp) => {
+            await getApiCategoryHome(locale).then((resp) => {
                 if (resp.data.product_category.length > 0) {
                     const newData = transformMenuData(resp.data.product_category)
                     setListCategoryHome(newData);

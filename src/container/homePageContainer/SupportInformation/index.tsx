@@ -62,7 +62,7 @@ const SupportInformation = (props: Props) => {
                         }
                     }
                 ]}>
-                    {dataPartner?.map((el: any) => <div key={el.id}><img src={getImageUrl(el?.image?.url)} alt={el.description} /></div>)}
+                    {dataPartner?.map((el: any) => <div key={el.id}><img style={{ widows: 200, height: 140 }} src={getImageUrl(el?.image?.url)} alt={el.description} /></div>)}
                 </CarouselMenu>
             </div>
         </div >

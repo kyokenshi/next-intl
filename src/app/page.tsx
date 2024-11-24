@@ -6,7 +6,6 @@ import PageLayout from '@/components/PageLayout';
 import { cookies } from 'next/headers';
 import { Viewport } from 'next';
 import { Metadata } from 'next';
-import { getApiCategoryHome } from '@/utils/axios/home';
 
 type Props = {
   params: { locale: string };

@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyledFooter } from './styles'
 import Image from 'next/image'
+import { getImageUrl } from '@/utils/commom'
 
 type Props = {
     dataConfig: any
@@ -14,7 +15,7 @@ const Footer = (props: Props) => {
                 <div className='text-center'>
                     <div className='flex justify-center mb-[16px]'>
                         <Image
-                            src="/assets/images/logo.png"
+                            src={getImageUrl(dataConfig?.logo?.url)}
                             alt="Logo_Home"
                             width={90}
                             height={60}
@@ -40,6 +41,7 @@ const Footer = (props: Props) => {
 
                 </div>
             </div>
+
 
         </StyledFooter>
     )

@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
-import { ChangeEvent, ReactNode, useTransition } from 'react';
+import { ChangeEvent, ReactNode, useState, useTransition } from 'react';
 import { Locale, usePathname, useRouter } from '@/i18n/routing';
 
 type Props = {
@@ -18,12 +18,14 @@ export default function LocaleSwitcherSelect({
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [value, setValue] = useState(defaultValue)
   const pathname = usePathname();
   const params = useParams();
 
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value as Locale;
     startTransition(() => {
+      setValue(nextLocale)
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will
@@ -47,6 +49,7 @@ export default function LocaleSwitcherSelect({
         className="inline-flex appearance-none bg-transparent py-3 pl-2 pr-6"
         style={{ border: '1px #9aa0a6 solid', borderRadius: '12px' }}
         defaultValue={defaultValue}
+        value={value}
         disabled={isPending}
         onChange={onSelectChange}
       >

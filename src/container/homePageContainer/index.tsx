@@ -7,7 +7,7 @@ import News from './News';
 import SupportInformation from './SupportInformation';
 import RegisterInfomation from './RegisterInfomation';
 import Image from 'next/image';
-import { getApiCategoryHome, getApiListCategoryArticleHome, getApiPartner, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
+import { getApiListCategoryArticleHome, getApiPartner, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
 import { getApiListCategoryArticle } from '@/utils/axios/news';
 
@@ -31,7 +31,7 @@ const HomePageContainer = async (props: Props) => {
         <div>
             <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[400px] lg:h-[540px] mt-[0px] sm:mt-[20px] mb-[32px]'>
                 <div className='hidden sm:block'>
-                    <MenuHome />
+                    <MenuHome locale={params.locale} />
                 </div>
                 <div className="relative w-full h-full overflow-hidden ">
                     <CarouselMenu>
