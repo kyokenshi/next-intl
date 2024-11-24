@@ -63,3 +63,15 @@ export const getConfigData = cache(getApiConfig);
 
 
 
+
+interface ProductDataArticleResquest {
+    locale?: string;
+}
+
+
+export const getApiListCategoryArticleHome = async (props: ProductDataArticleResquest): Promise<any> => {
+    const { locale } = props
+    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&pagination[page]=1&pagination[pageSize]=3&sort=createdAt:desc&populate=*`);
+    const data = await res.json();
+    return data;
+};

@@ -11,7 +11,7 @@ export default function Navigation({ dataConfig }: any) {
 
   return (
     <>
-      <header className='max-w-1200 w-[100%]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
+      <header className='max-w-1200 w-[100%] px-[6px] xl:px-[0px]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
         <div className='flex items-center gap-[10px]'>
           <Link href="/">
             <Image

@@ -7,8 +7,9 @@ import News from './News';
 import SupportInformation from './SupportInformation';
 import RegisterInfomation from './RegisterInfomation';
 import Image from 'next/image';
-import { getApiCategoryHome, getApiPartner, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
+import { getApiCategoryHome, getApiListCategoryArticleHome, getApiPartner, getApiSliderbanner, getApiSliderSection } from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
+import { getApiListCategoryArticle } from '@/utils/axios/news';
 
 type Props = {
     params: { locale?: any };
@@ -20,6 +21,11 @@ const HomePageContainer = async (props: Props) => {
     const { data: dataSection } = await getApiSliderSection({ locale: params.locale })
 
     const { data: dataPartner } = await getApiPartner()
+
+    const { data: dataArticle } = await getApiListCategoryArticleHome({ locale: params.locale })
+    console.log(dataArticle, "dataArticle");
+
+
 
     return (
         <div>
@@ -45,7 +51,7 @@ const HomePageContainer = async (props: Props) => {
             {dataSection[0]?.product_list?.map((el: any) => {
                 return <HotDeal key={el.id} {...el} />
             })}
-            <News />
+            <News dataArticle={dataArticle} />
             <SupportInformation dataPartner={dataPartner} />
             <RegisterInfomation />
         </div>
