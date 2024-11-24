@@ -3,6 +3,8 @@
 import styled from 'styled-components';
 
 export const StyledMenu = styled.div`
+  text-transform: uppercase;
+
   color: white;
   .ant-menu-root {
     width: 100%;
@@ -16,13 +18,12 @@ export const StyledMenu = styled.div`
   }
   @media (max-width: 768px) {
     .ant-menu-root {
-    width: 80%;
-  }
+      width: 80%;
+    }
   }
 
-
-    .ant-menu {
-      background: #2865c2 !important;
+  .ant-menu {
+    background: #2865c2 !important;
   }
   .menu-header {
     .ant-menu-item {

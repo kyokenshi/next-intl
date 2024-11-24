@@ -40,7 +40,7 @@ const SupportInformation = (props: Props) => {
                     <div key={index} className="flex items-start md:items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[16px] md:p-[30px]">
                         <div className="flex-none"><Image src={getImageUrl(el?.image?.url)} width={24} height={24} alt='icon' /></div>
                         <div >
-                            <div className="text-[12px] font-semibold">{el.title}</div>
+                            <div className="text-[13px] font-bold font-semibold uppercase">{el.title}</div>
                             <div className="text-[12px]">{el.description}</div>
                         </div>
                     </div>
