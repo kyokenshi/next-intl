@@ -44,12 +44,12 @@ const NewsContainer = (props: INewsProps) => {
 
     return (
         <div className='mb-[40px]'>
-            <SectionTitle title={dataConfig.name_new_header} description={dataConfig.name_new_header} />
+            <SectionTitle title={dataConfig?.name_new_header} description={dataConfig?.name_new_header} />
             <div className="max-w-[1200px] px-[0px] mx-auto">
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                     <div className='hidden sm:block'>
                         <Space direction='vertical' size={32} className='min-w-full'>
-                            <MenuList title={dataConfig.name_product_new}>
+                            <MenuList title={dataConfig?.name_product_new}>
                                 <Space direction='vertical' size={4} style={{ width: "100%" }}>
                                     {dataListArtical?.map((el: any) => {
                                         return (

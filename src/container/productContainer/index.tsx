@@ -129,7 +129,7 @@ const ProductContainer = (props: Props) => {
                 <div>
                     <div className="mb-[32px] hidden sm:block">
 
-                        <MenuList title={dataConfig.name_category_home}>
+                        <MenuList title={dataConfig?.name_category_home}>
                             {
                                 dataCategoryProduct?.map((el: any) => {
                                     return (
@@ -147,7 +147,7 @@ const ProductContainer = (props: Props) => {
 
                     </div>
                     <div className='hidden sm:block'>
-                        <MenuList title={dataConfig.name_product_new}>
+                        <MenuList title={dataConfig?.name_product_new}>
                             <Space direction='vertical' size={12}>
                                 {dataProductNew?.map((el: any) => {
                                     return <CardProductHorizontal key={el.id} {...el} />

@@ -23,7 +23,7 @@ export default function Navigation({ dataConfig }: any) {
           </Link>
           <div className='hidden sm:flex' style={{ alignItems: "center" }}>
             <div className="icon-home"></div>
-            <div className="text"><p className='text-16 font-bold'>{dataConfig.address}</p>
+            <div className="text"><p className='text-16 font-bold'>{dataConfig?.address}</p>
               {/* <p className='text-12 font-bold'>Hoàng Mai, Hà Nội</p> */}
             </div>
           </div>
@@ -31,7 +31,7 @@ export default function Navigation({ dataConfig }: any) {
 
         <div className='hidden sm:flex align-middle'>
           <div className="icon-mail mr-1" ></div>
-          <div className="text"><p className='text-16 font-bold'>{dataConfig.email}</p><p className='text-16 font-bold'>{dataConfig.phone}</p></div>
+          <div className="text"><p className='text-16 font-bold'>{dataConfig?.email}</p><p className='text-16 font-bold'>{dataConfig?.phone}</p></div>
         </div>
 
 
