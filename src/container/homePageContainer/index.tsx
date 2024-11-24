@@ -36,7 +36,7 @@ const HomePageContainer = async (props: Props) => {
                 <div className="relative w-full h-full overflow-hidden ">
                     <CarouselMenu>
                         {data?.map((el: any) => (
-                            <div key={el.id} className="relative h-[300px] md:h-[400px] lg:h-[540px]">
+                            <div key={el.id} className="relative h-[300px] md:h-[330px] lg:h-[350px]">
                                 <Image
                                     src={getImageUrl(el?.image?.formats?.large?.url)}
                                     alt={el?.name}

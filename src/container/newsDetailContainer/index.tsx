@@ -10,45 +10,14 @@ type Props = {
     params: { id: string };
     dataDetail: any
     dataConfig: any
+    dataListSSR: any
 }
 
 const NewsDetailContainer = (props: Props) => {
 
-    const { dataDetail, dataConfig } = props;
-    console.log(dataDetail);
-
-
-
+    const { dataDetail, dataConfig, dataListSSR } = props;
     const elment = dataDetail[0]
-
     const { id } = props.params;
-
-    const listMenuProduct = [
-        {
-            id: 1,
-            name: 'Chưa phân loại'
-        },
-        {
-            id: 2,
-            name: 'Thiết Bị Khai Thác mỏ'
-        },
-        {
-            id: 3,
-            name: 'Máy nghiền cát'
-        },
-        {
-            id: 4,
-            name: 'Cấp liệu rung'
-        },
-        {
-            id: 5,
-            name: 'Sản phầm khuyến mãi'
-        }
-    ];
-
-    console.log(dataDetail, "dataDetail");
-
-
 
     return (
         <div className='mb-[40px]'>
@@ -58,8 +27,8 @@ const NewsDetailContainer = (props: Props) => {
                     <div className='hidden sm:block'>
                         <MenuList title={dataConfig.name_product_new}>
                             <Space direction='vertical' size={12}>
-                                {listMenuProduct.map((el) => {
-                                    return <CardNewHorizontal key={el.id} />;
+                                {dataListSSR.map((el: any) => {
+                                    return <CardNewHorizontal key={el.id} {...el} />;
                                 })}
                             </Space>
                         </MenuList>

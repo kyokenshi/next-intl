@@ -26,6 +26,24 @@ export const getApiListNews = async (props: ArticlesDataResquest): Promise<any> 
 };
 
 
+interface ArticlesDataResquestSSR {
+    locale: string;
+
+}
+export const getApiListNewsSSR = async (props: ArticlesDataResquestSSR): Promise<any> => {
+    const { locale } = props
+    const query = new StrapiQuery('articles')
+        .setLocale(locale ?? "en")
+        .setPagination(5, 1)
+        .setSort('createdAt', 'desc');
+
+    const res = await fetch(`${query + `&populate=*`}`);
+    const data = await res.json();
+    return data;
+};
+
+
+
 interface ListCategoryArticle {
     locale?: string;
     slug?: string;
