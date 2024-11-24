@@ -9,11 +9,15 @@ import { onFormatDate } from '@/utils/commom'
 type Props = {
     params: { id: string };
     dataDetail: any
+    dataConfig: any
 }
 
 const NewsDetailContainer = (props: Props) => {
 
-    const { dataDetail } = props;
+    const { dataDetail, dataConfig } = props;
+    console.log(dataDetail);
+
+
 
     const elment = dataDetail[0]
 
@@ -42,14 +46,17 @@ const NewsDetailContainer = (props: Props) => {
         }
     ];
 
+    console.log(dataDetail, "dataDetail");
+
+
 
     return (
         <div className='mb-[40px]'>
-            <SectionTitle title='Máy nghiền cát và nhu cầu cát nhân tạo tại tỉnh Bình Thuận' description='Máy nghiền cát và nhu cầu cát nhân tạo tại tỉnh Bình Thuận' />
+            <SectionTitle title={dataDetail.title} description={dataDetail.title} />
             <div className="max-w-[1200px] px-[0px] mx-auto">
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                     <div className='hidden sm:block'>
-                        <MenuList title='Mới nhất'>
+                        <MenuList title={dataConfig.name_product_new}>
                             <Space direction='vertical' size={12}>
                                 {listMenuProduct.map((el) => {
                                     return <CardNewHorizontal key={el.id} />;

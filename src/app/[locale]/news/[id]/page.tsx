@@ -3,6 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/components/PageLayout';
 import NewsDetailContainer from '@/container/newsDetailContainer';
 import { getApiNewsDetail } from '@/utils/axios/news';
+import { getConfigData } from '@/utils/axios/home';
 
 type Props = {
     params: { locale: string, id: string };
@@ -14,6 +15,8 @@ export default async function NewsDetail({ params: { locale, id } }: Props) {
 
 
     const { data } = await getApiNewsDetail({ locale, slug: id })
+    const { data: dataConfig } = await getConfigData({ locale })
+
     return (
         <PageLayout >
             {/* <div className="max-w-[490px]">
@@ -24,7 +27,7 @@ export default async function NewsDetail({ params: { locale, id } }: Props) {
                     )
                 })}
             </div> */}
-            <NewsDetailContainer params={{ id }} dataDetail={data} />
+            <NewsDetailContainer params={{ id }} dataDetail={data} dataConfig={dataConfig} />
         </PageLayout>
     );
 }
