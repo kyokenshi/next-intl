@@ -9,9 +9,6 @@ import { getImageUrl } from '@/utils/commom';
 export default function Navigation({ dataConfig }: any) {
   const t = useTranslations('Navigation');
 
-
-
-
   return (
     <>
       <header className='max-w-1200 w-[100%]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
@@ -24,9 +21,9 @@ export default function Navigation({ dataConfig }: any) {
               height={60}
             />
           </Link>
-          <div className='hidden sm:flex   align-middle'>
+          <div className='hidden sm:flex' style={{ alignItems: "center" }}>
             <div className="icon-home"></div>
-            <div className="text"><p className='text-12'>{dataConfig.office}</p>
+            <div className="text"><p className='text-12'>{dataConfig.address}</p>
               {/* <p className='text-12'>Hoàng Mai, Hà Nội</p> */}
             </div>
           </div>

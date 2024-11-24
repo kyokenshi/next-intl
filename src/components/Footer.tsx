@@ -2,9 +2,12 @@ import React from 'react'
 import { StyledFooter } from './styles'
 import Image from 'next/image'
 
-type Props = {}
+type Props = {
+    dataConfig: any
+}
 
 const Footer = (props: Props) => {
+    const { dataConfig } = props;
     return (
         <StyledFooter >
             <div className='max-w-1200 mx-auto mt-[32px] mb-[40px]'>
@@ -18,10 +21,21 @@ const Footer = (props: Props) => {
                         />
                     </div>
                     <div >
-                        <div className='text-[14px] mb-[4px]'><strong>Kho hàng</strong>: Km1, đường phan trọng tuệ, Thanh Trì, Hà Nội</div>
-                        <div className='text-[14px] mb-[4px]'><strong>Văn phòng</strong>: Tòa nhà Hòa Phát, Số 70 Nguyễn Đức Cảnh, Phường Tương Mai, Quận Hoàng Mai, Hà Nội</div>
-                        <div className='text-[14px] mb-[4px]'><strong>Điện thoại</strong>: 0983.884.194</div>
-                        <div className='text-[14px] mb-[4px]'><strong>Email</strong>: Hoaphatthietbi.banhang@gmail.com</div>
+                        <div className='text-[14px] mb-[4px]'>
+                            <div className='flex justify-center'>
+                                <strong className=''>Kho hàng</strong> :
+                                <div className='ml-[4px]'>
+
+                                    <div> {dataConfig?.address}</div>
+                                    <div>
+                                        {dataConfig?.brandaddress}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='text-[14px] mb-[4px]'><strong>Văn phòng</strong>: {dataConfig?.office}</div>
+                        <div className='text-[14px] mb-[4px]'><strong>Điện thoại</strong>: {dataConfig?.phone}</div>
+                        <div className='text-[14px] mb-[4px]'><strong>Email</strong>: {dataConfig?.email}</div>
                     </div>
 
                 </div>
