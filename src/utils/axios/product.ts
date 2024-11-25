@@ -8,6 +8,7 @@ interface ProductDataResquest {
   categoryId?: string;
   params: {
     page: number;
+    search: any
   }
 }
 // Client
@@ -23,8 +24,13 @@ export const getApiProduct = async (props: ProductDataResquest): Promise<any> =>
     .setSort('createdAt', 'desc');
 
 
+
   if (categoryId) {
     query.setFilter('product_category', '$eq', categoryId);
+  }
+
+  if (params.search) {
+    query.setSearch(params.search)
   }
 
   const res = await fetch(`${query}` + `&populate=images`);

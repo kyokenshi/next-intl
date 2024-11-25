@@ -13,7 +13,7 @@ const CardNewHome = (props: Props) => {
     const { cover, title, slug, ...other } = props
     return (
         <div>
-            <Link href={`/${slug}`}>
+            <Link href={`/news/${slug}`}>
                 <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                     <Image
                         // Thêm object-cover
@@ -26,10 +26,10 @@ const CardNewHome = (props: Props) => {
                 </div>
             </Link>
             <div className='p-[14px] text-center' >
-                <Link href={`/${slug}`}>
+                <Link href={`/news/${slug}`}>
                     <div className='text-[20px] text-[#2764c2]'>{title}</div>
                 </Link>
-                <Link href={`/${slug}`}>
+                <Link href={`/news/${slug}`}>
                     <div className='text-center text-[14px] mt-[16px]'>See more<span className='ml-[4px]'>→</span></div>
                 </Link>
             </div>

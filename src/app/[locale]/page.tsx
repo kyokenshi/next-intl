@@ -8,14 +8,14 @@ type Props = {
   params: { locale: string };
 };
 
-const title = `Thiết bị khai thác mỏ`;
-const description =
-  "Thiết bị khai thác mỏ";
+// const title = `Thiết bị khai thác mỏ`;
+// const description =
+//   "Thiết bị khai thác mỏ";
 
-export const metadata: Metadata = {
-  title,
-  description,
-};
+// export const metadata: Metadata = {
+//   title,
+//   description,
+// };
 
 export default function IndexPage({ params: { locale } }: Props) {
   // Enable static rendering

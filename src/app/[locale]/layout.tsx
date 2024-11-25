@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ReactNode } from 'react';
 import BaseLayout from '@/components/BaseLayout';
 import { routing } from '@/i18n/routing';
+import { Viewport } from 'next';
+import { getConfigData } from '@/utils/axios/home';
 
 type Props = {
   children: ReactNode;
@@ -13,15 +15,51 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params: { locale }
-}: Omit<Props, 'children'>) {
-  const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
 
+export const viewport: Viewport = {
+  initialScale: 1,
+  maximumScale: 1,
+  width: "device-width",
+};
+export async function generateMetadata({ params }: any) {
+
+  const { data: dataConfig } = await getConfigData({ locale: params.locale })
   return {
-    title: t('title')
-  };
+    title: dataConfig?.title,
+    description: dataConfig?.description,
+    icons: {
+      icon: `${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.logo?.url}`,
+    },
+    openGraph: {
+      title: dataConfig?.title,
+      description: dataConfig?.description,
+      type: 'website',
+      locale: params.locale || 'vi',
+      images: [
+        {
+          url: 'https://img.vietcetera.com/uploads/public/sharing-default-thumbnail.jpg',
+          alt: dataConfig?.title || 'Default Image',
+        },
+      ],
+      siteName: 'Vietcetera',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@Vietcetera',
+      title: dataConfig?.title,
+      description: dataConfig?.description,
+      images: ['https://img.vietcetera.com/uploads/public/sharing-default-thumbnail.jpg'],
+    },
+    applicationName: 'Vietcetera',
+    appleWebApp: {
+      title: dataConfig?.title,
+    },
+
+  }
+
 }
+
+
 
 export default async function LocaleLayout({
   children,

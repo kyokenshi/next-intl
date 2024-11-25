@@ -4,10 +4,23 @@ import PageLayout from '@/components/PageLayout';
 import NewsDetailContainer from '@/container/newsDetailContainer';
 import { getApiListCategoryArticle, getApiListNewsSSR, getApiNewsDetail } from '@/utils/axios/news';
 import { getConfigData } from '@/utils/axios/home';
+import { Metadata } from 'next';
 
 type Props = {
     params: { locale: string, id: string };
 };
+
+
+
+// or Dynamic metadata
+export async function generateMetadata({ params: { locale, id } }: Props): Promise<Metadata> {
+    const { data } = await getApiNewsDetail({ locale, slug: id })
+
+    return {
+        title: data[0].title,
+        description: data[0].description
+    }
+}
 
 export default async function NewsDetail({ params: { locale, id } }: Props) {
     // Enable static rendering
@@ -20,8 +33,13 @@ export default async function NewsDetail({ params: { locale, id } }: Props) {
     const { data: dataListSSR } = await getApiListNewsSSR({ locale })
 
 
+
     return (
         <PageLayout >
+            {/* <head>
+                <title>{data[0]?.title}</title>
+                <meta name="description" content={data[0]?.description} />
+            </head> */}
             {/* <div className="max-w-[490px]">
                 {t.rich('description', {
                     p: (chunks) => <p className="mt-4">{chunks}</p>,

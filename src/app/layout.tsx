@@ -5,11 +5,13 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import StyledJsxRegistry from '@/lib/registry';
 import { GlobalStyles } from './GlobalStyles';
+import { Metadata } from 'next';
 
 
 type Props = {
   children: ReactNode;
 };
+
 
 // Since we have a `not-found.tsx` page on the root, a layout file
 // is required, even if it's just passing children through.

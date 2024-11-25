@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const searchParams = request.nextUrl.search; // Lấy tham số truy vấn
 
   // Cho phép truy cập trực tiếp vào "/"
   if (pathname === '/') {
@@ -34,7 +35,7 @@ export function middleware(request: NextRequest) {
     // Nếu URL không có locale và không phải root path
     if (pathname !== '/') {
       const locale = cookieLocale || 'vi';
-      const newUrl = new URL(`/${locale}${pathname}`, request.url);
+      const newUrl = new URL(`/${locale}${pathname}${searchParams}`, request.url);
       const response = NextResponse.redirect(newUrl);
       response.cookies.set('NEXT_LOCALE', locale);
       return response;

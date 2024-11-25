@@ -6,6 +6,7 @@ import Pagination from '@/components/Pagination';
 import { getApiProduct } from '@/utils/axios/product';
 import { Select, Skeleton, Space } from 'antd';
 import Link from 'antd/es/typography/Link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 
@@ -87,15 +88,17 @@ interface Props {
 }
 
 const ProductContainer = (props: Props) => {
-
+    const searchParams = useSearchParams();
     const { id } = props.params;
     const { dataCategoryProduct, dataProductNew, dataConfig } = props
     const [productList, setProductList] = useState<Product[]>([]);
     const [pagination, setPagination] = useState<any>({});
+    const search = searchParams.get('search'); // Get the search parameter
 
     const [loading, setLoading] = useState(true);
     const [params, setParams] = useState({
         page: 1,
+        search: search
     })
 
     const onPageChange = (page: number) => {
@@ -106,13 +109,20 @@ const ProductContainer = (props: Props) => {
     };
 
 
+    useEffect(() => {
+        setParams((preveState) => ({
+            ...preveState,
+            search: search
+        }));
+
+    }, [search])
+
+
     const onGetListProduct = async () => {
         try {
             const resp = await getApiProduct({ categoryId: id?.[0], params });
             setProductList(resp.data);
             setPagination(resp.meta);
-
-
         } finally {
             setLoading(false);
         }
