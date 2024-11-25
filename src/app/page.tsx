@@ -30,13 +30,13 @@ export default async function HomePage() {
   // Enable static rendering
   const cookieStore = cookies();
   const localeCookie = cookieStore.get('NEXT_LOCALE');
-  setRequestLocale(localeCookie?.value ?? 'en');
+  setRequestLocale(localeCookie?.value ?? 'vi');
 
 
   return (
-    <BaseLayout locale={localeCookie?.value ?? "en"}>
+    <BaseLayout locale={localeCookie?.value ?? "vi"}>
       <PageLayout>
-        <HomePageContainer params={{ locale: localeCookie?.value ?? "en" }} />
+        <HomePageContainer params={{ locale: localeCookie?.value ?? "vi" }} />
       </PageLayout>
     </BaseLayout>
   );

@@ -42,8 +42,12 @@ export default async function BaseLayout({ children, locale }: Props) {
 
   const { data: dataConfig } = await getConfigData({ locale })
 
+
   return (
     <html className="h-full" lang={locale}>
+      <head>
+        <link rel="icon" href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.logo?.url}`} /> {/* Thay đổi đường dẫn đến favicon của bạn */}
+      </head>
       <body className={clsx('flex h-full flex-col', roboto.className)}>
         <NextIntlClientProvider messages={messages}>
           <Navigation dataConfig={dataConfig} />

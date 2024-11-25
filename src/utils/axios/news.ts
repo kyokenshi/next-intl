@@ -33,7 +33,7 @@ interface ArticlesDataResquestSSR {
 export const getApiListNewsSSR = async (props: ArticlesDataResquestSSR): Promise<any> => {
     const { locale } = props
     const query = new StrapiQuery('articles')
-        .setLocale(locale ?? "en")
+        .setLocale(locale ?? "vi")
         .setPagination(5, 1)
         .setSort('createdAt', 'desc');
 

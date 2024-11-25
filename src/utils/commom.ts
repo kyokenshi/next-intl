@@ -11,13 +11,13 @@ export const getLanguageFromCookie = () => {
             const parts = value.split(`; NEXT_LOCALE=`);
             if (parts.length === 2) {
                 const lang = parts.pop()?.split(';').shift();
-                return lang || 'en';
+                return lang || 'vi';
             }
         }
-        return 'en'; // fallback
+        return 'vi'; // fallback
     } catch (error) {
         console.error('Error getting language from cookie:', error);
-        return 'en'; // fallback if error
+        return 'vi'; // fallback if error
     }
 };
 
@@ -25,11 +25,11 @@ export const getLanguageFromCookie = () => {
 export const getServerLanguage = (req: NextRequest) => {
     try {
         // Lấy locale từ headers
-        const locale = req.headers.get('NEXT_LOCALE')?.split(',')[0] || 'en'; // fallback
+        const locale = req.headers.get('NEXT_LOCALE')?.split(',')[0] || 'vi'; // fallback
         return locale;
     } catch (error) {
         console.error('Error getting server language:', error); // Ghi log lỗi
-        return 'en'; // fallback
+        return 'vi'; // fallback
     }
 };
 

@@ -33,7 +33,7 @@ export function middleware(request: NextRequest) {
   } else {
     // Nếu URL không có locale và không phải root path
     if (pathname !== '/') {
-      const locale = cookieLocale || 'en';
+      const locale = cookieLocale || 'vi';
       const newUrl = new URL(`/${locale}${pathname}`, request.url);
       const response = NextResponse.redirect(newUrl);
       response.cookies.set('NEXT_LOCALE', locale);
