@@ -67,7 +67,7 @@ interface ProductDataDetailResquest {
 // SSR
 export const getApiNewsDetail = async (props: ProductDataDetailResquest): Promise<any> => {
     const { locale, slug } = props
-    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&filters[slug]=${slug}`);
+    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&filters[slug]=${slug}&populate[seo][populate]=*`);
     const data = await res.json();
     return data;
 };

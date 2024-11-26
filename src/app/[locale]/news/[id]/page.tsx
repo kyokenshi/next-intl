@@ -15,10 +15,26 @@ type Props = {
 // or Dynamic metadata
 export async function generateMetadata({ params: { locale, id } }: Props): Promise<Metadata> {
     const { data } = await getApiNewsDetail({ locale, slug: id })
-
+    const el = data[0]?.seo
     return {
-        title: data[0].title,
-        description: data[0].description
+        title: el?.metametaTitle,
+        description: el?.description,
+        applicationName: el?.metaTitle,
+        appleWebApp: {
+            title: el?.metaTitle,
+        },
+        openGraph: {
+            title: el?.metaTitle,
+            description: el?.description,
+            type: 'website',
+            locale: locale || 'vi',
+            siteName: el?.metaTitle,
+        },
+        twitter: {
+            site: el?.title,
+            title: el?.title,
+            description: el?.description,
+        },
     }
 }
 
@@ -35,20 +51,12 @@ export default async function NewsDetail({ params: { locale, id } }: Props) {
 
 
     return (
-        <PageLayout >
-            {/* <head>
-                <title>{data[0]?.title}</title>
-                <meta name="description" content={data[0]?.description} />
-            </head> */}
-            {/* <div className="max-w-[490px]">
-                {t.rich('description', {
-                    p: (chunks) => <p className="mt-4">{chunks}</p>,
-                    code: (chunks) => (
-                        <code className="font-mono text-white">{chunks}</code>
-                    )
-                })}
-            </div> */}
-            <NewsDetailContainer params={{ id }} dataListSSR={dataListSSR} dataDetail={data} dataConfig={dataConfig} />
-        </PageLayout>
+        <>
+            <meta property="article:tag" content={data[0]?.seo?.tag}></meta>
+            <PageLayout>
+                <NewsDetailContainer params={{ id }} dataListSSR={dataListSSR} dataDetail={data} dataConfig={dataConfig} />
+            </PageLayout>
+        </>
+
     );
 }

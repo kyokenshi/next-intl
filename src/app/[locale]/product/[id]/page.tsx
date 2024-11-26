@@ -18,12 +18,26 @@ type Props = {
 // or Dynamic metadata
 export async function generateMetadata({ params: { locale, id } }: Props): Promise<ExtendedMetadata> {
   const { data } = await getApiProductDetail({ locale, slug: id });
-  const el = data[0]
+  const el = data[0]?.seo
   return {
-    title: el?.seo?.metaTitle,
-    description: el?.seo?.metaDescription,
-    // articleTag: el?.seo?.tag,
-
+    title: el?.metametaTitle,
+    description: el?.description,
+    applicationName: el?.metaTitle,
+    appleWebApp: {
+      title: el?.metaTitle,
+    },
+    openGraph: {
+      title: el?.metaTitle,
+      description: el?.description,
+      type: 'website',
+      locale: locale || 'vi',
+      siteName: el?.metaTitle,
+    },
+    twitter: {
+      site: el?.title,
+      title: el?.title,
+      description: el?.description,
+    },
   }
 }
 
@@ -41,6 +55,12 @@ export default async function ProductDetailPage({ params: { locale, id } }: Prop
   return (
 
     <>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data[0]?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data[0]?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data[0]?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data[0]?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data[0]?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data[0]?.seo?.shareImage?.formats?.thumbnail?.url}`} name="twitter:image"></meta>
       <meta property="article:tag" content={data[0]?.seo?.tag}></meta>
       <PageLayout>
         <ProductDetailContainer data={data} dataProductNew={dataProductNew.data} />

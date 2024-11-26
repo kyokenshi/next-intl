@@ -22,43 +22,34 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 export async function generateMetadata({ params }: any) {
-
   const { data: dataConfig } = await getConfigData({ locale: params.locale })
+
   return {
-    title: dataConfig?.title,
-    description: dataConfig?.description,
+
+    title: dataConfig?.seo?.metaTitle,
+    description: dataConfig?.seo?.metaDescription,
     icons: {
       icon: `${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.logo?.url}`,
     },
     openGraph: {
-      title: dataConfig?.title,
-      description: dataConfig?.description,
+      title: dataConfig?.seo?.metaTitle,
+      description: dataConfig?.seo?.metaDescription,
       type: 'website',
       locale: params.locale || 'vi',
-      images: [
-        {
-          url: 'https://img.vietcetera.com/uploads/public/sharing-default-thumbnail.jpg',
-          alt: dataConfig?.title || 'Default Image',
-        },
-      ],
-      siteName: 'Vietcetera',
+      siteName: dataConfig?.seo?.metaTitle,
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@Vietcetera',
-      title: dataConfig?.title,
-      description: dataConfig?.description,
-      images: ['https://img.vietcetera.com/uploads/public/sharing-default-thumbnail.jpg'],
+      site: dataConfig?.seo?.metaTitle,
+      title: dataConfig?.seo?.metaTitle,
+      description: dataConfig?.seo?.metaDescription,
     },
-    applicationName: 'Vietcetera',
+    applicationName: dataConfig?.seo?.metaTitle,
     appleWebApp: {
-      title: dataConfig?.title,
+      title: dataConfig?.seo?.metaTitle,
     },
-
   }
-
 }
-
 
 
 export default async function LocaleLayout({
@@ -69,9 +60,19 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
+  const { data: dataConfig } = await getConfigData({ locale: locale ?? "vi" })
 
   // Enable static rendering
   setRequestLocale(locale);
 
-  return <BaseLayout locale={locale}>{children}</BaseLayout>;
+  return <BaseLayout locale={locale}>
+    <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+    <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+    <meta property="og:image" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+    <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+    <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+    <meta content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`} name="twitter:image"></meta>
+    <meta property="article:tag" content={dataConfig?.seo?.tag}></meta>
+    {children}
+  </BaseLayout>;
 }

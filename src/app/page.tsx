@@ -28,35 +28,38 @@ export async function generateMetadata() {
   const localeCookie = cookieStore.get('NEXT_LOCALE')?.value;
 
   const { data: dataConfig } = await getConfigData({ locale: localeCookie })
+
+
   return {
-    title: dataConfig?.title,
-    description: dataConfig?.description,
+
+    title: dataConfig?.seo?.metaTitle,
+    description: dataConfig?.seo?.metaDescription,
     icons: {
       icon: `${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.logo?.url}`,
     },
     openGraph: {
-      title: dataConfig?.title,
-      description: dataConfig?.description,
+      title: dataConfig?.seo?.metaTitle,
+      description: dataConfig?.seo?.metaDescription,
       type: 'website',
       locale: localeCookie || 'vi',
-      images: [
-        {
-          url: 'https://img.vietcetera.com/uploads/public/sharing-default-thumbnail.jpg',
-          alt: dataConfig?.title || 'Default Image',
-        },
-      ],
-      siteName: 'Vietcetera',
+      // images: [
+      //   {
+      //     url: `${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`,
+      //     alt: dataConfig?.seo?.shareImage?.formats?.thumbnail?.name || 'Default Image',
+      //   },
+      // ],
+      siteName: dataConfig?.seo?.metaTitle,
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@Vietcetera',
-      title: dataConfig?.title,
-      description: dataConfig?.description,
-      images: ['https://img.vietcetera.com/uploads/public/sharing-default-thumbnail.jpg'],
+      site: dataConfig?.seo?.metaTitle,
+      title: dataConfig?.seo?.metaTitle,
+      description: dataConfig?.seo?.metaDescription,
+      // images: `${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`,
     },
-    applicationName: 'Vietcetera',
+    applicationName: dataConfig?.seo?.metaTitle,
     appleWebApp: {
-      title: dataConfig?.title,
+      title: dataConfig?.seo?.metaTitle,
     },
   }
 }
@@ -72,10 +75,18 @@ export default async function HomePage() {
   const cookieStore = cookies();
   const localeCookie = cookieStore.get('NEXT_LOCALE');
   setRequestLocale(localeCookie?.value ?? 'vi');
+  const { data: dataConfig } = await getConfigData({ locale: localeCookie?.value ?? "vi" })
 
 
   return (
     <BaseLayout locale={localeCookie?.value ?? "vi"}>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta property="og:image:secure_url" content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`}></meta>
+      <meta content={`${process.env.NEXT_PUBLIC_IMAGE_URL}${dataConfig?.seo?.shareImage?.formats?.thumbnail?.url}`} name="twitter:image"></meta>
+      <meta property="article:tag" content={dataConfig?.seo?.tag}></meta>
       <PageLayout>
         <HomePageContainer params={{ locale: localeCookie?.value ?? "vi" }} />
       </PageLayout>
