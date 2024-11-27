@@ -33,6 +33,12 @@ export class StrapiQuery {
         return this;
     }
 
+
+    setSearch(search: string): this {
+        this.params.push(`&filters[title][$contains]=${search}`);
+        return this;
+    }
+
     toString(): string {
         return `${this.baseUrl}?${this.params.join('&')}`;
     }

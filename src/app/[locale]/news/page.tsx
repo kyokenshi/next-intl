@@ -4,6 +4,7 @@ import PageLayout from '@/components/PageLayout';
 import NewsContainer from '@/container/newsContainer';
 import { getApiListCategoryArticle } from '@/utils/axios/news';
 import { getConfigData } from '@/utils/axios/home';
+import Head from 'next/head';
 
 type Props = {
     params: { locale: string };
@@ -19,6 +20,7 @@ export default async function NewsPage({ params: { locale } }: Props) {
 
     return (
         <PageLayout>
+
             {/* <div className="max-w-[490px]">
                 {t.rich('description', {
                     p: (chunks) => <p className="mt-4">{chunks}</p>,

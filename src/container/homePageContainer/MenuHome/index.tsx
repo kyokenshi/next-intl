@@ -6,6 +6,7 @@ import { getApiCategoryHome } from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { MenuOutlined } from '@ant-design/icons';
 
 type Props = {
     locale: string,
@@ -86,7 +87,7 @@ const MenuHome = (props: Props) => {
 
     return (
         <StyledMenuHome className='bg-[#F0F0F0]' >
-            <div className='px-[20px] py-[11px]  bg-blue-1000 text-ellipsis  text-white text-16px '>{dataConfig?.name_category_home}</div>
+            <div className='px-[20px] py-[11px]  bg-blue-1000 text-ellipsis  text-white text-16px '><MenuOutlined style={{ marginRight: 4 }} /> {dataConfig?.name_category_home}</div>
             {loading ? <div className='p-[8px]'><Skeleton active /></div> : <Menu onClick={onClick} mode="vertical" items={listCategoryHome} rootClassName='menu-home-custom' />
             }
         </StyledMenuHome>

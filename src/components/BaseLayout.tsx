@@ -7,6 +7,8 @@ import { ReactNode } from 'react';
 import Navigation from './Header/Navigation';
 import Footer from './Footer';
 import { getConfigData } from '@/utils/axios/home';
+import Head from 'next/head';
+import { routing } from '@/i18n/routing';
 
 // const inter = Inter({ subsets: ['latin'] });
 const roboto = Roboto({
@@ -15,25 +17,15 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-const title = `Thiết bị khai thác mỏ`;
-const description =
-  "Thiết bị khai thác mỏ";
-
-export const metadata: Metadata = {
-  title,
-  description,
-};
-
-export const viewport: Viewport = {
-  initialScale: 1,
-  maximumScale: 1,
-  width: "device-width",
-};
 
 type Props = {
   children: ReactNode;
   locale: string;
 };
+
+
+
+
 
 export default async function BaseLayout({ children, locale }: Props) {
   // Providing all messages to the client
@@ -42,8 +34,14 @@ export default async function BaseLayout({ children, locale }: Props) {
 
   const { data: dataConfig } = await getConfigData({ locale })
 
+
+
   return (
     <html className="h-full" lang={locale}>
+      <head>
+        <link rel="icon" href="./../app/favicon.ico" sizes="any" />
+      </head>
+
       <body className={clsx('flex h-full flex-col', roboto.className)}>
         <NextIntlClientProvider messages={messages}>
           <Navigation dataConfig={dataConfig} />

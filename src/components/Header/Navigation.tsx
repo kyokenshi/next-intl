@@ -29,7 +29,7 @@ export default function Navigation({ dataConfig }: any) {
           </div>
         </div>
 
-        <div className='hidden sm:flex align-middle'>
+        <div className='hidden lg:flex align-middle'>
           <div className="icon-mail mr-1" ></div>
           <div className="text"><p className='text-16 font-bold'>{dataConfig?.email}</p><p className='text-16 font-bold'>{dataConfig?.phone}</p></div>
         </div>

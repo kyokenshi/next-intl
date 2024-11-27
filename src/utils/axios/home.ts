@@ -52,7 +52,7 @@ interface ProductDataConfigResquest {
 
 const getApiConfig = async (props: ProductDataConfigResquest): Promise<any> => {
     const { locale } = props
-    const res = await fetch(`${API_URL}/api/setting-website?locale=${locale}&populate=*`, {
+    const res = await fetch(`${API_URL}/api/setting-website?locale=${locale}&populate[logo][populate]=*&populate[seo][populate]=*`, {
         next: { revalidate: 300 },
     });
     const data = await res.json();

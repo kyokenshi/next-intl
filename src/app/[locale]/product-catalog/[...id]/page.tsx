@@ -5,6 +5,7 @@ import ProductContainer from '@/container/productContainer';
 import { getCategoryProduct } from '@/utils/axios/productCategory';
 import { getProductNew } from '@/utils/axios/product';
 import { getConfigData } from '@/utils/axios/home';
+import { Suspense } from 'react';
 
 type Props = {
   params: { locale: string, id: any };
@@ -22,7 +23,9 @@ export default async function ProductCatalogPage({ params: { locale, id } }: Pro
 
   return (
     <PageLayout >
-      <ProductContainer params={{ id }} dataConfig={dataConfig} dataCategoryProduct={data.data} dataProductNew={dataProductNew.data} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProductContainer params={{ id }} dataConfig={dataConfig} dataCategoryProduct={data.data} dataProductNew={dataProductNew.data} />
+      </Suspense>
     </PageLayout>
   );
 }

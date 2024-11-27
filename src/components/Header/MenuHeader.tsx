@@ -26,10 +26,9 @@ const MenuHeader = (props: Props) => {
   const [masterData, setMasterData] = useState<any>();
 
   // const onTitleClick = (info: any) => {
-  //   router.push(`/${info.url}`);
+  //    router.push (`/${info.url}`);
   // }
 
-  console.log(masterData, "masterData");
 
 
 
@@ -87,8 +86,6 @@ const MenuHeader = (props: Props) => {
         const data = await getHeaderData();
         if (data?.MainMenuItems?.length > 0) {
           const transformedItems = transformMenuData(data.MainMenuItems);
-          console.log(transformedItems, "transformedItems");
-
           setMasterData(transformedItems);
         }
       } catch (error) {
@@ -100,7 +97,7 @@ const MenuHeader = (props: Props) => {
 
 
   const onSearch: any = (value: string) => {
-    console.log(value);
+    router.push(`/product?search=${encodeURIComponent(value)}`);
   }
 
   const findDeepItem = (keyPath: string[], items: any[]): any => {
@@ -132,9 +129,6 @@ const MenuHeader = (props: Props) => {
     const { keyPath } = e;
     const clickedItem = findDeepItem(keyPath, masterData);
 
-    console.log(clickedItem, "clickedItem");
-
-
     if (clickedItem) {
       const { __component, url } = clickedItem;
 
@@ -164,9 +158,9 @@ const MenuHeader = (props: Props) => {
             rootClassName='menu-header'
             items={masterData}
           />
-          {/* <div className='min-h-[46px] flex items-center min-w-[auto] md:min-w-[300px]'>
-            <Search placeholder="Tìm kiếm sản phẩm " allowClear onSearch={onSearch} />
-          </div> */}
+          <div className='min-h-[46px] flex items-center min-w-[auto] md:min-w-[300px]'>
+            <Search placeholder="Tìm kiếm sản phẩm " onSearch={onSearch} />
+          </div>
         </StyledMenu>
       </div>
     </Affix>
