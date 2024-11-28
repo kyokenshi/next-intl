@@ -51,7 +51,7 @@ const HomePageContainer = async (props: Props) => {
             {dataSection[0]?.product_list?.map((el: any) => {
                 return <HotDeal key={el.id} {...el} />
             })}
-            <News dataArticle={dataArticle} />
+            <News dataArticle={dataArticle} dataConfig={dataConfig} />
             <SupportInformation dataPartner={dataPartner} dataService={dataService} dataConfig={dataConfig} />
             <RegisterInfomation dataConfig={dataConfig} />
         </div>
