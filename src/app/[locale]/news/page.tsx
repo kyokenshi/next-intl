@@ -21,15 +21,6 @@ export default async function NewsPage({ params: { locale } }: Props) {
 
     return (
         <PageLayout>
-
-            {/* <div className="max-w-[490px]">
-                {t.rich('description', {
-                    p: (chunks) => <p className="mt-4">{chunks}</p>,
-                    code: (chunks) => (
-                        <code className="font-mono text-white">{chunks}</code>
-                    )
-                })}
-            </div> */}
             <Suspense fallback={<div>....Loading</div>}>
                 <NewsContainer dataListArtical={data} dataConfig={dataConfig} />
             </Suspense>
