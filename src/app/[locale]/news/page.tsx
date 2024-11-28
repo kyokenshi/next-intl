@@ -5,6 +5,7 @@ import NewsContainer from '@/container/newsContainer';
 import { getApiListCategoryArticle } from '@/utils/axios/news';
 import { getConfigData } from '@/utils/axios/home';
 import Head from 'next/head';
+import { Suspense } from 'react';
 
 type Props = {
     params: { locale: string };
@@ -29,7 +30,9 @@ export default async function NewsPage({ params: { locale } }: Props) {
                     )
                 })}
             </div> */}
-            <NewsContainer dataListArtical={data} dataConfig={dataConfig} />
+            <Suspense fallback={<div>....Loading</div>}>
+                <NewsContainer dataListArtical={data} dataConfig={dataConfig} />
+            </Suspense>
         </PageLayout>
     );
 }
