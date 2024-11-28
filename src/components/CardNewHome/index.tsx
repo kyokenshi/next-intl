@@ -27,7 +27,7 @@ const CardNewHome = (props: Props) => {
             </Link>
             <div className='p-[14px] text-center' >
                 <Link href={`/news/${slug}`}>
-                    <div className='text-[20px] text-[#2764c2]'>{title}</div>
+                    <div className='text-[15px] text-[#2764c2]'>{title}</div>
                 </Link>
                 <Link href={`/news/${slug}`}>
                     <div className='text-center text-[14px] mt-[16px]'>See more<span className='ml-[4px]'>→</span></div>
