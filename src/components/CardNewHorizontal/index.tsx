@@ -10,11 +10,11 @@ type Props = {
     slug?: string
 }
 
-const CardProductHorizontal = (props: Props) => {
+const CardNewHorizontal = (props: Props) => {
     const { size = 60, cover, title, slug } = props
+
     return (
         <div className='grid grid-cols-[60px_1fr] gap-[12px]'>
-            {/* <img loading='lazy' src='https://hoaphatthietbi.com/wp-content/uploads/2023/01/tt2-100x100.jpg' alt='product' width={size} height={size} className='cursor-pointer' /> */}
 
             <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                 <Image
@@ -31,4 +31,4 @@ const CardProductHorizontal = (props: Props) => {
     )
 }
 
-export default CardProductHorizontal
+export default CardNewHorizontal

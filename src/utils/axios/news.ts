@@ -8,17 +8,24 @@ interface ArticlesDataResquest {
     params: {
         page: number;
     }
+    categoryId?: string
 }
 // Client
 export const getApiListNews = async (props: ArticlesDataResquest): Promise<any> => {
-    const { params } = props
+    const { params, categoryId } = props
 
     const language = getLanguageFromCookie();
 
-    const query = new StrapiQuery('articles')
+    // /api/articles?locale=en&pagination[page]=1&pagination[pageSize]=10&sort=createdAt:desc
+    //&filters[category][slug][$eq]=tech&populate=*
+
+    let query = new StrapiQuery('articles')
         .setLocale(language)
         .setPagination(9, params.page)
-        .setSort('createdAt', 'desc');
+        .setSort('createdAt', 'desc')
+    if (categoryId) {
+        query.setFilterNews(categoryId)
+    }
 
     const res = await fetch(`${query + `&populate=*`}`);
     const data = await res.json();

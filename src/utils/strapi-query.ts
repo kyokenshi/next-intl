@@ -33,6 +33,11 @@ export class StrapiQuery {
         return this;
     }
 
+    setFilterNews(value?: string): this {
+        this.params.push(`filters[category][slug][$eq]=${value}`);
+        return this;
+    }
+
 
     setSearch(search: string): this {
         this.params.push(`&filters[title][$contains]=${search}`);

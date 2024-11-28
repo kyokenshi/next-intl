@@ -27,17 +27,19 @@ const NewsDetailContainer = (props: Props) => {
                         <MenuList title={dataConfig?.name_product_new}>
                             <Space direction='vertical' size={12}>
                                 {dataListSSR?.map((el: any) => {
-                                    return <CardNewHorizontal key={el.id} {...el} />;
+                                    return <CardNewHorizontal key={el?.id} {...el} />;
                                 })}
                             </Space>
                         </MenuList>
                     </div>
                     <div className='w-full'>
                         <div className='text-[32px] mb-[16px]'>{elment?.title}</div>
+
                         <div className='mb-[16px]'>{onFormatDate(elment?.createdAt)}</div>
-                        <div
+                        {elment?.content && <div
                             dangerouslySetInnerHTML={{ __html: elment?.content }}>
-                        </div>
+                        </div>}
+
                     </div>
                 </div>
             </div>
