@@ -35,9 +35,9 @@ export default function Navigation({ dataConfig }: any) {
         </div>
 
 
-        <nav className=''>
+        {/* <nav className=''>
           <LocaleSwitcher />
-        </nav>
+        </nav> */}
       </header>
       {/* <Affix> */}
       <MenuHeader />

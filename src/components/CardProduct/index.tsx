@@ -8,7 +8,7 @@ import { formatPrice, getImageUrl } from '@/utils/commom';
 import Link from 'antd/es/typography/Link';
 
 type Props = Product;
-
+// hover:scale-[104%]
 const CardProduct = (props: Props) => {
     const { id, title, price, images = "", slug } = props;
 
@@ -16,7 +16,7 @@ const CardProduct = (props: Props) => {
         <Link href={`/product/${slug}`}>
             <StyledCardProduct>
                 <div className="card-product bg-[#F4F4F4] ">
-                    <div className="p-[6px] relative">
+                    <div className=" relative">
                         {/* <div className="mark"></div>
                     <div className="cart-wrapper">
                         <div
@@ -29,7 +29,7 @@ const CardProduct = (props: Props) => {
                             <ShoppingCartOutlined />
                         </div>
                     </div> */}
-                        <div className="p-[6px] relative w-full aspect-square hover:scale-[104%]" style={{
+                        <div className="relative w-full aspect-square " style={{
                             transition: "transform 0.3s ease"
                         }}> {/* Thêm aspect-square để tạo container vuông */}
                             <Image
@@ -42,11 +42,11 @@ const CardProduct = (props: Props) => {
                         </div>
 
                     </div>
-                    <div style={{ background: '#F4F4F4' }}>
+                    <div className='wrapper-text' style={{ background: '#F4F4F4' }}>
                         <div className="p-[15px] text-[16px] font-bold ">
                             <div className="min-h-[40px]  line-clamp-2">{title}</div>
                         </div>
-                        <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold">
+                        <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold text-price ">
                             {formatPrice(price)}
                         </div>
                     </div>

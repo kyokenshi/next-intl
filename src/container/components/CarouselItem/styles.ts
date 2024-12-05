@@ -9,8 +9,11 @@ export const StyledCarouselItem = styled.div`
   }
   
   // Đảm bảo item đầu tiên và cuối cùng cũng có padding đúng
-    .ant-carousel .slick-list {
-        margin: 0 -20px;
+    .ant-carousel {
+        .slick-list {
+            padding-top: 16px;
+        /* margin: 0 -20px; */
+        }
     }
 
 

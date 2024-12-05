@@ -37,8 +37,10 @@ export const getApiSliderSection = async (props: ProductDataSliderSectionResques
 };
 
 
-export const getApiPartner = async (): Promise<any> => {
-    const res = await fetch(`${API_URL}/api/clients?populate=* `, {
+export const getApiPartner = async (props: ProductDataSliderSectionResquest): Promise<any> => {
+    const { locale } = props
+
+    const res = await fetch(`${API_URL}/api/clients?locale=${locale}&populate[clients][populate]=* `, {
         next: { revalidate: 300 },
     });
     const data = await res.json();
@@ -117,6 +119,14 @@ export const subscribeEmail = async (
             "Content-Type": "application/json",
         },
         method: "POST",
+    });
+    const data = await res.json();
+    return data;
+};
+
+export const getApiSocials = async (): Promise<any> => {
+    const res = await fetch(`${API_URL}/api/socials?populate=*`, {
+        next: { revalidate: 300 },
     });
     const data = await res.json();
     return data;

@@ -72,4 +72,23 @@ export const StyledCardProduct = styled.div`
       }
     }
   } */
+
+
+    transition: .3s all;
+    -webkit-transition: .3s all;
+    position: relative;
+    &:hover {
+      transform: scale(1.05, 1.05);
+        -webkit-transform: scale(1.05, 1.05);
+        z-index: 5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        .wrapper-text {
+          background: #232323 !important;
+          color: white;
+          .text-price {
+              color: #00f300 !important;
+          }
+        }
+    }
+
 `;

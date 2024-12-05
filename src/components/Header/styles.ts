@@ -9,6 +9,9 @@ export const StyledMenu = styled.div`
   .ant-menu-root {
     width: 100%;
   }
+  .ant-btn-variant-outlined {
+    background: #e0d9d9;
+  }
   .anticon-ellipsis {
     svg {
       path {
@@ -24,10 +27,14 @@ export const StyledMenu = styled.div`
 
   .ant-menu {
     background: #2865c2 !important;
+    display: flex;
+    /* justify-content: space-evenly; */
+
   }
   .menu-header {
     .ant-menu-item {
       background: #2865c2;
+      padding-inline :46px
     }
     .ant-menu-item::after {
       border-bottom: none !important;

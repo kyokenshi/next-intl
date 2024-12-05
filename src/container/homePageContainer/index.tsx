@@ -20,7 +20,7 @@ const HomePageContainer = async (props: Props) => {
     const { data } = await getApiSliderbanner()
     const { data: dataSection } = await getApiSliderSection({ locale: params.locale })
 
-    const { data: dataPartner } = await getApiPartner()
+    const { data: dataPartner } = await getApiPartner({ locale: params.locale })
 
     const { data: dataArticle } = await getApiListCategoryArticleHome({ locale: params.locale })
     const { data: dataService } = await getApiService({ locale: params.locale })
@@ -29,14 +29,22 @@ const HomePageContainer = async (props: Props) => {
 
     return (
         <div>
-            <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr] sm:grid-cols-[200px_1fr]  lg:grid-cols-[250px_1fr] gap-[16px] h-[300px] md:h-[330px] lg:h-[350px] mt-[0px] sm:mt-[20px] mb-[32px]'>
-                <div className='hidden sm:block'>
+            <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr]
+        
+               gap-[16px] 
+              h-[350px]
+               md:h-[400px]
+                lg:h-[550px]
+                 mt-[0px]
+                  sm:mt-[20px]
+                   mb-[32px]'>
+                {/* <div className='hidden sm:block'>
                     <MenuHome locale={params.locale} dataConfig={dataConfig} />
-                </div>
+                </div> */}
                 <div className="relative w-full h-full overflow-hidden ">
-                    <CarouselMenu>
+                    <CarouselMenu infinite autoplay>
                         {data?.map((el: any) => (
-                            <div key={el.id} className="relative h-[300px] md:h-[330px] lg:h-[350px]">
+                            <div key={el.id} className="relative h-[350px] md:h-[400px] lg:h-[550px]">
                                 <Image
                                     src={getImageUrl(el?.image?.formats?.large?.url)}
                                     alt={el?.name}
