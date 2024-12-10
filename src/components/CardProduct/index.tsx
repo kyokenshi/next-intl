@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import { StyledCardProduct } from './styles';
@@ -10,7 +10,7 @@ import Link from 'antd/es/typography/Link';
 type Props = Product;
 // hover:scale-[104%]
 const CardProduct = (props: Props) => {
-    const { id, title, price, images = "", slug } = props;
+    const { id, title, price, images = '', slug } = props;
 
     return (
         <Link href={`/product/${slug}`}>
@@ -29,26 +29,38 @@ const CardProduct = (props: Props) => {
                             <ShoppingCartOutlined />
                         </div>
                     </div> */}
-                        <div className="relative w-full aspect-square " style={{
-                            transition: "transform 0.3s ease"
-                        }}> {/* Thêm aspect-square để tạo container vuông */}
+                        <div
+                            className="relative w-full aspect-square "
+                            style={{
+                                transition: 'transform 0.3s ease'
+                            }}
+                        >
+                            {' '}
+                            {/* Thêm aspect-square để tạo container vuông */}
                             <Image
-                                objectFit={images ? 'cover' : "contain"}
+                                objectFit={images ? 'cover' : 'contain'}
                                 src={getImageUrl(images)}
                                 alt="product"
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                         </div>
-
                     </div>
-                    <div className='wrapper-text' style={{ background: '#F4F4F4' }}>
+                    <div className="wrapper-text" style={{ background: '#F4F4F4' }}>
                         <div className="p-[15px] text-[16px] font-bold ">
                             <div className="min-h-[40px]  line-clamp-2">{title}</div>
                         </div>
-                        <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold text-price ">
-                            {formatPrice(price)}
-                        </div>
+                        {!price ? (
+                            <Link href={`/contact`}>
+                                <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold text-price ">
+                                    {formatPrice(price)}
+                                </div>
+                            </Link>
+                        ) : (
+                            <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold text-price ">
+                                {formatPrice(price)}
+                            </div>
+                        )}
                     </div>
                 </div>
             </StyledCardProduct>

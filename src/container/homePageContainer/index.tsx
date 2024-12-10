@@ -27,6 +27,9 @@ const HomePageContainer = async (props: Props) => {
 
     const { data: dataConfig } = await getConfigData({ locale: params.locale })
 
+    console.log(dataSection, "dataSection");
+
+
     return (
         <div>
             <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr]

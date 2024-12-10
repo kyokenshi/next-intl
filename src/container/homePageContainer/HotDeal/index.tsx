@@ -13,7 +13,6 @@ type HotDealProps = {
 const HotDeal = (props: HotDealProps) => {
     const { title, productions } = props;
 
-
     return (
         <StyledHotDeal>
             <StyledHotDealTitle className='mb-[16px]'>

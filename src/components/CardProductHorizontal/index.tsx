@@ -1,38 +1,47 @@
 import { formatPrice, getImageUrl } from '@/utils/commom';
-import Image from 'next/image'
+import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 
 type Props = {
     size?: number;
     title?: string;
     images?: any[] | string;
     price?: any;
-    slug?: string
-}
+    slug?: string;
+};
 
 const CardProductHorizontal = (props: Props) => {
-    const { size = 82, title, images, price, slug = "" } = props
+    const { size = 82, title, images, price, slug = '' } = props;
 
     return (
-        <div className='grid grid-cols-[82px_1fr] gap-[12px]'>
+        <div className="grid grid-cols-[82px_1fr] gap-[12px]">
             <Image
                 src={getImageUrl(images)}
-                alt='product'
+                alt="product"
                 width={size}
                 height={size}
-                className='cursor-pointer'
+                className="cursor-pointer"
             />
             <div>
-                <div className='text-[14px] capitalize font-semibold hover:text-[#2865C2] mb-[4px] cursor-pointer'>
-                    <Link href={`/product/${slug}`}>
-                        {title}
-                    </Link>
+                <div className="text-[14px] capitalize font-semibold hover:text-[#2865C2] mb-[4px] cursor-pointer">
+                    <Link href={`/product/${slug}`}>{title}</Link>
                 </div>
-                <div className='text-[14px] font-semibold text-[#00a0ea]'>{formatPrice(price)}</div>
+
+                {!price ? (
+                    <Link href={`/contact`}>
+                        <div className="text-[14px] font-semibold text-[#00a0ea]">
+                            {formatPrice(price)}
+                        </div>
+                    </Link>
+                ) : (
+                    <div className="text-[14px] font-semibold text-[#00a0ea]">
+                        {formatPrice(price)}
+                    </div>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CardProductHorizontal
+export default CardProductHorizontal;
