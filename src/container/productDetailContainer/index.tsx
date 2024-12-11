@@ -18,11 +18,6 @@ const ProductDetailContainer = (props: Props) => {
 
     const elment = data[0];
 
-    console.log(elment.images[0]?.formats, "elment");
-
-
-
-
     return (
         <div className="mb-[40px]">
             <SectionTitle title={elment?.title} description={elment?.title} />
@@ -71,7 +66,7 @@ const ProductDetailContainer = (props: Props) => {
                                     <Divider />
                                 </div>
                                 <div>
-                                    Danh mục : <span>{elment?.product_category?.title}</span>
+                                    Danh mục : <Link href={`/product-catalog/${elment?.product_category?.url}`}><span className='hover:text-[#2865C2]'>{elment?.product_category?.title}</span></Link>
                                 </div>
                                 {/* <Space size={12} >
                                     <InputNumber min={1} />
