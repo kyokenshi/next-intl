@@ -1,12 +1,15 @@
 'use client'
 
 import { subscribeEmail } from '@/utils/axios/home';
-import { Form, GetProps, Input } from 'antd';
+import { App, Form, GetProps, Input, notification } from 'antd';
 import React from 'react';
 
 type Props = {
     dataConfig?: any
 };
+
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -14,10 +17,17 @@ const { Search } = Input;
 
 const RegisterInfomation = (props: Props) => {
 
+
+
     const { dataConfig } = props
 
 
     const [form] = Form.useForm();
+
+
+    const onSubmitForm = () => {
+        form.submit();
+    };
 
     const onFinish = async (values: any) => {
         if (values.email && values.email?.trim()?.length > 0) {
@@ -25,6 +35,10 @@ const RegisterInfomation = (props: Props) => {
                 email: values.email,
             });
             if (resp) {
+                notification.success({
+                    message: 'Success',
+                    placement: 'topRight',
+                });
                 form.resetFields()
             }
         }
@@ -48,7 +62,7 @@ const RegisterInfomation = (props: Props) => {
                     >
                         <Input
                             className='input-register'
-                            suffix="Đăng ký"
+                            suffix={<span onClick={onSubmitForm}>Đăng ký</span>}
                             size="large"
                         />
                     </Form.Item>

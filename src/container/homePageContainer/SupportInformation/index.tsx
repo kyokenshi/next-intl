@@ -1,7 +1,7 @@
 "use client"
-
 import CarouselMenu from '@/container/components/CarouselMenu';
 import { getImageUrl } from '@/utils/commom';
+import { useLocale } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 
@@ -12,7 +12,9 @@ type Props = {
 };
 
 const SupportInformation = (props: Props) => {
-    const { dataPartner, dataService } = props
+    const { dataPartner, dataService, dataConfig } = props
+
+    const locale = useLocale();
     const supportInformation = [
         {
             title: 'VẬN CHUYỂN VÀ LẮP ĐẶT',
@@ -32,9 +34,24 @@ const SupportInformation = (props: Props) => {
         }
     ];
 
+
+    const renderContent = () => {
+        if (locale === "en") {
+            return dataConfig.en_name_home_content
+        }
+        if (locale === "zh") {
+            return dataConfig.cn_name_home_content
+        }
+        return dataConfig.vn_name_home_content
+    }
+
+
+
+
+
     return (
         <div className="mt-4 mb-4">
-            <div className="bg-blue-1000  text-white grid grid-cols-2 md:grid-cols-4 ">
+            {/* <div className="bg-blue-1000  text-white grid grid-cols-2 md:grid-cols-4 ">
                 {dataService?.services?.map((el: any, index: number) => (
                     <div key={index} className="flex items-start md:items-center cursor-pointer gap-[8px] hover:bg-[#00a0e9] p-[16px] md:p-[30px]">
                         <div className="flex-none"><Image src={getImageUrl(el?.image?.url)} width={50} height={50} alt='icon' /></div>
@@ -45,6 +62,10 @@ const SupportInformation = (props: Props) => {
                     </div>
                 ))
                 }
+            </div > */}
+
+            <div className="bg-blue-1000 text-center  text-white grid grid-cols-2 md:grid-cols-1 ">
+                <div className='p-4 text-[20px] font-[600]' >{renderContent()}</div>
             </div >
             <div className='py-[24px] mt-[24px]'>
                 {dataPartner?.map((el: any) => {

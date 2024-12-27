@@ -1,3 +1,4 @@
+"use client"
 import { useTranslations } from 'next-intl';
 import LocaleSwitcher from '../LocaleSwitcher';
 import MenuHeader from './MenuHeader';
@@ -6,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getImageUrl } from '@/utils/commom';
 
-export default function Navigation({ dataConfig }: any) {
+export default function Navigation({ dataConfig, dataSocial }: any) {
   const t = useTranslations('Navigation');
 
   return (
@@ -29,9 +30,28 @@ export default function Navigation({ dataConfig }: any) {
           </div>
         </div>
 
-        <div className='hidden lg:flex align-middle'>
+        {/* <div className='hidden lg:flex align-middle'>
           <div className="icon-mail mr-1" ></div>
           <div className="text"><p className='text-16 font-bold'>{dataConfig?.email}</p><p className='text-16 font-bold'>{dataConfig?.phone}</p></div>
+        </div> */}
+
+        <div className='flex gap-1 align-middle'>
+          {dataSocial?.map((sc: any) => {
+            if (sc?.type === "header") {
+              return (
+                <Link href={sc?.url} target="_blank" rel="noopener noreferrer">
+                  <Image
+                    src={getImageUrl(sc?.image?.formats?.thumbnail?.url)}
+                    alt={sc?.name}
+                    width={24}
+                    height={24}
+                  />
+                </Link>
+              )
+            }
+
+          }
+          )}
         </div>
 
 

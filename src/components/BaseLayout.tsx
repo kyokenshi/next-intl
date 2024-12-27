@@ -6,7 +6,7 @@ import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
 import Navigation from './Header/Navigation';
 import Footer from './Footer';
-import { getConfigData } from '@/utils/axios/home';
+import { getApiSocials, getConfigData } from '@/utils/axios/home';
 import Head from 'next/head';
 import { routing } from '@/i18n/routing';
 
@@ -33,6 +33,9 @@ export default async function BaseLayout({ children, locale }: Props) {
   const messages = await getMessages();
 
   const { data: dataConfig } = await getConfigData({ locale })
+  const { data: dataSocial } = await getApiSocials()
+
+
 
 
 
@@ -44,9 +47,9 @@ export default async function BaseLayout({ children, locale }: Props) {
 
       <body className={clsx('flex h-full flex-col', roboto.className)}>
         <NextIntlClientProvider messages={messages}>
-          <Navigation dataConfig={dataConfig} />
+          <Navigation dataConfig={dataConfig} dataSocial={dataSocial} />
           {children}
-          <Footer dataConfig={dataConfig} />
+          <Footer dataConfig={dataConfig} dataSocial={dataSocial} />
         </NextIntlClientProvider>
       </body>
     </html>

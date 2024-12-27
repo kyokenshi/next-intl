@@ -27,8 +27,6 @@ const HomePageContainer = async (props: Props) => {
 
     const { data: dataConfig } = await getConfigData({ locale: params.locale })
 
-    console.log(dataSection, "dataSection");
-
 
     return (
         <div>
