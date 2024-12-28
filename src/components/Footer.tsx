@@ -16,9 +16,9 @@ const Footer = (props: Props) => {
 
     return (
         <StyledFooter>
-            <div className="max-w-1200 mx-auto mt-[32px] mb-[40px]">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+            <div className="px-[24px] mt-[32px] mb-[40px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+                    <div className='col-span-1'>
                         <div className="text-center">
                             <div className="flex justify-center mb-[16px]">
                                 <Image
@@ -28,28 +28,34 @@ const Footer = (props: Props) => {
                                     height={60}
                                 />
                             </div>
-                            <div className='text-start'>
+                            <div className=' text-start '>
                                 <div className="text-[14px] mb-[4px]">
-                                    <div className="flex justify-center">
-                                        <strong className="flex-none mr-1">Kho hàng</strong> :
+                                    <div className='grid grid-cols-[80px_auto]' >
+                                        <strong className="flex-none mr-1">Kho hàng :</strong>
                                         <div className="ml-[4px]">
                                             <div> {dataConfig?.address}</div>
                                             <div> {dataConfig?.brandaddress}</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex justify-center text-[14px] mb-[4px]">
-                                    <strong className="flex-none">Văn phòng</strong> : <div>{dataConfig?.office}</div>
+                                <div className=" text-[14px] mb-[4px]">
+                                    <div className='grid grid-cols-[80px_auto]' >
+                                        <strong className="flex-none">Văn phòng :</strong>  <div>{dataConfig?.office}</div>
+                                    </div>
                                 </div>
-                                <div className="flex justify-center text-[14px] mb-[4px]">
-                                    <strong className="flex-none">Điện thoại</strong> : <div>{dataConfig?.phone}</div>
+                                <div className=" text-[14px] mb-[4px]">
+                                    <div className='grid grid-cols-[80px_auto]' >
+                                        <strong className="flex-none">Điện thoại :</strong>  <div>{dataConfig?.phone}</div>
+                                    </div>
                                 </div>
-                                <div className="flex justify-center text-[14px] mb-[4px]">
-                                    <strong className="flex-none">Email</strong> : <div>{dataConfig?.email}</div>
+                                <div className=" text-[14px] mb-[4px]">
+                                    <div className='grid grid-cols-[80px_auto]' >
+                                        <strong className="flex-none">Email :</strong>  <div>{dataConfig?.email}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <Space
+                        {/* <Space
                             size={16}
                             direction="horizontal"
                             style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}
@@ -74,13 +80,13 @@ const Footer = (props: Props) => {
                                     }
                                 })}
                             </div>
-                        </Space>
+                        </Space> */}
                     </div>
-                    <div>
+                    <div className='col-span-1 md:col-span-2'>
                         <iframe
                             src={dataConfig?.url_google_map}
                             width="100%"
-                            height="300"
+                            height="400px"
                             frameBorder="0"
                             style={{ border: 0 }}
                             allowFullScreen={true}
