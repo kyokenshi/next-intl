@@ -45,7 +45,7 @@ const NewsContainer = (props: INewsProps) => {
         (async () => {
             const data = await getApiListNews({ params, categoryId: categoryId });
             setListNews(data.data);
-            setPagination(data.meta);
+            setPagination(data.meta.pagination);
         })();
     }, [params, categoryId]);
 

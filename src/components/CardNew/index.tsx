@@ -26,14 +26,14 @@ const CardNew = (props: Props) => {
                     />
                 </div>
             </Link>
-            <div className='p-[12px]'>
+            <div className='p-[12px] min-h-[164px]'>
                 <Space size={6} direction='vertical'>
                     <Link href={`/news/${slug}`} >
                         <div className='text-[18px] text-[#333333] hover:text-[#2865c2] cursor-pointer font-semibold line-clamp-2'>
                             {title}
                         </div>
                     </Link>
-                    <div className='text-[12px] line-clamp-3'>
+                    <div className='text-[12px] line-clamp-2'>
                         {description}
                     </div>
                 </Space>
