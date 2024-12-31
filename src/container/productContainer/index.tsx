@@ -118,11 +118,13 @@ const ProductContainer = (props: Props) => {
     }, [search])
 
 
+
+
     const onGetListProduct = async () => {
         try {
             const resp = await getApiProduct({ categoryId: id?.[0], params });
             setProductList(resp.data);
-            setPagination(resp.meta);
+            setPagination(resp.meta.pagination);
         } finally {
             setLoading(false);
         }
