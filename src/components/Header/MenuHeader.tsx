@@ -30,8 +30,6 @@ const MenuHeader = (props: Props) => {
   const [masterData, setMasterData] = useState<any>();
 
   const onTitleClick = (info: any) => {
-    console.log(info, "info");
-
     router.push(`/danh-muc-san-pham/${info.url}`);
   }
 
