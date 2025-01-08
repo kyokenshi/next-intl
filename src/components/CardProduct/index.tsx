@@ -6,29 +6,20 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Product } from '@/container/productContainer';
 import { formatPrice, getImageUrl } from '@/utils/commom';
 import Link from 'antd/es/typography/Link';
+import { useRouter } from 'next/navigation';
 
 type Props = Product;
 // hover:scale-[104%]
 const CardProduct = (props: Props) => {
     const { id, title, price, images = '', slug } = props;
 
+    const router = useRouter();
+
     return (
         <Link href={`/product/${slug}`}>
             <StyledCardProduct>
                 <div className="card-product bg-[#F4F4F4] ">
                     <div className=" relative">
-                        {/* <div className="mark"></div>
-                    <div className="cart-wrapper">
-                        <div
-                            className="cart"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                console.log('vào2');
-                            }}
-                        >
-                            <ShoppingCartOutlined />
-                        </div>
-                    </div> */}
                         <div
                             className="relative w-full aspect-square "
                             style={{
@@ -51,11 +42,15 @@ const CardProduct = (props: Props) => {
                             <div className="min-h-[40px]  line-clamp-2">{title}</div>
                         </div>
                         {!price ? (
-                            <Link href={`/contact`}>
+                            <div onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                router.push('/contact')
+                            }}>
                                 <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold text-price ">
                                     {formatPrice(price)}
                                 </div>
-                            </Link>
+                            </div>
                         ) : (
                             <div className=" mx-[15px] mb-[20px] min-h-[56px] border-t text-[#00a0ea] border-gray-200 pt-[15px] font-semibold text-price ">
                                 {formatPrice(price)}

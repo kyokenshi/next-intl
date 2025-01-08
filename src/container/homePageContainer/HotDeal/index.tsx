@@ -22,7 +22,7 @@ const HotDeal = (props: HotDealProps) => {
                 </div>
             </StyledHotDealTitle>
             <CarouselItem
-                itemLength={productions.length}
+                itemLength={productions?.length}
                 responsive={[
                     {
                         breakpoint: 1024,
@@ -39,7 +39,7 @@ const HotDeal = (props: HotDealProps) => {
                         }
                     }
                 ]}>
-                {productions?.map((product) => (<div> <CardProduct {...product} /></div>))}
+                {productions?.map((product, index) => (<div key={index}> <CardProduct {...product} /></div>))}
             </CarouselItem>
         </StyledHotDeal>
     )

@@ -8,12 +8,6 @@ type Props = {
     dataConfig?: any
 };
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error';
-
-
-type SearchProps = GetProps<typeof Input.Search>;
-
-const { Search } = Input;
 
 const RegisterInfomation = (props: Props) => {
 
@@ -45,9 +39,7 @@ const RegisterInfomation = (props: Props) => {
     }
 
     return (
-        <div style={{
-
-        }}>
+        <div>
             <div className='flex items-center max-w-[1200px] mx-auto gap-[24px] md:gap-x-[80px] p-[6px] md:p-[24px] flex-wrap'>
                 <div>
                     <strong> {dataConfig?.name_subscribe}</strong>
@@ -68,7 +60,6 @@ const RegisterInfomation = (props: Props) => {
                     </Form.Item>
                 </Form>
             </div>
-
         </div>
     );
 };

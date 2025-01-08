@@ -4,6 +4,7 @@ import PageLayout from '@/components/PageLayout';
 import HomePageContainer from '@/container/homePageContainer';
 import { Metadata } from 'next';
 import { getConfigData } from '@/utils/axios/home';
+import { Suspense } from 'react';
 
 type Props = {
   params: { locale: string };
@@ -36,8 +37,9 @@ export default async function IndexPage({ params: { locale } }: Props) {
           )
         })}
       </p> */}
-      <HomePageContainer params={{ locale }} />
-
+      <Suspense fallback={<div>Loading...</div>}>
+        <HomePageContainer params={{ locale }} />
+      </Suspense>
     </PageLayout>
   );
 }

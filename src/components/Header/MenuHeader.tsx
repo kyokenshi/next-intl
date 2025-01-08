@@ -29,9 +29,13 @@ const MenuHeader = (props: Props) => {
 
   const [masterData, setMasterData] = useState<any>();
 
-  // const onTitleClick = (info: any) => {
-  //    router.push (`/${info.url}`);
-  // }
+  const onTitleClick = (info: any) => {
+    console.log(info, "info");
+
+    router.push(`/danh-muc-san-pham/${info.url}`);
+  }
+
+
 
   const transformMenuData = (data: any[]) => {
     return data
@@ -54,8 +58,9 @@ const MenuHeader = (props: Props) => {
         }
 
         if (item.__component === 'menu.dropdown') {
+
           return {
-            key: `${item.id + item.documentId}`,
+            key: `${item.id.toString() + item.__component}`,
             label: item.title,
             url: item.url,
             // onTitleClick: () => onTitleClick(item),
@@ -65,7 +70,17 @@ const MenuHeader = (props: Props) => {
                 return {
                   key: el.id.toString(),
                   label: el.title,
-                  url: el.url
+                  url: el.url,
+                  onTitleClick: () => onTitleClick(el),
+                  __component: item.__component,
+                  children: el?.productions.map((prd: any) => {
+                    return {
+                      __component: item.__component,
+                      key: prd.id.toString(),
+                      label: prd.title,
+                      url: `san-pham/${prd.slug}`
+                    };
+                  })
                 };
               })
               : undefined
@@ -96,41 +111,60 @@ const MenuHeader = (props: Props) => {
   };
 
   const findDeepItem = (keyPath: string[], items: any[]): any => {
-    const [childKey, parentKey] = keyPath;
 
-    // Nếu có parentKey, tìm parent trước
-    if (parentKey) {
-      const parent = items.find((item) => item.key === parentKey);
+    const [childKey, ...parentKeys] = keyPath;
+    let currentItems = items;
+
+    for (let i = parentKeys.length - 1; i >= 0; i--) {
+      const parentKey = parentKeys[i];
+      const parent = currentItems.find((item) => item.key === parentKey);
       if (parent?.children) {
-        const child = parent.children.find(
-          (child: any) => child.key === childKey
-        );
-        if (child) {
-          // Trả về child với URL được combine từ parent
-          return {
-            ...child,
-            url: `danh-muc-san-pham/${child.url}`,
-            parentKey: parent.key,
-            __component: parent.__component
-          };
-        }
+        currentItems = parent.children;
       }
     }
 
+    return currentItems.find((item) => item.key === childKey);
+
+
+    // Nếu có parentKey, tìm parent trước
+    // if (parentKey) {
+    //   const parent = items.find((item) => item.key === parentKey);
+    //   if (parent?.children) {
+    //     const child = parent.children.find(
+    //       (child: any) => child.key === childKey
+    //     );
+
+    //     if (child) {
+    //       // Trả về child với URL được combine từ parent
+    //       return {
+    //         ...child,
+    //         url: `danh-muc-san-pham/${child.url}`,
+    //         parentKey: parent.key,
+    //         __component: parent.__component
+    //       };
+    //     }
+    //   }
+    // }
+
     // Nếu không có parentKey hoặc không tìm thấy child
-    return items.find((item) => item.key === childKey);
+    // return items.find((item) => item.key === childKey);
   };
 
   const onClick: MenuProps['onClick'] = (e) => {
     const { keyPath } = e;
     const clickedItem = findDeepItem(keyPath, masterData);
 
+
+
     if (clickedItem) {
+
       const { __component, url } = clickedItem;
+
 
       const routes: any = {
         'menu.page': () => router.push(`/${url}`),
         'menu.nolink': () => {
+
           if (url === 'trang-chu' || url === 'home') {
             return router.push(`/`);
           }

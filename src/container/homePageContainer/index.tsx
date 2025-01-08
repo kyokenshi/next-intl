@@ -1,5 +1,4 @@
-
-import React from 'react'
+import React from 'react';
 import MenuHome from './MenuHome';
 import CarouselMenu from '../components/CarouselMenu';
 import HotDeal from './HotDeal';
@@ -7,45 +6,55 @@ import News from './News';
 import SupportInformation from './SupportInformation';
 import RegisterInfomation from './RegisterInfomation';
 import Image from 'next/image';
-import { getApiListCategoryArticleHome, getApiPartner, getApiService, getApiSliderbanner, getApiSliderSection, getConfigData } from '@/utils/axios/home';
+import {
+    getApiListCategoryArticleHome,
+    getApiPartner,
+    getApiService,
+    getApiSliderbanner,
+    getApiSliderSection,
+    getConfigData
+} from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
 import { getApiListCategoryArticle } from '@/utils/axios/news';
 
 type Props = {
     params: { locale?: any };
-}
+};
 
 const HomePageContainer = async (props: Props) => {
-    const { params } = props
-    const { data } = await getApiSliderbanner()
-    const { data: dataSection } = await getApiSliderSection({ locale: params.locale })
+    const { params } = props;
+    const { data } = await getApiSliderbanner();
+    const { data: dataSection } = await getApiSliderSection({
+        locale: params.locale
+    });
 
-    const { data: dataPartner } = await getApiPartner({ locale: params.locale })
+    const { data: dataPartner } = await getApiPartner({ locale: params.locale });
 
-    const { data: dataArticle } = await getApiListCategoryArticleHome({ locale: params.locale })
-    const { data: dataService } = await getApiService({ locale: params.locale })
+    const { data: dataArticle } = await getApiListCategoryArticleHome({
+        locale: params.locale
+    });
+    const { data: dataService } = await getApiService({ locale: params.locale });
 
-    const { data: dataConfig } = await getConfigData({ locale: params.locale })
-
+    const { data: dataConfig } = await getConfigData({ locale: params.locale });
 
     return (
         <div>
-            <div className='mx-[-15px] sm:mx-0 grid grid-cols-[1fr]
-        
-               gap-[16px] 
+            <div
+                className="mx-[-15px] sm:mx-0 grid grid-cols-[1fr] gap-[16px] 
               h-[350px]
                md:h-[400px]
                 lg:h-[550px]
                  mt-[0px]
                   sm:mt-[20px]
-                   mb-[32px]'>
-                {/* <div className='hidden sm:block'>
-                    <MenuHome locale={params.locale} dataConfig={dataConfig} />
-                </div> */}
+                   mb-[32px]"
+            >
                 <div className="relative w-full h-full overflow-hidden ">
                     <CarouselMenu infinite autoplay>
                         {data?.map((el: any) => (
-                            <div key={el.id} className="relative h-[350px] md:h-[400px] lg:h-[550px]">
+                            <div
+                                key={el.id}
+                                className="relative h-[350px] md:h-[400px] lg:h-[550px]"
+                            >
                                 <Image
                                     src={getImageUrl(el?.image?.formats?.large?.url)}
                                     alt={el?.name}
@@ -57,14 +66,19 @@ const HomePageContainer = async (props: Props) => {
                     </CarouselMenu>
                 </div>
             </div>
-            {dataSection[0]?.product_list?.map((el: any) => {
-                return <HotDeal key={el.id} {...el} />
+            {dataSection?.length > 0 && dataSection[0]?.product_list?.map((el: any) => {
+                return <HotDeal key={el.id} {...el} />;
             })}
+
             <News dataArticle={dataArticle} dataConfig={dataConfig} />
-            <SupportInformation dataPartner={dataPartner} dataService={dataService} dataConfig={dataConfig} />
+            <SupportInformation
+                dataPartner={dataPartner}
+                dataService={dataService}
+                dataConfig={dataConfig}
+            />
             <RegisterInfomation dataConfig={dataConfig} />
         </div>
-    )
-}
+    );
+};
 
-export default HomePageContainer
+export default HomePageContainer;

@@ -1,3 +1,4 @@
+"use client"
 import CardNewHorizontal from '@/components/CardNewHorizontal'
 import { HomeOutlined } from '@ant-design/icons'
 import { Space } from 'antd'

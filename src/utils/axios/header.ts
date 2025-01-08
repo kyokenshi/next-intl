@@ -11,7 +11,7 @@ import { getLanguageFromCookie } from "../commom";
 
 const fetchHeaderData = async (): Promise<any> => {
   const language = getLanguageFromCookie();
-  const res = await fetch(`${API_URL}/api/main-menu?locale=${language}&populate[MainMenuItems][populate]=*`);
+  const res = await fetch(`${API_URL}/api/main-menu?locale=${language}&populate=MainMenuItems.product_categories.productions&populate=MainMenuItems.page`);
   const data = await res.json();
   return data.data;
 };

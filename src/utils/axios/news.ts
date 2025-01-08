@@ -43,7 +43,6 @@ export const getApiListNewsSSR = async (props: ArticlesDataResquestSSR): Promise
         .setLocale(locale ?? "vi")
         .setPagination(5, 1)
         .setSort('createdAt', 'desc');
-
     const res = await fetch(`${query + `&populate=*`}`);
     const data = await res.json();
     return data;
