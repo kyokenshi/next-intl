@@ -69,14 +69,14 @@ const MenuHeader = (props: Props) => {
                   key: el.id.toString(),
                   label: el.title,
                   url: el.url,
-                  onTitleClick: () => onTitleClick(el),
+                  // onTitleClick: () => onTitleClick(el),
                   __component: item.__component,
-                  children: el?.productions.map((prd: any) => {
+                  children: el?.product_category_level_2s.map((prd: any) => {
                     return {
                       __component: item.__component,
                       key: prd.id.toString(),
                       label: prd.title,
-                      url: `san-pham/${prd.slug}`
+                      url: `danh-muc-san-pham/${prd.url}`
                     };
                   })
                 };

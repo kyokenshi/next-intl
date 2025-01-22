@@ -35,7 +35,7 @@ export const getServerLanguage = (req: NextRequest) => {
 
 
 export const getImageUrl = (images: any): string => {
-    if (!images) return '/assets/images/image_not_available.png'
+    if (!images) return '/assets/images-next/image_not_available.jpg'
     let url = typeof images === 'string' ? images : images?.[0]?.url
     return `${process.env.NEXT_PUBLIC_IMAGE_URL}${url}`;
 };

@@ -6,6 +6,7 @@ import Pagination from '@/components/Pagination';
 import { getApiProduct } from '@/utils/axios/product';
 import { Select, Skeleton, Space } from 'antd';
 import Link from 'antd/es/typography/Link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState, Suspense } from 'react';
 
@@ -184,11 +185,16 @@ const ProductContainer = (props: Props) => {
                             </div>
                             <Select className="w-[200px]" options={option} />
                         </div> */}
-                        <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
+                        {productList.length > 0 ? <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
                             {productList.map((el) => {
                                 return <CardProduct key={el.id}  {...el} />;
                             })}
-                        </div>
+                        </div> :
+                            <div className='flex justify-center align-middle mt-20'>
+                                <Image src={"/assets/empty_data.png"} width={200} height={150} alt='IMG_EMPTY' />
+                            </div>
+                        }
+
                         <div className="flex justify-center mt-[24px]">
                             <Pagination
                                 current={params.page}
