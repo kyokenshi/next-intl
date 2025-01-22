@@ -26,7 +26,7 @@ export const getApiProduct = async (props: ProductDataResquest): Promise<any> =>
 
 
   if (categoryId) {
-    query.setFilter('product_category', '$eq', categoryId);
+    query.setFilter('product_category_level_2', '$eq', categoryId);
   }
 
   if (params.search) {
