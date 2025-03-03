@@ -16,6 +16,7 @@ import {
 } from '@/utils/axios/home';
 import { getImageUrl } from '@/utils/commom';
 import { getApiListCategoryArticle } from '@/utils/axios/news';
+import HighlightedTextEditor from '@/components/Test';
 
 type Props = {
     params: { locale?: any };
@@ -66,9 +67,10 @@ const HomePageContainer = async (props: Props) => {
                     </CarouselMenu>
                 </div>
             </div>
-            {dataSection?.length > 0 && dataSection[0]?.product_list?.map((el: any) => {
-                return <HotDeal key={el.id} {...el} />;
-            })}
+            {dataSection?.length > 0 &&
+                dataSection[0]?.product_list?.map((el: any) => {
+                    return <HotDeal key={el.id} {...el} />;
+                })}
 
             <News dataArticle={dataArticle} dataConfig={dataConfig} />
             <SupportInformation
@@ -77,6 +79,42 @@ const HomePageContainer = async (props: Props) => {
                 dataConfig={dataConfig}
             />
             <RegisterInfomation dataConfig={dataConfig} />
+            <HighlightedTextEditor
+                data={{
+                    code: "0000",
+                    message: "Success",
+                    result: [
+                        {
+                            candidates: [
+                                {
+                                    revised_sentence: "Viết đã sai chính tả.",
+                                    revised_words: [
+                                        {
+                                            err_type: "R:SPELL",
+                                            err_type_conv: "Spelling error",
+                                            index: 1,
+                                            reasoning: "Check for spelling errors.",
+                                            revised: "đã",
+                                            type: "sub",
+                                            word: "dã",
+                                        },
+                                        {
+                                            err_type: "R:SPELL",
+                                            err_type_conv: "Spelling error",
+                                            index: 4,
+                                            reasoning: "Check for spelling errors.",
+                                            revised: "tả.",
+                                            type: "sub",
+                                            word: "tã",
+                                        },
+                                    ],
+                                },
+                            ],
+                            original: "Viết dã sai chính tã",
+                        },
+                    ],
+                }}
+            />
         </div>
     );
 };
