@@ -3,7 +3,23 @@ import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import { Mark, mergeAttributes } from "@tiptap/core";
 
+// Định nghĩa kiểu dữ liệu cho lỗi từ
+interface ErrorWord {
+    index: number;
+    word: string;
+    revised: string;
+    id: string;
+}
 
+// Định nghĩa kiểu dữ liệu cho `data`
+interface EditorData {
+    result?: {
+        original?: string;
+        candidates?: { revised_words?: ErrorWord[] }[];
+    }[];
+}
+
+// Custom Highlight Mark
 const Highlight = Mark.create({
     name: "highlight",
     addAttributes() {
@@ -18,7 +34,7 @@ const Highlight = Mark.create({
         return [
             {
                 tag: "mark",
-                getAttrs: (dom: any) => ({
+                getAttrs: (dom: HTMLElement) => ({
                     color: dom.getAttribute("color"),
                     originalWord: dom.getAttribute("data-original-word"),
                     correctedWord: dom.getAttribute("data-corrected-word"),
@@ -32,25 +48,22 @@ const Highlight = Mark.create({
     },
 });
 
-
+// Định nghĩa Props cho Component
 interface TiptapEditorProps {
-    data: any;
+    data: EditorData;
     setEditor: (editor: Editor | null) => void;
 }
 
 const TiptapEditor: React.FC<TiptapEditorProps> = ({ data, setEditor }) => {
-    const errors = data?.result?.[0]?.candidates?.[0]?.revised_words || [];
-    let originalText = data?.result?.[0]?.original || "";
-    let words = originalText.split(" ");
+    const errors: ErrorWord[] = data?.result?.[0]?.candidates?.[0]?.revised_words || [];
+    const originalText = data?.result?.[0]?.original || "";
+    const words = originalText.split(" ");
 
     // Tạo nội dung có đánh dấu lỗi
     const content = words
         .map((word, index) => {
             const error = errors.find((err) => err.index === index);
             if (error) {
-                console.log(error.word, "error.word");
-                console.log(error.revised, "error.revised");
-
                 return `<mark 
                     color="yellow"
                     data-original-word="${error.word}"
@@ -69,16 +82,15 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ data, setEditor }) => {
         editorProps: {
             handleKeyDown: (view, event) => {
                 if (event.shiftKey && event.key === "Enter") {
-                    event.preventDefault(); // Chặn hành động mặc định
-                    // Xuống dòng bằng cách thoát khỏi thẻ <mark>
-                    editor?.commands.exitCode(); // Thoát khỏi thẻ hiện tại (nếu có)
-                    editor?.commands.insertContent("<br>"); // Thêm <br> để xuống dòng
+                    event.preventDefault();
+                    editor?.commands.exitCode();
+                    editor?.commands.setHardBreak();
                     return true;
                 }
                 if (!event.shiftKey && event.key === "Enter") {
-                    event.preventDefault(); // Chặn hành động mặc định
-                    editor?.commands.exitCode(); // Thoát khỏi thẻ <mark>
-                    editor?.commands.insertContent("<p></p>"); // Tạo đoạn mới
+                    event.preventDefault();
+                    editor?.commands.exitCode();
+                    editor?.commands.insertContent("<p></p>");
                     return true;
                 }
                 return false;
