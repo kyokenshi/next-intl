@@ -81,17 +81,21 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ data, setEditor }) => {
         content: `<p>${content}</p>`,
         editorProps: {
             handleKeyDown: (view, event) => {
-                if (event.shiftKey && event.key === "Enter") {
-                    event.preventDefault();
-                    editor?.commands.exitCode();
-                    editor?.commands.setHardBreak();
-                    return true;
-                }
-                if (!event.shiftKey && event.key === "Enter") {
-                    event.preventDefault();
-                    editor?.commands.exitCode();
-                    editor?.commands.insertContent("<p></p>");
-                    return true;
+                const { from } = view.state.selection;
+                if (event.key === " " || event.key === "Space") {
+                    const transaction = view.state.tr;
+                    const nodeBeforeCursor = view.state.doc.nodeAt(from - 1);
+
+                    if (nodeBeforeCursor?.marks.some(mark => mark.type.name === "highlight")) {
+                        event.preventDefault();
+                        // Chèn dấu cách
+                        transaction.insertText(" ", from);
+                        // Xóa highlight sau dấu cách (từ mới sẽ không có highlight)
+                        transaction.removeMark(from, from + 1, editor && editor.schema.marks.highlight);
+                        // Áp dụng thay đổi
+                        view.dispatch(transaction);
+                        return true;
+                    }
                 }
                 return false;
             },
