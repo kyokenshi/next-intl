@@ -1,62 +1,96 @@
-"use client"
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { useEffect } from "react";
 import { Mark, mergeAttributes } from "@tiptap/core";
 
-// Tạo extension để highlight lỗi chính tả
+
 const Highlight = Mark.create({
     name: "highlight",
     addAttributes() {
         return {
-            color: { default: "yellow" }, // Mặc định bôi vàng
+            color: { default: "yellow" },
+            originalWord: { default: "" },
+            correctedWord: { default: "" },
+            originalID: { default: "" },
         };
     },
     parseHTML() {
-        return [{ tag: "mark" }];
+        return [
+            {
+                tag: "mark",
+                getAttrs: (dom: any) => ({
+                    color: dom.getAttribute("color"),
+                    originalWord: dom.getAttribute("data-original-word"),
+                    correctedWord: dom.getAttribute("data-corrected-word"),
+                    originalID: dom.getAttribute("data-original-id"),
+                }),
+            },
+        ];
     },
     renderHTML({ HTMLAttributes }) {
         return ["mark", mergeAttributes(HTMLAttributes), 0];
     },
 });
 
-const TiptapEditor = ({ data }) => {
-    const errors = data?.result?.[0]?.candidates?.[0]?.revised_words || [];
-    // Lấy văn bản gốc và chèn tag <mark> vào từ bị lỗi
-    const initialContent = data?.result?.[0]?.original || "";
-    let words = initialContent.split(" ");
-    // Duyệt từng từ, nếu có trong danh sách lỗi thì bọc trong <mark>
-    words = words.map((word, index) => {
-        const error = errors.find((err) => err.index === index);
-        if (error) {
-            return `<mark>${word}</mark>`; // Bôi vàng từ bị lỗi
-        }
-        return word;
-    });
 
+interface TiptapEditorProps {
+    data: any;
+    setEditor: (editor: Editor | null) => void;
+}
+
+const TiptapEditor: React.FC<TiptapEditorProps> = ({ data, setEditor }) => {
+    const errors = data?.result?.[0]?.candidates?.[0]?.revised_words || [];
+    let originalText = data?.result?.[0]?.original || "";
+    let words = originalText.split(" ");
+
+    // Tạo nội dung có đánh dấu lỗi
+    const content = words
+        .map((word, index) => {
+            const error = errors.find((err) => err.index === index);
+            if (error) {
+                console.log(error.word, "error.word");
+                console.log(error.revised, "error.revised");
+
+                return `<mark 
+                    color="yellow"
+                    data-original-word="${error.word}"
+                    data-corrected-word="${error.revised}"
+                    data-original-id="${error.id}"
+                >${error.word}</mark>`;
+            }
+            return word;
+        })
+        .join(" ");
+
+    // Khởi tạo editor
     const editor = useEditor({
         extensions: [StarterKit, Highlight],
-        content: words.join(" "), // Dùng nội dung đã highlight
-        onUpdate: ({ editor }) => {
-            let content = editor.getHTML(); // Lấy nội dung đã chỉnh sửa
-            console.log("Updated content:", content);
+        content: `<p>${content}</p>`,
+        editorProps: {
+            handleKeyDown: (view, event) => {
+                if (event.shiftKey && event.key === "Enter") {
+                    event.preventDefault(); // Chặn hành động mặc định
+                    // Xuống dòng bằng cách thoát khỏi thẻ <mark>
+                    editor?.commands.exitCode(); // Thoát khỏi thẻ hiện tại (nếu có)
+                    editor?.commands.insertContent("<br>"); // Thêm <br> để xuống dòng
+                    return true;
+                }
+                if (!event.shiftKey && event.key === "Enter") {
+                    event.preventDefault(); // Chặn hành động mặc định
+                    editor?.commands.exitCode(); // Thoát khỏi thẻ <mark>
+                    editor?.commands.insertContent("<p></p>"); // Tạo đoạn mới
+                    return true;
+                }
+                return false;
+            },
         },
     });
 
-    // Xử lý sự kiện khi nhấn phím
-    const handleKeyDown = (event) => {
-        if (!editor) return;
-        if ((event.key === "Enter" && event.shiftKey)) {
-            event.preventDefault();
-            // Lấy nội dung hiện tại
-            const content = editor.getHTML();
-            // Loại bỏ <mark> nếu có trong từ cuối cùng
-            let updatedContent = content.replace(/<mark>([^<]+)<\/mark>$/, "$1");
-            // Cập nhật lại nội dung trong editor
-            editor.commands.setContent(updatedContent);
-        }
-    };
+    useEffect(() => {
+        if (editor) setEditor(editor);
+    }, [editor, setEditor]);
 
-    return <EditorContent editor={editor} onKeyDown={handleKeyDown} />;
+    return <EditorContent editor={editor} />;
 };
 
 export default TiptapEditor;
