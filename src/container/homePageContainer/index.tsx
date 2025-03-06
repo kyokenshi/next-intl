@@ -19,6 +19,7 @@ import { getApiListCategoryArticle } from '@/utils/axios/news';
 import HighlightedTextEditor from '@/components/Test';
 import Test2 from '@/components/Test2';
 import CheckSpell from '@/components/CheckSpell';
+import LayoutCheckSpell from '@/components/LayoutCheckSpell';
 
 type Props = {
     params: { locale?: any };
@@ -83,7 +84,7 @@ const HomePageContainer = async (props: Props) => {
             <RegisterInfomation dataConfig={dataConfig} />
 
             <Test2 />
-            <CheckSpell />
+            <LayoutCheckSpell />
         </div>
     );
 };
