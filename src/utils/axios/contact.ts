@@ -26,6 +26,7 @@ export const postContact = async (
         headers: {
             "Content-Type": "application/json",
         },
+        cache: "no-store",
         method: "POST",
     });
     const data = await res.json();

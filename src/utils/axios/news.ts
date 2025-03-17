@@ -27,7 +27,9 @@ export const getApiListNews = async (props: ArticlesDataResquest): Promise<any> 
         query.setFilterNews(categoryId)
     }
 
-    const res = await fetch(`${query + `&populate=*`}`);
+    const res = await fetch(`${query + `&populate=*`}`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };
@@ -43,7 +45,9 @@ export const getApiListNewsSSR = async (props: ArticlesDataResquestSSR): Promise
         .setLocale(locale ?? "vi")
         .setPagination(5, 1)
         .setSort('createdAt', 'desc');
-    const res = await fetch(`${query + `&populate=*`}`);
+    const res = await fetch(`${query + `&populate=*`}`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };
@@ -58,7 +62,9 @@ interface ListCategoryArticle {
 export const getApiListCategoryArticle = async (props: ListCategoryArticle): Promise<any> => {
     const { locale } = props
 
-    const res = await fetch(`${API_URL}/api/categories?locale=${locale}&pagination[page]=1&pagination[pageSize]=1000&sort=createdAt:desc`);
+    const res = await fetch(`${API_URL}/api/categories?locale=${locale}&pagination[page]=1&pagination[pageSize]=1000&sort=createdAt:desc`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };
@@ -73,7 +79,9 @@ interface ProductDataDetailResquest {
 // SSR
 export const getApiNewsDetail = async (props: ProductDataDetailResquest): Promise<any> => {
     const { locale, slug } = props
-    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&filters[slug]=${slug}&populate[seo][populate]=*`);
+    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&filters[slug]=${slug}&populate[seo][populate]=*`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };

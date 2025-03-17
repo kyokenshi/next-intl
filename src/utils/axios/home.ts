@@ -8,7 +8,9 @@ interface ProductDataDetailResquest {
 }
 // SSR
 export const getApiCategoryHome = async (locale: string): Promise<any> => {
-    const res = await fetch(`${API_URL}/api/menu-home?locale=${locale}&populate[product_category][populate]=*`);
+    const res = await fetch(`${API_URL}/api/menu-home?locale=${locale}&populate[product_category][populate]=*`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };
@@ -16,7 +18,9 @@ export const getApiCategoryHome = async (locale: string): Promise<any> => {
 
 
 export const getApiSliderbanner = async (): Promise<any> => {
-    const res = await fetch(`${API_URL}/api/sliders?populate=*`);
+    const res = await fetch(`${API_URL}/api/sliders?populate=*`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };
@@ -31,6 +35,7 @@ export const getApiSliderSection = async (props: ProductDataSliderSectionResques
     const { locale } = props
     const res = await fetch(`${API_URL}/api/sections?locale=${locale}&populate[product_list][populate][productions][populate]=images`, {
         next: { revalidate: 300 },
+        cache: "no-store",
     });
     const data = await res.json();
     return data;
@@ -42,6 +47,7 @@ export const getApiPartner = async (props: ProductDataSliderSectionResquest): Pr
 
     const res = await fetch(`${API_URL}/api/clients?locale=${locale}&populate[clients][populate]=* `, {
         next: { revalidate: 300 },
+        cache: "no-store",
     });
     const data = await res.json();
     return data;
@@ -56,6 +62,7 @@ const getApiConfig = async (props: ProductDataConfigResquest): Promise<any> => {
     const { locale } = props
     const res = await fetch(`${API_URL}/api/setting-website?locale=${locale}&populate[logo][populate]=*&populate[seo][populate]=*`, {
         next: { revalidate: 300 },
+        cache: "no-store",
     });
     const data = await res.json();
     return data;
@@ -73,7 +80,9 @@ interface ProductDataArticleResquest {
 
 export const getApiListCategoryArticleHome = async (props: ProductDataArticleResquest): Promise<any> => {
     const { locale } = props
-    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&pagination[page]=1&pagination[pageSize]=3&sort=createdAt:desc&populate=*`);
+    const res = await fetch(`${API_URL}/api/articles?locale=${locale}&pagination[page]=1&pagination[pageSize]=3&sort=createdAt:desc&populate=*`, {
+        cache: "no-store",
+    });
     const data = await res.json();
     return data;
 };
@@ -81,6 +90,7 @@ export const getApiListCategoryArticleHome = async (props: ProductDataArticleRes
 export const getApiListLocel = async (): Promise<any> => {
     const res = await fetch(`${API_URL}/api/i18n/locales`, {
         next: { revalidate: 300 },
+        cache: "no-store",
     });
     const data = await res.json();
     return data;
@@ -95,6 +105,7 @@ export const getApiService = async (props: ProductDataServiceResquest): Promise<
 
     const res = await fetch(`${API_URL}/api/service?locale=${locale}&populate[services][populate]=image`, {
         next: { revalidate: 300 },
+        cache: "no-store",
     });
     const data = await res.json();
     return data;
@@ -115,6 +126,7 @@ export const subscribeEmail = async (
                 email: request.email,
             }
         }),
+        cache: "no-store",
         headers: {
             "Content-Type": "application/json",
         },
@@ -127,6 +139,7 @@ export const subscribeEmail = async (
 export const getApiSocials = async (): Promise<any> => {
     const res = await fetch(`${API_URL}/api/socials?populate=*`, {
         next: { revalidate: 300 },
+        cache: "no-store",
     });
     const data = await res.json();
     return data;
