@@ -46,66 +46,6 @@ const preprocessData = (data: ApiResponse) => {
     console.log(revisedWords, "revisedWords");
     return { words, revisedWords };
 };
-// const formatContent = ({ words, revisedWords }: { words: string[]; revisedWords: RevisedWord[] }) => {
-//     let formattedText = "";
-//     let insideMark = false;
-//     let currentError: RevisedWord | null = null;
-
-//     words.forEach((word, index) => {
-//         if (word === "\n") {
-//             formattedText += "<br />";
-//             return;
-//         }
-
-//         const error = revisedWords.find((err) => err.indexes?.includes(index));
-
-//         if (error) {
-//             if (!insideMark) {
-//                 formattedText += `<mark data-original-word="${error.word}" data-corrected-word="${error.revised}" data-original-id="${error.id}">`;
-//                 insideMark = true;
-//                 currentError = error;
-//             }
-//             formattedText += word; // Bọc cả dấu cách giữa các từ lỗi
-//         } else {
-//             if (insideMark) {
-//                 formattedText += "</mark>"; // Đóng `<mark>` trước khi thêm từ bình thường
-//                 insideMark = false;
-//                 currentError = null;
-//             }
-//             formattedText += word;
-//         }
-
-//         // ✅ Fix lỗi dư dấu cách trong `<mark>`
-//         const isNextError = revisedWords.some((err) => err.indexes?.includes(index + 1));
-
-//         // 🔥 Chỉ thêm dấu cách nếu:
-//         // 1. Từ tiếp theo không phải xuống dòng
-//         // 2. Nếu đang trong `<mark>`, chỉ thêm dấu cách nếu từ tiếp theo cũng bị lỗi
-//         if (index < words.length - 1 && words[index + 1] !== "\n") {
-//             if (insideMark && isNextError) {
-//                 formattedText += " "; // Thêm dấu cách giữa các từ trong `<mark>`
-//             } else if (!insideMark) {
-//                 formattedText += " "; // Thêm dấu cách ngoài `<mark>`
-//             }
-//         }
-//     });
-
-//     if (insideMark) {
-//         formattedText += "</mark>"; // Đảm bảo `<mark>` được đóng đúng cách
-//     }
-
-//     return formattedText.trim();
-// };
-
-
-
-// const handleKeyDown = (event: KeyboardEvent, editor: Editor | null) => {
-//     if (event.shiftKey && event.key === "Enter") {
-//         event.preventDefault();
-//         editor?.commands.setHardBreak();
-//     }
-// };
-
 
 const formatContent = ({ words, revisedWords }: { words: string[]; revisedWords: RevisedWord[] }): string => {
     let formattedText = "";
@@ -124,7 +64,7 @@ const formatContent = ({ words, revisedWords }: { words: string[]; revisedWords:
 
         if (error) {
             if (isFirstWordInError) {
-                formattedText += `<mark data-original-word="${error.word}" data-corrected-word="${error.revised}" data-original-id="${error.id}">`;
+                formattedText += `<mark data-original-word="${error.word}" data-corrected-word="${error.revised}" class="cursor-pointer" data-original-id="${error.id}">`;
                 insideMark = true;
                 currentError = error;
             }
@@ -155,10 +95,6 @@ const formatContent = ({ words, revisedWords }: { words: string[]; revisedWords:
 
 
 
-
-
-
-
 const CheckSpell: React.FC<CheckSpellProps> = ({ setEditor, data }) => {
 
     const processedData = preprocessData(data);
@@ -166,11 +102,142 @@ const CheckSpell: React.FC<CheckSpellProps> = ({ setEditor, data }) => {
     const revisedWords = processedData?.revisedWords || [];
 
 
+    const handleMarkClick = (wordId: string) => {
+        // Lấy div chứa tất cả phần tử (mottinhiu)
+        const container = document.getElementById("mottinhiu");
+        if (!container) return;
+        // Ẩn tất cả div có class "xinchao" nhưng chỉ trong container
+        container.querySelectorAll('[data-type="custom"]').forEach((div) => {
+            div.classList.add("hidden");
+        });        // Tìm phần tử cha có id tương ứng với wordId bên trong container
+        const parentDiv = container.querySelector(`#${CSS.escape(wordId)}`);
+
+        if (!parentDiv) return;
+        const targetDiv = parentDiv.querySelector('[data-type="custom"]');
+        if (targetDiv) {
+            targetDiv.classList.remove("hidden");
+        }
+    };
+
+
     const content = formatContent({ words, revisedWords });
 
     const editor = useEditor({
         extensions: [StarterKit, Highlight],
         content,
+        // editorProps: {
+
+        //     //TH1:  enter thì mất mất shift enter thì còn
+        //     handleKeyDown: (view, event) => {
+        //         if (event.key === "Enter") {
+        //             event.preventDefault();
+        //             const { state, dispatch } = view;
+        //             const { selection, tr, schema } = state;
+        //             const pos = selection.from;
+        //             const nodeBefore = state.doc.nodeAt(pos - 1);
+        //             const nodeAfter = state.doc.nodeAt(pos);
+
+        //             // Kiểm tra nếu con trỏ đang trong <mark>
+        //             const markBefore = nodeBefore?.marks.find(mark => mark.type.name === "highlight");
+        //             const markAfter = nodeAfter?.marks.find(mark => mark.type.name === "highlight");
+
+        //             if (markBefore || markAfter) {
+        //                 // Xác định phạm vi bỏ highlight
+        //                 let markEnd = pos;
+        //                 while (markEnd < state.doc.nodeSize - 2) {
+        //                     const node = state.doc.nodeAt(markEnd);
+        //                     if (!node || !node.marks.some(mark => mark.type.name === "highlight")) break;
+        //                     markEnd++;
+        //                 }
+
+        //                 // Xóa highlight của phần sau con trỏ
+        //                 tr.removeMark(pos, markEnd, schema.marks.highlight);
+        //                 dispatch(tr);
+        //             }
+
+        //             // Xuống dòng đúng cách mà không bị giữ highlight
+        //             if (event.shiftKey) {
+        //                 // Shift + Enter -> Xuống dòng mềm (<br>)
+        //                 editor?.commands.setHardBreak();
+        //             } else {
+        //                 // Enter -> Xuống đoạn mới, đảm bảo không giữ highlight
+        //                 editor?.commands.splitBlock();
+        //                 // Đặt con trỏ ở đoạn mới và chắc chắn đoạn mới không bị highlight
+        //                 setTimeout(() => {
+        //                     editor?.commands.unsetMark("highlight");
+        //                 }, 0);
+        //             }
+
+        //             return true;
+        //         }
+        //         return false;
+        //     },
+        // },
+
+        /// TH2:  enter và shift enter đều mất TH2
+        editorProps: {
+            handleKeyDown: (view, event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+
+                    const { state, dispatch } = view;
+                    const { selection, tr, schema } = state;
+                    const pos = selection.from;
+                    const nodeBefore = state.doc.nodeAt(pos - 1);
+                    const nodeAfter = state.doc.nodeAt(pos);
+
+                    // Kiểm tra nếu con trỏ đang trong <mark>
+                    const markBefore = nodeBefore?.marks.find(mark => mark.type.name === "highlight");
+                    const markAfter = nodeAfter?.marks.find(mark => mark.type.name === "highlight");
+
+                    if (markBefore || markAfter) {
+                        // Xác định phạm vi cần bỏ highlight
+                        let markEnd = pos;
+                        while (markEnd < state.doc.nodeSize - 2) {
+                            const node = state.doc.nodeAt(markEnd);
+                            if (!node || !node.marks.some(mark => mark.type.name === "highlight")) break;
+                            markEnd++;
+                        }
+                        // Bỏ highlight cho phần sau con trỏ
+                        tr.removeMark(pos, markEnd, schema.marks.highlight);
+                        dispatch(tr);
+                    }
+
+                    if (event.shiftKey) {
+                        // Shift + Enter -> Xuống dòng mềm (<br>) + bỏ highlight cho phần sau
+                        editor?.commands.setHardBreak();
+                        setTimeout(() => {
+                            editor?.commands.unsetMark("highlight");
+                        }, 0);
+                    } else {
+                        // Enter -> Xuống đoạn mới + bỏ highlight
+                        editor?.commands.splitBlock();
+                        setTimeout(() => {
+                            editor?.commands.unsetMark("highlight");
+                        }, 0);
+                    }
+
+                    return true;
+                }
+                return false;
+            },
+            handleClick: (view, pos, event) => {
+                const target = event.target as HTMLElement;
+                if (target.tagName === "MARK") {
+                    const wordId = target.getAttribute("originalid");
+
+                    if (wordId) {
+                        // Ví dụ: Gọi API hoặc mở popup xử lý từ này
+                        handleMarkClick(wordId);
+                    }
+                }
+            },
+        },
+
+
+        // TH3 : 
+
+
     });
 
 

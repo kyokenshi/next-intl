@@ -42,24 +42,30 @@ const LayoutCheckSpell = () => {
 
     const replaceTextById = (originalId: string) => {
         if (!editor) return;
-
         const currentContent = editor.getHTML();
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = currentContent;
-
         tempDiv.querySelectorAll("mark").forEach((mark) => {
             if (mark.getAttribute("originalid") === originalId) {
                 const correctedWord = mark.getAttribute("correctedword") || "";
                 mark.replaceWith(`${correctedWord + " "}`);
             }
         });
-
         editor.commands.setContent(tempDiv.innerHTML);
+        if (editor) {
+            const container = document.getElementById("mottinhiu");
+            if (!container) return;
+            // Tìm phần tử cha có id tương ứng với originalId bên trong container
+            const parentDiv = container.querySelector(`#${CSS.escape(originalId)}`);
+            // Nếu tìm thấy parentDiv, kiểm tra điều kiện và xóa nó
+            if (parentDiv && parentDiv.id === originalId) {
+                parentDiv.remove();
+            }
+        }
     };
 
     const removeHighlightById = (originalId: string) => {
         if (!editor) return;
-
         const currentContent = editor.getHTML();
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = currentContent;
@@ -70,19 +76,47 @@ const LayoutCheckSpell = () => {
                 mark.replaceWith(`${textContent + " "}`);
             }
         });
-
         editor.commands.setContent(tempDiv.innerHTML);
+        if (editor) {
+            const container = document.getElementById("mottinhiu");
+            if (!container) return;
+            // Tìm phần tử cha có id tương ứng với originalId bên trong container
+            const parentDiv = container.querySelector(`#${CSS.escape(originalId)}`);
+            // Nếu tìm thấy parentDiv, kiểm tra điều kiện và xóa nó
+            if (parentDiv && parentDiv.id === originalId) {
+                parentDiv.remove();
+            }
+
+        }
     };
+
+    const handleMarkClick = (wordId: string) => {
+        // Lấy div chứa tất cả phần tử (mottinhiu)
+        const container = document.getElementById("mottinhiu");
+        if (!container) return;
+        // Ẩn tất cả div có class "xinchao" nhưng chỉ trong container
+        container.querySelectorAll('[data-type="custom"]').forEach((div) => {
+            div.classList.add("hidden");
+        });        // Tìm phần tử cha có id tương ứng với wordId bên trong container
+        const parentDiv = container.querySelector(`#${CSS.escape(wordId)}`);
+
+        if (!parentDiv) return;
+        const targetDiv = parentDiv.querySelector('[data-type="custom"]');
+        if (targetDiv) {
+            targetDiv.classList.remove("hidden");
+        }
+    };
+
+
 
     return (
         <div className="grid grid-cols-2 gap-6">
             <CheckSpell setEditor={setEditor} data={data} />
-
-            <div>
+            <div className="abcde" id="mottinhiu">
                 {data.result.revised_words.map((el) => (
-                    <div key={el.id} className="mb-10">
+                    <div key={el.id} id={el.id} className="mb-10" onClick={() => handleMarkClick(el.id)}>
                         <span style={{ color: "red" }}>{el.word}</span> → {el.revised}
-                        <div className="flex gap-6">
+                        <div className="flex gap-6 hidden" data-type="custom" >
                             <button onClick={() => replaceTextById(el.id)}>Thay Đổi</button>
                             <button style={{ color: "red" }} onClick={() => removeHighlightById(el.id)}>
                                 Hủy
