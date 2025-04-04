@@ -9,7 +9,6 @@ interface CheckPageResquest {
 export const getApiCheckPage = async (props: CheckPageResquest): Promise<any> => {
     const { locale, slug } = props
     const res = await fetch(`${API_URL}/api/pages?locale=${locale}&filters[slug]=${slug}&populate[seo][populate]=*`, {
-        next: { revalidate: 300 },
         cache: "no-store",
     });
     const data = await res.json();

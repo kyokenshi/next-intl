@@ -34,7 +34,6 @@ interface ProductDataSliderSectionResquest {
 export const getApiSliderSection = async (props: ProductDataSliderSectionResquest): Promise<any> => {
     const { locale } = props
     const res = await fetch(`${API_URL}/api/sections?locale=${locale}&populate[product_list][populate][productions][populate]=images`, {
-        next: { revalidate: 300 },
         cache: "no-store",
     });
     const data = await res.json();
@@ -46,7 +45,6 @@ export const getApiPartner = async (props: ProductDataSliderSectionResquest): Pr
     const { locale } = props
 
     const res = await fetch(`${API_URL}/api/clients?locale=${locale}&populate[clients][populate]=* `, {
-        next: { revalidate: 300 },
         cache: "no-store",
     });
     const data = await res.json();
@@ -61,7 +59,6 @@ interface ProductDataConfigResquest {
 const getApiConfig = async (props: ProductDataConfigResquest): Promise<any> => {
     const { locale } = props
     const res = await fetch(`${API_URL}/api/setting-website?locale=${locale}&populate[logo][populate]=*&populate[seo][populate]=*`, {
-        next: { revalidate: 300 },
         cache: "no-store",
     });
     const data = await res.json();
@@ -89,7 +86,6 @@ export const getApiListCategoryArticleHome = async (props: ProductDataArticleRes
 
 export const getApiListLocel = async (): Promise<any> => {
     const res = await fetch(`${API_URL}/api/i18n/locales`, {
-        next: { revalidate: 300 },
         cache: "no-store",
     });
     const data = await res.json();
@@ -104,7 +100,6 @@ export const getApiService = async (props: ProductDataServiceResquest): Promise<
     const { locale } = props
 
     const res = await fetch(`${API_URL}/api/service?locale=${locale}&populate[services][populate]=image`, {
-        next: { revalidate: 300 },
         cache: "no-store",
     });
     const data = await res.json();
@@ -138,8 +133,8 @@ export const subscribeEmail = async (
 
 export const getApiSocials = async (): Promise<any> => {
     const res = await fetch(`${API_URL}/api/socials?populate=*`, {
-        next: { revalidate: 300 },
         cache: "no-store",
+
     });
     const data = await res.json();
     return data;

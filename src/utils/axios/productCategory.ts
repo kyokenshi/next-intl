@@ -22,7 +22,6 @@ interface FilmDataResquest {
 export const getCategoryProduct = async (props: FilmDataResquest) => {
   const { locale } = props
   const res = await fetch(`${API_URL}/api/product-categories?locale=${locale}&populate=*&pagination[pageSize]=1000`, {
-    next: { revalidate: 300 },
     cache: "no-store",
   });
 
