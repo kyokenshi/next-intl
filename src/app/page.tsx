@@ -35,7 +35,7 @@ export async function generateMetadata() {
     title: dataConfig?.seo?.metaTitle,
     description: dataConfig?.seo?.metaDescription,
     icons: {
-      icon: `/favicon.ico`,
+      icon: `/public/favicon.ico`,
     },
     openGraph: {
       title: dataConfig?.seo?.metaTitle,
