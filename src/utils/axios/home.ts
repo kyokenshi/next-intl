@@ -57,10 +57,15 @@ interface ProductDataConfigResquest {
 }
 
 const getApiConfig = async (props: ProductDataConfigResquest): Promise<any> => {
-    const { locale } = props
+    const { locale } = props;
     const res = await fetch(`${API_URL}/api/setting-website?locale=${locale}&populate[logo][populate]=*&populate[seo][populate]=*`, {
         cache: "no-store",
     });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch config data");
+    }
+
     const data = await res.json();
     return data;
 };
