@@ -42,7 +42,7 @@ export default async function BaseLayout({ children, locale }: Props) {
   return (
     <html className="h-full" lang={locale}>
       <head>
-        <link rel="icon" href="/public/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
 
       <body className={clsx('flex h-full flex-col', roboto.className)}>
