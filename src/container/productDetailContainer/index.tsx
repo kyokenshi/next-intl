@@ -16,6 +16,7 @@ type Props = {
 const ProductDetailContainer = (props: Props) => {
     const { data, dataProductNew } = props;
 
+
     const elment = data[0];
 
     return (
@@ -37,11 +38,10 @@ const ProductDetailContainer = (props: Props) => {
                     <div className="w-[100%] flex flex-col">
                         <div className="flex gap-[35px]">
                             <div>
-                                <Image
+                                <img
                                     width={380}
                                     height={380}
-                                    objectFit="cover"
-                                    src={getImageUrl(elment.images[0]?.formats?.medium?.url)}
+                                    src={getImageUrl(elment.images[0]?.formats?.medium?.url ? elment.images[0]?.formats?.medium?.url : elment.images[0]?.formats?.thumbnail?.url)}
                                     alt="product-detail"
                                 />
                             </div>
