@@ -4,8 +4,7 @@ import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
 import Pagination from '@/components/Pagination';
 import { getApiProduct } from '@/utils/axios/product';
-import { Select, Skeleton, Space } from 'antd';
-import Link from 'antd/es/typography/Link';
+import { Popover, Skeleton, Space } from 'antd';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState, Suspense } from 'react';
@@ -91,6 +90,7 @@ interface Props {
 const ProductContainer = (props: Props) => {
     const searchParams = useSearchParams();
     const { id } = props.params;
+    const router = useRouter();
     const { dataCategoryProduct, dataProductNew, dataConfig } = props
     const [productList, setProductList] = useState<Product[]>([]);
     const [pagination, setPagination] = useState<any>({});
@@ -135,6 +135,18 @@ const ProductContainer = (props: Props) => {
         onGetListProduct();
     }, [params])
 
+    console.log(dataCategoryProduct);
+
+    const content = (el: any) => {
+        return (
+            <div>
+                {el.map((sub: any) => {
+                    return <div key={sub.id} className='px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]' onClick={() => router.push(`/danh-muc-san-pham/${sub.url}`)}>{sub.title}</div>
+                })}
+            </div>
+        )
+    }
+
 
     return (
         <div className="max-w-[1200px] px-[0px] mx-auto">
@@ -143,19 +155,19 @@ const ProductContainer = (props: Props) => {
                     <div className="mb-[32px] hidden sm:block">
 
                         <MenuList title={dataConfig?.name_category_home}>
-                            {
-                                dataCategoryProduct?.map((el: any) => {
-                                    return (
-                                        <div
-                                            className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
-                                            key={el.id}
-                                        >
-                                            <Link href={`/danh-muc-san-pham/${el.url}`}>
-                                                {el.title}
-                                            </Link>
+                            {dataCategoryProduct?.map((el: any) => {
+
+                                return (
+                                    <Popover key={el.id} placement="rightTop" content={content(el.product_category_level_2s)} >
+                                        <div className='px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]'>
+                                            {el.title}
                                         </div>
-                                    );
-                                })}
+                                    </Popover>
+
+
+                                );
+                            })}
+
                         </MenuList>
 
                     </div>
