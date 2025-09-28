@@ -54,6 +54,7 @@ export default async function BaseLayout({ children, locale }: Props) {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-ZFLB71CVEL');
+              gtag('config', 'AW-17540507188');
             `,
           }}
         />
