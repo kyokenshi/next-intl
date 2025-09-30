@@ -13,7 +13,7 @@ import { useSearchParams } from 'next/navigation'
 
 import imagesa from './../../../public/assets/empty_data.png';
 import Image from 'next/image'
-
+import { gtag_report_conversion } from '@/utils/gtag' // ✅ thêm import
 
 interface INewsProps {
     dataListArtical: any
@@ -23,16 +23,13 @@ interface INewsProps {
 const NewsContainer = (props: INewsProps) => {
     const { dataListArtical, dataConfig } = props;
     const searchParams = useSearchParams();
-    const categoryId = searchParams.get('categoryId') ?? ""; // Lấy giá trị của query parameter "jobId"
-
+    const categoryId = searchParams.get('categoryId') ?? "";
 
     const [listNews, setListNews] = useState<any[]>([]);
     const [params, setParams] = useState({
         page: 1,
     })
-
     const [pagination, setPagination] = useState<any>({});
-
 
     const onPageChange = (page: number) => {
         setParams((preveState) => ({
@@ -49,7 +46,6 @@ const NewsContainer = (props: INewsProps) => {
         })();
     }, [params, categoryId]);
 
-
     return (
         <div className='mb-[40px]'>
             <SectionTitle title={dataConfig?.name_new_header} description={dataConfig?.name_new_header} />
@@ -61,52 +57,53 @@ const NewsContainer = (props: INewsProps) => {
                                 <Space direction='vertical' size={4} style={{ width: "100%" }}>
                                     {dataListArtical?.map((el: any) => {
                                         return (
-                                            <Link href={`${"news"}?categoryId=${el.slug}`}>
+                                            <Link href={`${"news"}?categoryId=${el.slug}`} key={el.id}>
                                                 <div
                                                     className="px-[12px] leading-[27px] line-clamp-1 py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
-                                                    key={el.id}
                                                 >
                                                     {el.name}
                                                 </div>
                                             </Link>
                                         )
-
                                     })}
                                 </Space>
                             </MenuList>
-                            {/* <MenuList title='Liên quan'>
-                                <Space direction='vertical' size={12}>
-                                    {listMenuProduct.map((el) => {
-                                        return <CardNewHorizontal key={el.id} />;
-                                    })}
-                                </Space>
-                            </MenuList> */}
                         </Space>
                     </div>
-                    {listNews.length > 0 && <div className='grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]'>
-                        {listNews.map((el) => {
-                            return <div key={el.id}><CardNew title={el.title} description={el.description} {...el} /></div>;
-                        })
-                        }
-                        <div className="flex justify-center mt-[24px]">
-                            <Pagination
-                                current={params.page}
-                                pageSize={pagination?.pageSize}
-                                total={Number(pagination?.total)}
-                                onChange={onPageChange}
-                            />
 
+                    {listNews.length > 0 && (
+                        <div className='grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]'>
+                            {listNews.map((el) => {
+                                return (
+                                    <div
+                                        key={el.id}
+                                        onClick={() => gtag_report_conversion(`news_${el.id}`)} // ✅ track khi click
+                                        className="cursor-pointer"
+                                    >
+                                        <CardNew title={el.title} description={el.description} {...el} />
+                                    </div>
+                                );
+                            })}
+                            <div className="flex justify-center mt-[24px]">
+                                <Pagination
+                                    current={params.page}
+                                    pageSize={pagination?.pageSize}
+                                    total={Number(pagination?.total)}
+                                    onChange={onPageChange}
+                                />
+                            </div>
                         </div>
-                    </div>}
-                    {listNews.length === 0 &&
-                        <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: 40 }}><Image src={imagesa} width={150} height={150} style={{ height: 150 }} alt='IMG_EMPTY' /></div>
-                    }
+                    )}
+
+                    {listNews.length === 0 && (
+                        <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: 40 }}>
+                            <Image src={imagesa} width={150} height={150} style={{ height: 150 }} alt='IMG_EMPTY' />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
-
     )
 }
-
 
 export default NewsContainer

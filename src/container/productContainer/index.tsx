@@ -4,11 +4,11 @@ import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
 import Pagination from '@/components/Pagination';
 import { getApiProduct } from '@/utils/axios/product';
+import { gtag_report_conversion } from '@/utils/gtag'; // ✅ import gtag
 import { Popover, Skeleton, Space } from 'antd';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState, Suspense } from 'react';
-
+import React, { useEffect, useState } from 'react';
 
 interface ImageFormats {
     large?: ImageDetails;
@@ -82,130 +82,183 @@ export interface Product {
 
 interface Props {
     params: { id?: any };
-    dataCategoryProduct: any
-    dataProductNew: any
-    dataConfig: any
+    dataCategoryProduct: any;
+    dataProductNew: any;
+    dataConfig: any;
 }
 
 const ProductContainer = (props: Props) => {
     const searchParams = useSearchParams();
     const { id } = props.params;
     const router = useRouter();
-    const { dataCategoryProduct, dataProductNew, dataConfig } = props
+    const { dataCategoryProduct, dataProductNew, dataConfig } = props;
     const [productList, setProductList] = useState<Product[]>([]);
     const [pagination, setPagination] = useState<any>({});
-    const search = searchParams?.get('search'); // Get the search parameter
+    const search = searchParams?.get('search');
 
     const [loading, setLoading] = useState(true);
     const [params, setParams] = useState({
         page: 1,
-        search: search
-    })
+        search: search,
+    });
 
     const onPageChange = (page: number) => {
-        setParams((preveState) => ({
-            ...preveState,
+        setParams((prevState) => ({
+            ...prevState,
             page: page,
         }));
+        gtag_report_conversion(`product_list_page_${page}`); // ✅ track khi đổi trang
     };
 
-
     useEffect(() => {
-        setParams((preveState) => ({
-            ...preveState,
-            search: search
+        setParams((prevState) => ({
+            ...prevState,
+            search: search,
         }));
-
-    }, [search])
-
-
-
+    }, [search]);
 
     const onGetListProduct = async () => {
         try {
             const resp = await getApiProduct({ categoryId: id?.[0], params });
             setProductList(resp.data);
             setPagination(resp.meta.pagination);
+
+            // ✅ Track load list sản phẩm
+            gtag_report_conversion(
+                `product_list_loaded_${id?.[0] || 'all'}_page_${params.page}`
+            );
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         onGetListProduct();
-    }, [params])
-
-    console.log(dataCategoryProduct);
+    }, [params]);
 
     const content = (el: any) => {
         return (
             <div>
                 {el.map((sub: any) => {
-                    return <div key={sub.id} className='px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]' onClick={() => router.push(`/danh-muc-san-pham/${sub.url}`)}>{sub.title}</div>
+                    return (
+                        <div
+                            key={sub.id}
+                            className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
+                            onClick={() => {
+                                gtag_report_conversion(`category_level2_click_${sub.id}`);
+                                router.push(`/danh-muc-san-pham/${sub.url}`);
+                            }}
+                        >
+                            {sub.title}
+                        </div>
+                    );
                 })}
             </div>
-        )
-    }
-
+        );
+    };
 
     return (
         <div className="max-w-[1200px] px-[0px] mx-auto">
             <div className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] xl:grid-cols-[300px_1fr] gap-[24px] mt-[40px] mb-[40px]">
                 <div>
                     <div className="mb-[32px] hidden sm:block">
-
                         <MenuList title={dataConfig?.name_category_home}>
                             {dataCategoryProduct?.map((el: any) => {
-
                                 return (
-                                    <Popover key={el.id} placement="rightTop" content={content(el.product_category_level_2s)} >
-                                        <div className='px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]'>
+                                    <Popover
+                                        key={el.id}
+                                        placement="rightTop"
+                                        content={content(el.product_category_level_2s)}
+                                    >
+                                        <div
+                                            className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
+                                            onClick={() =>
+                                                gtag_report_conversion(
+                                                    `category_level1_click_${el.id}`
+                                                )
+                                            }
+                                        >
                                             {el.title}
                                         </div>
                                     </Popover>
-
-
                                 );
                             })}
-
                         </MenuList>
-
                     </div>
-                    <div className='hidden sm:block'>
+                    <div className="hidden sm:block">
                         <MenuList title={dataConfig?.name_product_new}>
-                            <Space direction='vertical' size={12}>
+                            <Space direction="vertical" size={12}>
                                 {dataProductNew?.map((el: any) => {
-                                    return <CardProductHorizontal key={el.id} {...el} />
+                                    return (
+                                        <div
+                                            key={el.id}
+                                            onClick={() =>
+                                                gtag_report_conversion(
+                                                    `new_product_click_${el.id}`
+                                                )
+                                            }
+                                        >
+                                            <CardProductHorizontal {...el} />
+                                        </div>
+                                    );
                                 })}
                             </Space>
                         </MenuList>
                     </div>
                 </div>
 
-                {loading ? <Skeleton active style={{
-                    lineHeight: '3em', // Điều chỉnh khoảng cách giữa các dòng
-                }}
-                    paragraph={{
-                        rows: 10,
-                        // Số lượng dòng
-                        width: ['80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%', '80%',], // Độ rộng từng dòng
-                    }} /> :
+                {loading ? (
+                    <Skeleton
+                        active
+                        style={{
+                            lineHeight: '3em',
+                        }}
+                        paragraph={{
+                            rows: 10,
+                            width: [
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                                '80%',
+                            ],
+                        }}
+                    />
+                ) : (
                     <div>
-                        {/* <div className="flex justify-between mb-[16px]">
-                            <div>
-                                Showing 1–9 of 13 results
+                        {productList.length > 0 ? (
+                            <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
+                                {productList.map((el) => {
+                                    return (
+                                        <div
+                                            key={el.id}
+                                            onClick={() =>
+                                                gtag_report_conversion(
+                                                    `product_click_${el.id}`
+                                                )
+                                            }
+                                        >
+                                            <CardProduct {...el} />
+                                        </div>
+                                    );
+                                })}
                             </div>
-                            <Select className="w-[200px]" options={option} />
-                        </div> */}
-                        {productList.length > 0 ? <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px]">
-                            {productList.map((el) => {
-                                return <CardProduct key={el.id}  {...el} />;
-                            })}
-                        </div> :
-                            <div className='flex justify-center align-middle mt-20'>
-                                <Image src={"/assets/empty_data.png"} width={200} height={150} alt='IMG_EMPTY' />
+                        ) : (
+                            <div className="flex justify-center align-middle mt-20">
+                                <Image
+                                    src={'/assets/empty_data.png'}
+                                    width={200}
+                                    height={150}
+                                    alt="IMG_EMPTY"
+                                />
                             </div>
-                        }
+                        )}
 
                         <div className="flex justify-center mt-[24px]">
                             <Pagination
@@ -214,10 +267,9 @@ const ProductContainer = (props: Props) => {
                                 total={Number(pagination?.total)}
                                 onChange={onPageChange}
                             />
-
                         </div>
                     </div>
-                }
+                )}
             </div>
         </div>
     );

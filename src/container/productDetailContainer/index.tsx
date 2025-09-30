@@ -1,12 +1,12 @@
-import CardProduct from '@/components/CardProduct';
+"use client";
 import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
 import SectionTitle from '@/components/SectionTitle';
 import { formatPrice, getImageUrl } from '@/utils/commom';
 import { Divider, Space } from 'antd';
-import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { gtag_report_conversion } from '@/utils/gtag'; // ✅ thêm import
 
 type Props = {
     data: any;
@@ -15,9 +15,14 @@ type Props = {
 
 const ProductDetailContainer = (props: Props) => {
     const { data, dataProductNew } = props;
-
-
     const elment = data[0];
+
+    // ✅ Track khi user xem trang chi tiết sản phẩm
+    useEffect(() => {
+        if (elment?.id) {
+            gtag_report_conversion(`product_detail_view_${elment.id}`);
+        }
+    }, [elment?.id]);
 
     return (
         <div className="mb-[40px]">
@@ -29,7 +34,14 @@ const ProductDetailContainer = (props: Props) => {
                             <MenuList title="Mới nhất">
                                 <Space direction="vertical" size={12}>
                                     {dataProductNew.map((el: any) => {
-                                        return <CardProductHorizontal key={el.id} {...el} />;
+                                        return (
+                                            <div
+                                                key={el.id}
+                                                onClick={() => gtag_report_conversion(`new_product_click_${el.id}`)}
+                                            >
+                                                <CardProductHorizontal {...el} />
+                                            </div>
+                                        );
                                     })}
                                 </Space>
                             </MenuList>
@@ -41,7 +53,11 @@ const ProductDetailContainer = (props: Props) => {
                                 <img
                                     width={380}
                                     height={380}
-                                    src={getImageUrl(elment.images[0]?.formats?.medium?.url ? elment.images[0]?.formats?.medium?.url : elment.images[0]?.formats?.thumbnail?.url)}
+                                    src={getImageUrl(
+                                        elment.images[0]?.formats?.medium?.url
+                                            ? elment.images[0]?.formats?.medium?.url
+                                            : elment.images[0]?.formats?.thumbnail?.url
+                                    )}
                                     alt="product-detail"
                                 />
                             </div>
@@ -56,24 +72,28 @@ const ProductDetailContainer = (props: Props) => {
                                             {formatPrice(elment.price)}
                                         </span>
                                     ) : (
-                                        <Link href={'/contact'}>
+                                        <Link
+                                            href={'/contact'}
+                                            onClick={() => gtag_report_conversion(`product_contact_${elment.id}`)}
+                                        >
                                             <span className="font-semibold text-[#00a0ea]">
                                                 {formatPrice(elment.price)}
                                             </span>
                                         </Link>
                                     )}
-
                                     <Divider />
                                 </div>
                                 <div>
-                                    Danh mục : <Link href={`/product-catalog/${elment?.product_category?.url}`}><span className='hover:text-[#2865C2]'>{elment?.product_category?.title}</span></Link>
+                                    Danh mục :{' '}
+                                    <Link
+                                        href={`/product-catalog/${elment?.product_category?.url}`}
+                                        onClick={() => gtag_report_conversion(`category_click_${elment?.product_category?.id}`)}
+                                    >
+                                        <span className="hover:text-[#2865C2]">
+                                            {elment?.product_category?.title}
+                                        </span>
+                                    </Link>
                                 </div>
-                                {/* <Space size={12} >
-                                    <InputNumber min={1} />
-                                    <div>
-                                        <Button type='primary'>Mua hàng</Button>
-                                    </div>
-                                </Space> */}
                             </Space>
                         </div>
                         <div className="mt-[32px]">
@@ -84,19 +104,6 @@ const ProductDetailContainer = (props: Props) => {
                                 <div dangerouslySetInnerHTML={{ __html: elment.content }}></div>
                             </div>
                         </div>
-                        {/* <div className='mt-[24px]'>
-                            <div className='text-[24px] font-semibold uppercase border-b-[1px] border-[ #c2c6c6] pb-[16px]'>
-                                Sản phẩm tương tự
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr] gap-[16px] mt-[32px]">
-                                    {productList.map((el) => {
-                                        return <CardProduct {...el} key={el.id} />;
-                                    })}
-                                </div>
-
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>

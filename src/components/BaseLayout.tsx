@@ -10,34 +10,22 @@ import { getApiSocials, getConfigData } from '@/utils/axios/home';
 import Head from 'next/head';
 import { routing } from '@/i18n/routing';
 
-// const inter = Inter({ subsets: ['latin'] });
 const roboto = Roboto({
-  weight: ['400', '500', '700'],  // có thể thêm các weight khác nếu cần
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
 })
-
 
 type Props = {
   children: ReactNode;
   locale: string;
 };
 
-
-
-
-
 export default async function BaseLayout({ children, locale }: Props) {
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
 
   const { data: dataConfig } = await getConfigData({ locale })
   const { data: dataSocial } = await getApiSocials()
-
-
-
-
 
   return (
     <html className="h-full" lang={locale}>
@@ -46,6 +34,7 @@ export default async function BaseLayout({ children, locale }: Props) {
           name="google-site-verification"
           content="rKa0c4F0R1NfjK4q4baK-7ExYvJCjsj-zypCeIxLqrc"
         />
+        {/* Google Analytics + Google Ads */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFLB71CVEL"></script>
         <script
           dangerouslySetInnerHTML={{
@@ -58,6 +47,27 @@ export default async function BaseLayout({ children, locale }: Props) {
             `,
           }}
         />
+        {/* Hàm theo dõi conversion */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              function gtag_report_conversion(url) {
+                var callback = function () {
+                  if (typeof(url) != 'undefined') {
+                    window.location = url;
+                  }
+                };
+                gtag('event', 'conversion', {
+                  'send_to': 'AW-17540507188/NECOCLKxwaEbELTM-6tB',
+                  'event_callback': callback
+                });
+                return false;
+              }
+              window.gtag_report_conversion = gtag_report_conversion;
+            `,
+          }}
+        />
+        {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
