@@ -1,5 +1,5 @@
 "use client"
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import MenuHeader from './MenuHeader';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,16 @@ import { gtag_event } from '@/utils/gtag';
 
 export default function Navigation({ dataConfig, dataSocial }: any) {
   const t = useTranslations('Navigation');
-
+  const locale = useLocale();
+  const renderContent = () => {
+    if (locale === "en") {
+      return dataConfig?.en_sologan_header_logo
+    }
+    if (locale === "zh") {
+      return dataConfig?.cn_sologan_header_logo
+    }
+    return dataConfig?.vn_sologan_header_logo
+  }
   return (
     <>
       <header className='max-w-1200 w-[100%] px-[6px] xl:px-[0px] gap-y-[10px]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
@@ -29,7 +38,7 @@ export default function Navigation({ dataConfig, dataSocial }: any) {
           <div className='hidden sm:flex' style={{ alignItems: "center" }}>
             <div className="icon-home"></div>
             <div className="text">
-              <p className='text-16 font-bold'>{dataConfig?.address}</p>
+              <p className='text-16 font-bold'>{renderContent()}</p>
             </div>
           </div>
         </div>

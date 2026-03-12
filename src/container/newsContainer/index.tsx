@@ -30,7 +30,6 @@ const NewsContainer = (props: INewsProps) => {
         page: 1,
     })
     const [pagination, setPagination] = useState<any>({});
-
     const onPageChange = (page: number) => {
         setParams((preveState) => ({
             ...preveState,

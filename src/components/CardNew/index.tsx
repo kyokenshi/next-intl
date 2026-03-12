@@ -13,19 +13,21 @@ type Props = {
 
 const CardNew = (props: Props) => {
     const { title, description, cover, slug, ...other } = props;
+    console.log("🚀 ~ file: index.tsx:11 ~ CardNew ~ cover:", cover)
     return (
         <div className='shadow-custom2'>
             <Link href={`/news/${slug}`} >
                 <div className="p-[6px] relative w-full aspect-square"> {/* Thêm aspect-square để tạo container vuông */}
                     <Image
                         className="object-cover" // Thêm object-cover
-                        src={getImageUrl(cover?.formats?.medium?.url)}
+                        src={getImageUrl(cover?.url)}
                         alt="product"
                         fill
                     // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 </div>
             </Link>
+
             <div className='p-[12px] min-h-[164px]'>
                 <Space size={6} direction='vertical'>
                     <Link href={`/news/${slug}`} >
