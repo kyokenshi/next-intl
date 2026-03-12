@@ -7,7 +7,7 @@ import MenuList from '@/components/MenuList'
 import CardNew from '@/components/CardNew'
 import SectionTitle from '@/components/SectionTitle'
 import { onFormatDate } from '@/utils/commom'
-import { gtag_report_conversion } from '@/utils/gtag' // ✅ thêm import
+import { gtag_event } from '@/utils/gtag' // ✅ thêm import
 
 type Props = {
     params: { id: string };
@@ -23,7 +23,10 @@ const NewsDetailContainer = (props: Props) => {
     // ✅ track conversion khi user vào trang chi tiết tin
     useEffect(() => {
         if (elment?.id) {
-            gtag_report_conversion(`news_detail_${elment.id}`);
+            gtag_event('news_detail_view', {
+                event_category: 'news',
+                event_label: `news_${elment.id}`,
+            });
         }
     }, [elment?.id]);
 

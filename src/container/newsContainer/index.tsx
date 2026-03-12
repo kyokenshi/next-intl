@@ -13,7 +13,7 @@ import { useSearchParams } from 'next/navigation'
 
 import imagesa from './../../../public/assets/empty_data.png';
 import Image from 'next/image'
-import { gtag_report_conversion } from '@/utils/gtag' // ✅ thêm import
+import { gtag_event } from '@/utils/gtag' // ✅ thêm import
 
 interface INewsProps {
     dataListArtical: any
@@ -36,6 +36,7 @@ const NewsContainer = (props: INewsProps) => {
             ...preveState,
             page: page,
         }));
+        gtag_event('news_list_page_change', { page });
     };
 
     useEffect(() => {
@@ -77,7 +78,7 @@ const NewsContainer = (props: INewsProps) => {
                                 return (
                                     <div
                                         key={el.id}
-                                        onClick={() => gtag_report_conversion(`news_${el.id}`)} // ✅ track khi click
+                                        onClick={() => gtag_event('news_click', { id: el.id, title: el.title })}
                                         className="cursor-pointer"
                                     >
                                         <CardNew title={el.title} description={el.description} {...el} />

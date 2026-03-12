@@ -4,7 +4,7 @@ import CardProductHorizontal from '@/components/CardProductHorizontal';
 import MenuList from '@/components/MenuList';
 import Pagination from '@/components/Pagination';
 import { getApiProduct } from '@/utils/axios/product';
-import { gtag_report_conversion } from '@/utils/gtag'; // ✅ import gtag
+import { gtag_event } from '@/utils/gtag'; // ✅ import gtag
 import { Popover, Skeleton, Space } from 'antd';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -107,7 +107,10 @@ const ProductContainer = (props: Props) => {
             ...prevState,
             page: page,
         }));
-        gtag_report_conversion(`product_list_page_${page}`); // ✅ track khi đổi trang
+        gtag_event('product_list_page_change', {
+            event_category: 'pagination',
+            event_label: `page_${page}`,
+        });
     };
 
     useEffect(() => {
@@ -124,9 +127,10 @@ const ProductContainer = (props: Props) => {
             setPagination(resp.meta.pagination);
 
             // ✅ Track load list sản phẩm
-            gtag_report_conversion(
-                `product_list_loaded_${id?.[0] || 'all'}_page_${params.page}`
-            );
+            gtag_event('product_list_loaded', {
+                event_category: 'product',
+                event_label: `${id?.[0] || 'all'}_page_${params.page}`,
+            });
         } finally {
             setLoading(false);
         }
@@ -144,10 +148,12 @@ const ProductContainer = (props: Props) => {
                         <div
                             key={sub.id}
                             className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
-                            onClick={() => {
-                                gtag_report_conversion(`category_level2_click_${sub.id}`);
-                                router.push(`/danh-muc-san-pham/${sub.url}`);
-                            }}
+                            onClick={() =>
+                                gtag_event('product_click', {
+                                    event_category: 'product',
+                                    event_label: `product_${el.id}`,
+                                })
+                            }
                         >
                             {sub.title}
                         </div>
@@ -173,9 +179,10 @@ const ProductContainer = (props: Props) => {
                                         <div
                                             className="px-[12px] py-[6px] cursor-pointer hover:bg-[#F0F0F0] hover:rounded-[4px]"
                                             onClick={() =>
-                                                gtag_report_conversion(
-                                                    `category_level1_click_${el.id}`
-                                                )
+                                                gtag_event('category_level1_click', {
+                                                    event_category: 'product_category',
+                                                    event_label: `category_${el.id}`,
+                                                })
                                             }
                                         >
                                             {el.title}
@@ -193,9 +200,10 @@ const ProductContainer = (props: Props) => {
                                         <div
                                             key={el.id}
                                             onClick={() =>
-                                                gtag_report_conversion(
-                                                    `new_product_click_${el.id}`
-                                                )
+                                                gtag_event('new_product_click', {
+                                                    event_category: 'product',
+                                                    event_label: `new_product_${el.id}`,
+                                                })
                                             }
                                         >
                                             <CardProductHorizontal {...el} />
@@ -239,9 +247,10 @@ const ProductContainer = (props: Props) => {
                                         <div
                                             key={el.id}
                                             onClick={() =>
-                                                gtag_report_conversion(
-                                                    `product_click_${el.id}`
-                                                )
+                                                gtag_event('product_click', {
+                                                    event_category: 'product',
+                                                    event_label: `product_${el.id}`,
+                                                })
                                             }
                                         >
                                             <CardProduct {...el} />

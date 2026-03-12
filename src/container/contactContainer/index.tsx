@@ -5,7 +5,7 @@ import { getImageUrl } from '@/utils/commom';
 import { Form, Input, Button } from 'antd';
 import Image from 'next/image';
 import React from 'react';
-import { gtag_report_conversion } from '@/utils/gtag'; // ✅ thêm import
+import { gtag_event } from '@/utils/gtag'; // ✅ import hàm mới
 
 type Props = {
     dataConfig: any
@@ -19,7 +19,10 @@ const ContactContainer = (props: Props) => {
         if (resp) {
             form.resetFields();
             // ✅ track conversion khi gửi contact thành công
-            gtag_report_conversion('contact_form_submit');
+            gtag_event('contact_form_submit', {
+                event_category: 'contact',
+                event_label: 'Contact form submitted successfully',
+            });
         }
     };
 

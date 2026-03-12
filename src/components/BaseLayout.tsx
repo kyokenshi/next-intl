@@ -75,7 +75,7 @@ export default async function BaseLayout({ children, locale }: Props) {
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-N73KZHTR');
+              })(window,document,'script','dataLayer','GTM-K7NCXHDJ');
             `,
           }}
         />
@@ -85,7 +85,7 @@ export default async function BaseLayout({ children, locale }: Props) {
       <body className={clsx('flex h-full flex-col', roboto.className)}>
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-N73KZHTR"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-K7NCXHDJ"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}

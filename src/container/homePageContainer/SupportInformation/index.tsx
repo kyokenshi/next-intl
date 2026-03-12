@@ -46,9 +46,6 @@ const SupportInformation = (props: Props) => {
     }
 
 
-
-
-
     return (
         <div className="mt-4 mb-4">
             <div className="bg-blue-1000 text-center  text-white grid grid-cols-2 md:grid-cols-1 ">

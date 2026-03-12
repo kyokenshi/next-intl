@@ -4,7 +4,7 @@ import MenuHeader from './MenuHeader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getImageUrl } from '@/utils/commom';
-import { gtag_report_conversion } from '@/utils/gtag';
+import { gtag_event } from '@/utils/gtag';
 
 export default function Navigation({ dataConfig, dataSocial }: any) {
   const t = useTranslations('Navigation');
@@ -13,7 +13,12 @@ export default function Navigation({ dataConfig, dataSocial }: any) {
     <>
       <header className='max-w-1200 w-[100%] px-[6px] xl:px-[0px] gap-y-[10px]  mr-auto ml-auto flex justify-between py-[5px] items-center flex-wrap'>
         <div className='flex items-center gap-[10px]'>
-          <Link href="/" onClick={() => gtag_report_conversion()}>
+          <Link href="/" onClick={() =>
+            gtag_event('logo_click', {
+              event_category: 'navigation',
+              event_label: 'header_logo',
+            })
+          }>
             <Image
               src={getImageUrl(dataConfig?.logo?.url)}
               alt="Logo_Home"
@@ -34,10 +39,16 @@ export default function Navigation({ dataConfig, dataSocial }: any) {
             if (sc?.type === "header") {
               return (
                 <Link
-                  href={sc?.url}
+                  href={sc?.url || ''}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => gtag_report_conversion(sc?.url)}
+                  onClick={() =>
+                    gtag_event('social_click', {
+                      event_category: 'navigation',
+                      event_label: sc?.name,
+                      social_url: sc?.url,
+                    })
+                  }
                   key={sc?.id || sc?.url} // tránh warning: thêm key
                 >
                   <Image

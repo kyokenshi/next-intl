@@ -18,7 +18,7 @@ const CardNewHome = (props: Props) => {
                     <Image
                         // Thêm object-cover
                         objectFit={cover ? 'cover' : "contain"}
-                        src={getImageUrl(cover?.formats?.large?.url) || ''}
+                        src={getImageUrl(cover?.url) || ''}
                         alt="product"
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -18,10 +18,7 @@ interface ICarouselMenu extends CarouselProps {
 
 
 const CarouselMenu = (props: ICarouselMenu) => {
-    const { children, slidesToShow = 1, dots = false, isShowArrows = true, speed = 400, ...other } = props;
-
-
-
+    const { children, slidesToShow = 1, dots = false, isShowArrows = true, speed = 400, ...other } = props
     const [isAnimating, setIsAnimating] = useState(false);
     const carouselRef = useRef<any>();
 

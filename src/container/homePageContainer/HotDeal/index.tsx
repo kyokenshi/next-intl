@@ -12,7 +12,6 @@ type HotDealProps = {
 
 const HotDeal = (props: HotDealProps) => {
     const { title, productions } = props;
-
     return (
         <StyledHotDeal>
             <StyledHotDealTitle className='mb-[16px]'>
@@ -21,6 +20,7 @@ const HotDeal = (props: HotDealProps) => {
                     <h3>{title}</h3>
                 </div>
             </StyledHotDealTitle>
+
             <CarouselItem
                 itemLength={productions?.length}
                 responsive={[

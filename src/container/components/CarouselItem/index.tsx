@@ -44,6 +44,7 @@ const CarouselItem = (props: ICarouselMenu) => {
 
     return (
         <StyledCarouselItem>
+
             <Carousel
                 slidesToShow={slidesToShow}
                 arrows={arrows}
@@ -60,6 +61,7 @@ const CarouselItem = (props: ICarouselMenu) => {
                 <div onClick={handlePrev} className={`btn-prev ${isAnimating ? 'pointer-events-none' : ''}`} >
                     <LeftOutlined style={{ fontSize: 20 }} />
                 </div>
+
                 <div onClick={handleNext} className={`btn-next ${isAnimating ? 'pointer-events-none' : ''}`}>
                     <RightOutlined style={{ fontSize: 20 }} />
                 </div>

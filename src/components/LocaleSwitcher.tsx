@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { ChangeEvent, useEffect, useState, useTransition } from 'react';
 import { Select, Space } from 'antd';
 import { Locale, usePathname, useRouter } from '@/i18n/routing';
-import { gtag_report_conversion } from '@/utils/gtag';
+import { gtag_report_conversion, gtag_event } from '@/utils/gtag';
 
 export default function LocaleSwitcher() {
 
@@ -21,7 +21,10 @@ export default function LocaleSwitcher() {
   function onSelectChange(e: any) {
     const nextLocale = e as any;
     // Gọi event conversion trước
-    gtag_report_conversion();
+    gtag_event('language_switch', {
+      event_category: 'localization',
+      event_label: `switch_to_${nextLocale}`,
+    });
     startTransition(() => {
       setValue(nextLocale)
       router.replace(

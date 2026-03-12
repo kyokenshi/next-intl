@@ -36,7 +36,6 @@ const HomePageContainer = async (props: Props) => {
     const { data: dataService } = await getApiService({ locale: params.locale });
 
     const { data: dataConfig } = await getConfigData({ locale: params.locale });
-
     return (
         <div>
             <div
@@ -51,12 +50,13 @@ const HomePageContainer = async (props: Props) => {
                 <div className="relative w-full h-full overflow-hidden ">
                     <CarouselMenu infinite autoplay>
                         {data?.map((el: any) => (
+
                             <div
                                 key={el.id}
                                 className="relative h-[350px] md:h-[400px] lg:h-[550px]"
                             >
                                 <Image
-                                    src={getImageUrl(el?.image?.formats?.large?.url)}
+                                    src={getImageUrl(el?.image?.url)}
                                     alt={el?.name}
                                     fill
                                     className="absolute inset-0 w-full h-full object-cover"

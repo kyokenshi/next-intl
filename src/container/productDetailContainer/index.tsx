@@ -6,12 +6,13 @@ import { formatPrice, getImageUrl } from '@/utils/commom';
 import { Divider, Space } from 'antd';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import { gtag_report_conversion } from '@/utils/gtag'; // ✅ thêm import
+import { gtag_event, gtag_report_conversion } from '@/utils/gtag'; // ✅ thêm import
 
 type Props = {
     data: any;
     dataProductNew: any;
 };
+
 
 const ProductDetailContainer = (props: Props) => {
     const { data, dataProductNew } = props;
@@ -20,10 +21,12 @@ const ProductDetailContainer = (props: Props) => {
     // ✅ Track khi user xem trang chi tiết sản phẩm
     useEffect(() => {
         if (elment?.id) {
-            gtag_report_conversion(`product_detail_view_${elment.id}`);
+            gtag_event('product_detail_view', {
+                product_id: elment.id,
+                product_name: elment.title,
+            });
         }
     }, [elment?.id]);
-
     return (
         <div className="mb-[40px]">
             <SectionTitle title={elment?.title} description={elment?.title} />
@@ -37,7 +40,12 @@ const ProductDetailContainer = (props: Props) => {
                                         return (
                                             <div
                                                 key={el.id}
-                                                onClick={() => gtag_report_conversion(`new_product_click_${el.id}`)}
+                                                onClick={() =>
+                                                    gtag_event('new_product_click', {
+                                                        product_id: el.id,
+                                                        product_name: el.title,
+                                                    })
+                                                }
                                             >
                                                 <CardProductHorizontal {...el} />
                                             </div>
@@ -74,7 +82,11 @@ const ProductDetailContainer = (props: Props) => {
                                     ) : (
                                         <Link
                                             href={'/contact'}
-                                            onClick={() => gtag_report_conversion(`product_contact_${elment.id}`)}
+                                            onClick={() =>
+                                                gtag_event('product_contact_click', {
+                                                    product_id: elment.id,
+                                                })
+                                            }
                                         >
                                             <span className="font-semibold text-[#00a0ea]">
                                                 {formatPrice(elment.price)}
@@ -87,7 +99,12 @@ const ProductDetailContainer = (props: Props) => {
                                     Danh mục :{' '}
                                     <Link
                                         href={`/product-catalog/${elment?.product_category?.url}`}
-                                        onClick={() => gtag_report_conversion(`category_click_${elment?.product_category?.id}`)}
+                                        onClick={() =>
+                                            gtag_event('category_click', {
+                                                category_id: elment?.product_category?.id,
+                                                category_name: elment?.product_category?.title,
+                                            })
+                                        }
                                     >
                                         <span className="hover:text-[#2865C2]">
                                             {elment?.product_category?.title}
