@@ -79,6 +79,19 @@ export default async function BaseLayout({ children, locale }: Props) {
             `,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            var _hmt = _hmt || [];
+             (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?00a307f9484d2b9f178b229ec0186850";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+              })();
+            `,
+          }}
+        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
 
