@@ -35,16 +35,23 @@ export default async function BaseLayout({ children, locale }: Props) {
           content="rKa0c4F0R1NfjK4q4baK-7ExYvJCjsj-zypCeIxLqrc"
         />
         {/* Google Analytics + Google Ads */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFLB71CVEL"></script>
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-CQ59TZZLT9"
+        />
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-ZFLB71CVEL');
-              gtag('config', 'AW-17540507188');
-            `,
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      gtag('js', new Date());
+
+      gtag('config', 'G-CQ59TZZLT9');
+      gtag('config', 'AW-17540507188');
+    `,
           }}
         />
         {/* Hàm theo dõi conversion */}
@@ -85,7 +92,7 @@ export default async function BaseLayout({ children, locale }: Props) {
             var _hmt = _hmt || [];
              (function() {
                 var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?00a307f9484d2b9f178b229ec0186850";
+                hm.src = "https://hm.baidu.com/hm.js?418abe8e11a206ef311421a0f22464fc";
                 var s = document.getElementsByTagName("script")[0]; 
                 s.parentNode.insertBefore(hm, s);
               })();
